@@ -1,3 +1,4 @@
+import { logger } from '@config/logger';
 import { Router, Request, Response } from 'express';
 import path from 'path';
 import { success } from 'src/utils/response';
@@ -5,6 +6,7 @@ import { success } from 'src/utils/response';
 const router = Router();
 
 router.get('/', (req: Request, res: Response) => {
+    logger.info('Browser fechado após busca de tarefas');
     res.send(success(
         'API is running', 
         { 
