@@ -4,7 +4,7 @@ import { PORT } from './config/index.js';
 import { setupServer } from './config/server.js';
 
 import appRouter from './routes/app.route.js';
-import { errorHandler } from './errors/errorHandler.js';
+import { errorHandler } from './exceptions/errorHandler.js';
 
 const app = express();
 
