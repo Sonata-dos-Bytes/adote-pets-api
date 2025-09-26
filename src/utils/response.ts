@@ -22,7 +22,6 @@ export function failure(message: string, errors?: string[]): ApiResponse<null> {
   return {
     status: false,
     message,
-    data: null,
     errors,
   };
 }

@@ -26,7 +26,8 @@ export const registerSchema = z.object({
     avatar: z
         .union([z.string(), z.instanceof(File)])
         .nullable()
-        .optional(),
+        .optional()
+        ,
     phone: z
         .string()
         .max(20, "O telefone deve ter no máximo 20 caracteres.")

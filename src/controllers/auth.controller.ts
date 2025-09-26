@@ -10,10 +10,12 @@ export async function signup(
 ) {
   try {
     const registerData: RegisterRequest = registerSchema.parse(req.body);
+    const files = req.files as Express.Multer.File[];
+    const avatar = files?.find((f) => f.fieldname === 'avatar');
 
-    logger.info({ userName: registerData.name }, 'User registered');
+    
 
-    return res.json(success('User registered successfully', registerData));
+    return res.json(success('User registered successfully', {...registerData, avatar}));
   } catch (err) {
     return next(err);
   }
