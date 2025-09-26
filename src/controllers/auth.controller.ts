@@ -9,8 +9,9 @@ export async function signup(
   next: NextFunction
 ) {
   try {
-    logger.info(`Signup request received: ${JSON.stringify(req.body)}`);
     const registerData: RegisterRequest = registerSchema.parse(req.body);
+
+    logger.info({ userName: registerData.name }, 'User registered');
 
     return res.json(success('User registered successfully', registerData));
   } catch (err) {

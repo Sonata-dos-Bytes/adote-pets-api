@@ -8,6 +8,7 @@ import { errorHandler } from './exceptions/errorHandler.js';
 import { PrismaClient } from '@prisma/client';
 import { connectDatabase } from '@config/database.js';
 import { logger } from '@config/logger.js';
+import multer from 'multer';
 
 const app = express();
 
@@ -25,10 +26,6 @@ app.use((req, res) => {
 // Exceptions Handler
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
   errorHandler(err, req, res, next);
-});
-
-export const primaClient = new PrismaClient({
-  log: ['query']
 });
 
 // Inicialização do servidor
