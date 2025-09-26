@@ -14,6 +14,7 @@ export async function home(
             name: 'Adote Pets API', 
             version: '1.0.0', 
             description: 'API para o sistema de adoção de pets',
+            docsUrl: '/docs',
             organization: 'Sonata dos Bytes',
             organizationUrl: 'https://github.com/Sonata-dos-Bytes',
             authors: [
