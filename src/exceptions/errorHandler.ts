@@ -6,11 +6,21 @@ import { z } from 'zod';
 
 export function errorHandler(err: any, req: Request, res: Response, next: NextFunction) {
   if (err instanceof z.ZodError) {
-    return res.status(422).json(failure('Validation Error', err.issues.map(issue => issue.message)));
+    const details = err.issues.map(issue => ({
+      path: issue.path.length ? issue.path.join('.') : '(root)',
+      message: issue.message,
+      code: issue.code
+    }));
+    return res.status(422).json(failure('Validation Error', details));
   }
   
   if (err instanceof CustomError) {
-    return res.status(err.statusCode).json(failure(err.message, err.description ? [err.description] : undefined));
+    const details = Array.isArray(err.description)
+      ? err.description
+      : err.description
+        ? [err.description]
+        : undefined;
+    return res.status(err.statusCode).json(failure(err.message, details));
   }
   
   logger.error({ error: err }, 'Internal Server Error');

@@ -9,8 +9,12 @@ export const validateSchema = (schema: z.ZodSchema) => {
       next();
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const messages = error.issues.map(issue => issue.message);
-        next(new ValidationError('Validation failed', messages.join(', ')));
+        const details = error.issues.map(issue => ({
+          path: issue.path.length ? issue.path.join('.') : '(root)',
+          message: issue.message,
+          code: issue.code
+        }));
+        next(new ValidationError('Validation failed', details));
       } else {
         next(error);
       }
