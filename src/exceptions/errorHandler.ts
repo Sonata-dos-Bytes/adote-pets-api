@@ -6,7 +6,7 @@ import { z } from 'zod';
 
 export function errorHandler(err: any, req: Request, res: Response, next: NextFunction) {
   if (err instanceof z.ZodError) {
-    return res.status(422).json(failure('Validation Error', err.errors.map(issue => issue.message)));
+    return res.status(422).json(failure('Validation Error', err.issues.map(issue => issue.message)));
   }
   
   if (err instanceof CustomError) {
