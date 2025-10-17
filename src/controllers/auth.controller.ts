@@ -12,6 +12,7 @@ import { comparePassword, hashPassword } from "src/utils/encryption.js";
 import UserRepository from "src/repository/user.repository.js";
 import jwt from "jsonwebtoken";
 import { JWT_EXPIRES_IN, JWT_SECRET } from "@config/index";
+import { toUserResource } from "src/resources/user.resource";
 
 export async function signup(req: Request, res: Response, next: NextFunction) {
     try {
@@ -33,7 +34,7 @@ export async function signup(req: Request, res: Response, next: NextFunction) {
         });
 
         return res
-            .json(success("User registered successfully", user))
+            .json(success("User registered successfully", { user: toUserResource(user) }))
             .status(HTTP_STATUS.CREATED);
     } catch (err) {
         return next(err);
@@ -63,7 +64,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
         });
 
         return res
-            .json(success("User logged in successfully", { user, token }))
+            .json(success("User logged in successfully", { user: toUserResource(user), token }))
             .status(HTTP_STATUS.OK);
     } catch (err) {
         return next(err);
