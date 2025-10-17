@@ -1,11 +1,10 @@
-import { signup } from '@controllers/auth.controller';
+import { signup, login } from '@controllers/auth.controller';
 import { Router, Request, Response, NextFunction } from 'express';
 
 const router = Router();
 
 router.post('/login', (req: Request, res: Response, next: NextFunction) => {
-    // Implement login logic here
-    res.send('Login route');
+    login(req, res, next).catch(next);
 });
 
 router.post('/register', (req: Request, res: Response, next: NextFunction) => {
