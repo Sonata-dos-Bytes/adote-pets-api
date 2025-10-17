@@ -1,22 +1,12 @@
-export type UserModel = {
-  id: number;
-  externalId: string;
-  createdAt: string | Date;
-  updatedAt: string | Date;
-  name: string;
-  email: string;
-  password: string;
-  phone?: string | null;
-  avatar?: string | null;
-  [key: string]: any;
-};
-export type UserResource = Omit<UserModel, 'id' | 'password'>;
+import { User } from "@prisma/client";
 
-export function toUserResource(user: UserModel): UserResource {
+export type UserResource = Omit<User, 'id' | 'password'>;
+
+export function toUserResource(user: User): UserResource {
   const { id, password, ...rest } = user;
   return rest;
 }
 
-export function toUsersResource(users: UserModel[]): UserResource[] {
+export function toUsersResource(users: User[]): UserResource[] {
   return users.map(toUserResource);
 }
