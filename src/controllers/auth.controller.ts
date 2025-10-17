@@ -51,7 +51,7 @@ export async function login(req: Request, res: Response, next: NextFunction) {
         if (!user) {
             throw new NotFoundException("User does not exists!", ErrorCodes.USER_NOT_FOUND);
         }
-        if (!comparePassword(loginData.password, user.password)) {
+        if (!(await comparePassword(loginData.password, user.password))) {
             throw new UnauthorizedException("Invalid credentials!", ErrorCodes.INVALID_CREDENTIALS);
         }
 
