@@ -14,6 +14,10 @@ export default class UserRepository {
     return await prismaClient.user.findUnique({ where: { id } });
   }
 
+  static async findByExternalId(externalId: string) {
+    return await prismaClient.user.findUnique({ where: { externalId } });
+  }
+
   static async createUser(data: RegisterRequest) {
     let avatarUrl = null;
 

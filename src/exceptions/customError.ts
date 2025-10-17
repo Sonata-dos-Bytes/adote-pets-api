@@ -1,6 +1,8 @@
+import { HTTP_STATUS } from "src/utils/constants";
+
 export class CustomError extends Error {
   public readonly statusCode: number;
-  public readonly description?: any; // aceitando qualquer formato
+  public readonly description?: any;
 
   constructor(message: string, statusCode: number, description?: any) {
     super(message);
@@ -10,20 +12,14 @@ export class CustomError extends Error {
   }
 }
 
-export class ValidationError extends CustomError {
-  constructor(message: string, description?: any) {
-    super(message, 400, description);
-  }
-}
-
 export class NotFoundError extends CustomError {
-  constructor(resource: string) {
-    super(`${resource} not found`, 404);
+  constructor(message: string = 'Resource Not Found') {
+    super(message, HTTP_STATUS.NOT_FOUND);
   }
 }
 
 export class UnauthorizedError extends CustomError {
   constructor(message: string = 'Unauthorized') {
-    super(message, 401);
+    super(message, HTTP_STATUS.UNAUTHORIZED);
   }
 }
