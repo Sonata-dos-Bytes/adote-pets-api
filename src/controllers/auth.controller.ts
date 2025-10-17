@@ -6,17 +6,16 @@ import {
     registerSchema,
     loginSchema,
 } from "src/schemas/auth.schema.js";
-import {
-    CustomError,
-    NotFoundError,
-    UnauthorizedError,
-} from "src/exceptions/customError.js";
-import { HTTP_STATUS } from "src/utils/constants.js";
+import { ErrorCodes, HTTP_STATUS } from "src/utils/constants.js";
 import { comparePassword, hashPassword } from "src/utils/encryption.js";
 import UserRepository from "src/repository/user.repository.js";
 import jwt from "jsonwebtoken";
 import { JWT_EXPIRES_IN, JWT_SECRET } from "@config/index";
 import { toUserResource } from "src/resources/user.resource";
+import { BadRequestException } from "src/exceptions/bad-requests";
+import { ConflictException } from "src/exceptions/conflict";
+import { UnauthorizedException } from "src/exceptions/unauthorized";
+import { NotFoundException } from "src/exceptions/not-found";
 
 export async function signup(req: Request, res: Response, next: NextFunction) {
     try {
@@ -26,7 +25,7 @@ export async function signup(req: Request, res: Response, next: NextFunction) {
 
         let user = await UserRepository.findByEmail(registerData.email);
         if (user) {
-            throw new CustomError("User already exists!", HTTP_STATUS.CONFLICT);
+            throw new ConflictException("User already exists!", ErrorCodes.EMAIL_ALREADY_EXISTS);
         }
 
         user = await UserRepository.createUser({
@@ -50,10 +49,10 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 
         let user = await UserRepository.findByEmail(loginData.login);
         if (!user) {
-            throw new NotFoundError("User does not exists!");
+            throw new NotFoundException("User does not exists!", ErrorCodes.USER_NOT_FOUND);
         }
         if (!comparePassword(loginData.password, user.password)) {
-            throw new UnauthorizedError("Invalid credentials!");
+            throw new UnauthorizedException("Invalid credentials!", ErrorCodes.INVALID_CREDENTIALS);
         }
 
         const token = jwt.sign({ externalId: user.externalId }, JWT_SECRET, {

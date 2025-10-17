@@ -1,12 +1,10 @@
 import { home } from '@controllers/app.controller';
-import { Router, Request, Response, NextFunction } from 'express';
+import { Router } from 'express';
 import authRouter from './auth/auth.route';
 
 const router = Router();
 
-router.get('/', (req: Request, res: Response, next: NextFunction) => {
-    home(req, res, next).catch(next);
-});
+router.get('/', home);
 
 router.use('/auth', authRouter);
 

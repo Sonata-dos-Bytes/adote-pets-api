@@ -4,37 +4,26 @@ import { PORT } from './config/index.js';
 import { setupServer } from './config/server.js';
 
 import appRouter from './routes/app.route.js';
-import { errorHandler } from './exceptions/errorHandler.js';
-import { PrismaClient } from '@prisma/client';
 import { connectDatabase } from '@config/database.js';
 import { logger } from '@config/logger.js';
-import multer from 'multer';
+import { HTTP_STATUS } from './utils/constants.js';
+import { errorMiddleware } from './middlewares/error.middleware.js';
 
-const app = express();
+const app: express.Application = express();
 
-// Setup do servidor
 setupServer(app);
-
-// Rotas
 app.use(appRouter);
 
-// 404 Handler
 app.use((req, res) => {
-  res.status(404).json({ status: false, message: 'Not Found' });
+  res.status(HTTP_STATUS.NOT_FOUND).json({ status: false, message: 'Not Found' });
 });
 
-// Exceptions Handler
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
-  errorHandler(err, req, res, next);
-});
+app.use(errorMiddleware);
 
-// Inicialização do servidor
 const startServer = async () => {
   try {
-    // Conectar ao banco de dados
     await connectDatabase();
     
-    // Iniciar servidor
     app.listen(PORT, () => {
       logger.info(`🚀 Server is running on http://localhost:${PORT}`);
       logger.info(`📚 Documentation available at http://localhost:${PORT}/docs`);

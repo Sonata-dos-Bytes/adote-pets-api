@@ -1,4 +1,5 @@
 import { ApiResponse } from '../types/api.response.js';
+import { ErrorCodes } from './constants.js';
 
 /**
  * Monta uma resposta de sucesso
@@ -16,12 +17,14 @@ export function success<T>(message = 'Success', data?: T): ApiResponse<T> {
 /**
  * Monta uma resposta de erro
  * @param message - mensagem do erro
+ * @param errorCode - código do erro opcional
  * @param error - descrição interna do erro
  */
-export function failure(message: string, errors?: any[]): ApiResponse<null> {
+export function failure(message: string, errorCode: ErrorCodes, errors?: any[]): ApiResponse<null> {
   return {
     status: false,
     message,
+    errorCode, 
     errors,
   };
 }
