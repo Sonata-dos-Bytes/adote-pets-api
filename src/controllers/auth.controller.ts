@@ -10,12 +10,13 @@ import { ErrorCodes, HTTP_STATUS } from "src/utils/constants.js";
 import { comparePassword, hashPassword } from "src/utils/encryption.js";
 import UserRepository from "src/repository/user.repository.js";
 import jwt from "jsonwebtoken";
-import { JWT_EXPIRES_IN, JWT_SECRET } from "@config/index";
+import { AWS_CONFIG, JWT_EXPIRES_IN, JWT_SECRET } from "@config/index";
 import { toUserResource } from "src/resources/user.resource";
 import { BadRequestException } from "src/exceptions/bad-requests";
 import { ConflictException } from "src/exceptions/conflict";
 import { UnauthorizedException } from "src/exceptions/unauthorized";
 import { NotFoundException } from "src/exceptions/not-found";
+import { uploadToAWSS3 } from "src/services/aws-s3.service";
 
 export async function signup(req: Request, res: Response, next: NextFunction) {
     try {
@@ -32,6 +33,18 @@ export async function signup(req: Request, res: Response, next: NextFunction) {
             ...registerData,
             password: await hashPassword(registerData.password),
         });
+
+        if (avatar) {
+            const { key } = await uploadToAWSS3(
+                {
+                    bucket: AWS_CONFIG.bucket,
+                    file: avatar,
+                    folder: `users/${user.externalId}/`
+                }
+            )
+
+            user = await UserRepository.updateUser(user.id, { avatar: key } as any);
+        }
 
         return res.status(HTTP_STATUS.CREATED).json(
             success("User registered successfully", {

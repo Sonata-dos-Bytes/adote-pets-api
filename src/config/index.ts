@@ -18,3 +18,13 @@ export const DATABASE_CONFIG = {
   logQueries: NODE_ENV === 'development',
   maxConnections: NODE_ENV === 'production' ? 10 : 5,
 };
+
+export const AWS_CONFIG = {
+  url: process.env.AWS_URL || '',
+  usePathStyle: process.env.AWS_USE_PATH_STYLE_ENDPOINT === 'true',
+  region: process.env.AWS_DEFAULT_REGION || 'us-east-1',
+  endpoint: process.env.AWS_ENDPOINT || '',
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
+  bucket: process.env.AWS_BUCKET || 'adote-pets',
+}
