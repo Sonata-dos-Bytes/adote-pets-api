@@ -12,6 +12,7 @@ import { errorMiddleware } from './middlewares/error.middleware.js';
 const app: express.Application = express();
 
 setupServer(app);
+
 app.use(appRouter);
 
 app.use((req, res) => {

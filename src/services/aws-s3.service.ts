@@ -48,7 +48,7 @@ function buildKey(folder: string | undefined, filename: string) {
 
 export function buildPublicUrl(bucket: string, key: string): string | null {
   if (!AWS_CONFIG.url) return null;
-  return `${AWS_CONFIG.url.replace(/\/+$/,'')}/storage/v1/object/public/${bucket}/${key}`;
+  return `${AWS_CONFIG.url.replace(/\/+$/,'')}/storage/v1/object/public/${bucket}/${bucket}/${key}`;
 }
 
 export async function uploadToAWSS3(params: S3UploadParams): Promise<S3UploadResult> {
