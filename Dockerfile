@@ -1,26 +1,19 @@
-FROM node:18-alpine
-
-# Instalar dependências do Chromium
-RUN apk add --no-cache \
-    chromium \
-    nss \
-    freetype \
-    harfbuzz \
-    ca-certificates \
-    ttf-freefont \
-    alsa-lib \
-    libxcomposite \
-    libxrandr \
-    libxdamage \
-    libxkbcommon \
-    libstdc++ \
-    libc6-compat \
-    libgcc
-
+FROM node:22-alpine
 WORKDIR /app
+
+# Instala dependências necessárias
+RUN apk add --no-cache bash
+
 COPY package*.json ./
-RUN npm install
+RUN npm ci
+
 COPY . .
-RUN npm run build
+
+# Copia o script de inicialização
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+
 EXPOSE 3000
-CMD ["npm", "start"]
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["npm", "run", "dev"]

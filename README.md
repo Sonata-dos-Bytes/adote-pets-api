@@ -64,6 +64,27 @@ npm run dev
 http://localhost:3000/api/
 ```
 
+---
+
+### 🐳 **Alternativa com Docker**
+
+Se preferir usar Docker, siga estes passos:
+
+1️⃣ **Configure as variáveis de ambiente:**
+```sh
+cp .env.example .env
+# Edite o arquivo .env com suas configurações
+```
+
+2️⃣ **Suba os contêineres:**
+```sh
+docker compose up -d
+```
+
+3️⃣ **Acesse:**
+- **API:** `http://localhost:3000/api/`
+- **Prisma Studio:** `http://localhost:5555`
+
 ## 📌 Comandos Essenciais
 
 - **🚀 Iniciar servidor em modo desenvolvimento:**
@@ -112,10 +133,19 @@ http://localhost:3000/api/
   ```sh
   docker-compose up -d
   ```
+  > Inicia a API na porta 3000 e o Prisma Studio na porta 5555
 
 - **🐳 Docker - Parar contêineres:**
   ```sh
   docker-compose down
+  ```
+
+- **🐳 Docker - Ver logs:**
+  ```sh
+  docker-compose logs -f
+  # ou logs de um serviço específico
+  docker-compose logs -f app
+  docker-compose logs -f prisma-studio
   ```
 
 ## 📂 Estrutura do Projeto

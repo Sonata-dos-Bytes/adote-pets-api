@@ -1,19 +1,39 @@
-version: '3.8'
-
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: adote-pets-api
+    env_file:
+      - .env
     ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=${NODE_ENV}
-      - PORT=${PORT}
-      - CORS_ORIGIN=${CORS_ORIGIN}
-      - TTL_CACHE=${TTL_CACHE}
-      - LOG_LEVEL=${LOG_LEVEL}
+      - "${PORT:-3000}:3000"  
     volumes:
-      - .:/app
+      - ./:/app               
+      - /app/node_modules   
+    restart: always
+    networks:
+      - adote-pets-network
+
+  prisma-studio:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: adote-pets-prisma-studio
+    env_file:
+      - .env
+    ports:
+      - "5555:5555"
+    volumes:
+      - ./:/app
       - /app/node_modules
-    command: npm run dev
+    command: npx prisma studio --port 5555 --hostname 0.0.0.0
+    depends_on:
+      - app
+    restart: always
+    networks:
+      - adote-pets-network
+
+networks:
+  adote-pets-network:
+    driver: bridge           

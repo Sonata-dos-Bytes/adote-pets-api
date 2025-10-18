@@ -27,7 +27,7 @@ export const registerSchema = z
                 "A confirmação de senha deve ter no máximo 50 caracteres."
             ),
         avatar: z
-            .union([z.string(), z.instanceof(File)])
+            .any()
             .nullable()
             .optional(),
         phone: z
@@ -69,7 +69,7 @@ export const updateProfileSchema = z
             .max(50, "A confirmação de senha deve ter no máximo 50 caracteres.")
             .optional(),
         avatar: z
-            .union([z.string(), z.instanceof(File)])
+            .any()
             .nullable()
             .optional(),
     })
