@@ -1,0 +1,1210 @@
+{
+	"info": {
+		"_postman_id": "88a05325-b472-42a9-a62e-91d947fc027a",
+		"name": "adote-pets",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36606064"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "auth.login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Obter a resposta da API como objeto JSON",
+									"let response = pm.response.json();",
+									"",
+									"// Configurar o token na variável de coleção",
+									"pm.collectionVariables.set(\"token\", response.data.token);",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"login\": \"pedro.henrique.martins404@gmail.com\",\n    \"password\": \"pedroerosa1#2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}auth/login",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"login\": \"pedro.henrique.martins404@gmail.com\",\n    \"password\": \"pedroerosa1#\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}auth/login",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "534"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"216-FtBPAjU8XWaqWw1Tgxk7fZWUOaQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 17 Oct 2025 20:02:35 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"User logged in successfully\",\n    \"data\": {\n        \"user\": {\n            \"externalId\": \"8e269209-72b5-4922-a5a9-f2a726c4635f\",\n            \"createdAt\": \"2025-09-26T23:53:23.612Z\",\n            \"updatedAt\": \"2025-09-26T23:53:23.612Z\",\n            \"name\": \"Pedro Henrique Martins Borges\",\n            \"email\": \"pedro.henrique.martins404@gmail.com\",\n            \"phone\": \"99984775122\",\n            \"avatar\": null\n        },\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwZWRyby5oZW5yaXF1ZS5tYXJ0aW5zNDA0QGdtYWlsLmNvbSIsImlhdCI6MTc2MDczMTM1NSwiZXhwIjoxNzYzNDA5NzU1fQ.U-NWe0ZgdXFfvSzKMTnPYTLJsFyFkUJUDOGJpMgPQ3Y\"\n    }\n}"
+						},
+						{
+							"name": "401",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"login\": \"pedro.henrique.martins404@gmail.com\",\n    \"password\": \"pedroerosa1#a\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}auth/login",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "97"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"61-916OLzOXHqb0AFqOtNoOlp2vb5I\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 17 Oct 2025 22:40:45 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Invalid credentials!\",\n    \"errorCode\": \"INVALID_CREDENTIALS\",\n    \"errors\": null\n}"
+						},
+						{
+							"name": "422",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"password\": \"pedroerosa1#\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}auth/login",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "211"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"d3-jMejvKZDZgAoLKIyngIEf0t2Clc\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 17 Oct 2025 22:34:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Validation Error\",\n    \"errorCode\": \"VALIDATION_ERROR\",\n    \"errors\": [\n        {\n            \"expected\": \"string\",\n            \"code\": \"invalid_type\",\n            \"path\": [\n                \"login\"\n            ],\n            \"message\": \"Invalid input: expected string, received undefined\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "auth.register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Pedro Henrique Martins Borges",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "pedro.henrique.martins404@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "pedroerosa1#",
+									"type": "text"
+								},
+								{
+									"key": "passwordConfirmation",
+									"value": "pedroerosa1#2",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "99984775122",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/home/pedroh/Downloads/file.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}auth/register",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"register"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Pedro Henrique Martins Borges",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "pedro.henrique.martins404@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "pedroerosa1#",
+											"type": "text"
+										},
+										{
+											"key": "passwordConfirmation",
+											"value": "pedroerosa1#",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "99984775122",
+											"type": "text"
+										},
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "/home/pedroh/Downloads/file.jpeg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}auth/register",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "483"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1e3-KEmdflRRWfuVoEdaiJGKZrPb4dg\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 18 Oct 2025 19:03:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"User registered successfully\",\n    \"data\": {\n        \"user\": {\n            \"externalId\": \"50d6f6c8-59e6-45b2-98ae-cecef1841153\",\n            \"createdAt\": \"2025-10-18T19:03:53.013Z\",\n            \"updatedAt\": \"2025-10-18T19:03:54.019Z\",\n            \"name\": \"Pedro Henrique Martins Borges\",\n            \"email\": \"pedro.henrique.martins404@gmail.com\",\n            \"phone\": \"99984775122\",\n            \"avatar\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/users/50d6f6c8-59e6-45b2-98ae-cecef1841153/920f4d48-af45-45a6-9b65-901d1443a6b4.jpg\"\n        }\n    }\n}"
+						},
+						{
+							"name": "409",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Pedro Henrique Martins Borges",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "pedro.henrique.martins404@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "pedroerosa1#",
+											"type": "text"
+										},
+										{
+											"key": "passwordConfirmation",
+											"value": "pedroerosa1#",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "99984775122",
+											"type": "text"
+										},
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "postman-cloud:///1f05f2c6-9b67-43d0-aa56-c261c5f06330",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}auth/register",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "98"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"62-oQwavd6eFut3HRx3Hdtyt7C+vmQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 17 Oct 2025 22:34:30 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"User already exists!\",\n    \"errorCode\": \"EMAIL_ALREADY_EXISTS\",\n    \"errors\": null\n}"
+						},
+						{
+							"name": "422",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Pedro Henrique Martins Borges",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "email",
+											"value": "pedro.henrique.martins404@gmail.com",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "pedroerosa1#",
+											"type": "text"
+										},
+										{
+											"key": "passwordConfirmation",
+											"value": "pedroerosa1#",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "99984775122",
+											"type": "text"
+										},
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "postman-cloud:///1f05f2c6-9b67-43d0-aa56-c261c5f06330",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}auth/register",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "334"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"14e-8ZDrBgdHDvph2SEaGpXs1VnpZno\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 17 Oct 2025 22:34:38 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Validation Error\",\n    \"errorCode\": \"VALIDATION_ERROR\",\n    \"errors\": [\n        {\n            \"expected\": \"string\",\n            \"code\": \"invalid_type\",\n            \"path\": [\n                \"name\"\n            ],\n            \"message\": \"Invalid input: expected string, received undefined\"\n        },\n        {\n            \"expected\": \"string\",\n            \"code\": \"invalid_type\",\n            \"path\": [\n                \"email\"\n            ],\n            \"message\": \"Invalid input: expected string, received undefined\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "auth.me",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}auth/me",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"me"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}auth/me",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"me"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "324"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"144-K6zBzu2o7Jn19VCf9OzzEK6F9vM\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 17 Oct 2025 21:07:04 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"User retrieved successfully\",\n    \"data\": {\n        \"user\": {\n            \"externalId\": \"ee50d99e-5632-411f-bcd9-053f913e1407\",\n            \"createdAt\": \"2025-10-17T20:16:16.679Z\",\n            \"updatedAt\": \"2025-10-17T20:16:16.679Z\",\n            \"name\": \"Pedro Henrique Martins Borges\",\n            \"email\": \"pedro.henrique.martins404@gmail.com\",\n            \"phone\": \"99984775122\",\n            \"avatar\": null\n        }\n    }\n}"
+						},
+						{
+							"name": "401",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{base_url}}auth/me",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"me"
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "87"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"57-wmMeBxMoZX7NhmSx+OeZbmB0EwY\""
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 17 Oct 2025 22:34:21 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Token is invalid\",\n    \"errorCode\": \"TOKEN_INVALID\",\n    \"errors\": null\n}"
+						}
+					]
+				},
+				{
+					"name": "auth.update-profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Pedro Henrique MB",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/home/pedroh/Downloads/WhatsApp Image 2025-09-06 at 15.38.40.jpeg",
+									"disabled": true
+								},
+								{
+									"key": "oldPassword",
+									"value": "pedroerosa1#",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "pedroerosa1#2",
+									"type": "text"
+								},
+								{
+									"key": "passwordConfirmation",
+									"value": "pedroerosa1#2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}auth/update-profile",
+							"host": [
+								"{{base_url}}auth"
+							],
+							"path": [
+								"update-profile"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "204",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Pedro Henrique MB",
+											"type": "text"
+										},
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "/home/pedroh/Downloads/WhatsApp Image 2025-09-06 at 15.38.40.jpeg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}auth/update-profile",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"update-profile"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3d-kfI26H1nIrSmwoeSZlN5OpvR6z4\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 18 Oct 2025 20:05:25 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "204",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Pedro Henrique MB",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "/home/pedroh/Downloads/WhatsApp Image 2025-09-06 at 15.38.40.jpeg",
+											"disabled": true
+										},
+										{
+											"key": "oldPassword",
+											"value": "pedroerosa1#",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "pedroerosa1#2",
+											"type": "text"
+										},
+										{
+											"key": "passwordConfirmation",
+											"value": "pedroerosa1#2",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}auth/update-profile",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"update-profile"
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3d-kfI26H1nIrSmwoeSZlN5OpvR6z4\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 18 Oct 2025 20:07:26 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "422",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Pedro Henrique MB",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "/home/pedroh/Downloads/WhatsApp Image 2025-09-06 at 15.38.40.jpeg",
+											"disabled": true
+										},
+										{
+											"key": "oldPassword",
+											"value": "pedroerosa1#",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "pedroerosa1#2",
+											"type": "text"
+										},
+										{
+											"key": "passwordConfirmation",
+											"value": "pedroerosa1#2",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}auth/update-profile",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"update-profile"
+									]
+								}
+							},
+							"status": "Unprocessable Entity",
+							"code": 422,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "193"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"c1-NXb4FWb5BR7JiId7QVX7yuU5XUQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 18 Oct 2025 20:08:07 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Validation Error\",\n    \"errorCode\": \"VALIDATION_ERROR\",\n    \"errors\": [\n        {\n            \"code\": \"custom\",\n            \"path\": [\n                \"oldPassword\"\n            ],\n            \"message\": \"A senha antiga é obrigatória para alterar a senha.\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "home",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "en",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}",
+					"host": [
+						"{{base_url}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "home",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept-Language",
+								"value": "en",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}",
+							"host": [
+								"{{base_url}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": null,
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1092"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"444-DkWkWNXQTqr67dzSRI+6f7lNu1o\""
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 26 Sep 2025 20:51:23 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"status\": true,\n    \"message\": \"API is running\",\n    \"data\": {\n        \"name\": \"Adote Pets API\",\n        \"version\": \"1.0.0\",\n        \"description\": \"API para o sistema de adoção de pets\",\n        \"docsUrl\": \"/docs\",\n        \"organization\": \"Sonata dos Bytes\",\n        \"organizationUrl\": \"https://github.com/Sonata-dos-Bytes\",\n        \"authors\": [\n            {\n                \"name\": \"Erikli Arruda\",\n                \"github\": \"https://github.com/Erikli999\",\n                \"picture\": \"https://avatars.githubusercontent.com/u/138739176?v=4\"\n            },\n            {\n                \"name\": \"Pedro Henrique Martins Borges\",\n                \"github\": \"https://github.com/piedro404\",\n                \"picture\": \"https://avatars.githubusercontent.com/u/88720549?v=4\"\n            },\n            {\n                \"name\": \"Guilherme Felipe\",\n                \"github\": \"https://github.com/guilherme-felipe123\",\n                \"picture\": \"https://avatars.githubusercontent.com/u/115903669?v=4\"\n            },\n            {\n                \"name\": \"Luan Jacomini Kloh\",\n                \"github\": \"https://github.com/luanklo\",\n                \"picture\": \"https://avatars.githubusercontent.com/u/53999727?v=4\"\n            },\n            {\n                \"name\": \"Matheus Augusto\",\n                \"github\": \"https://github.com/Matheuz233\",\n                \"picture\": \"https://avatars.githubusercontent.com/u/138679799?v=4\"\n            },\n            {\n                \"name\": \"Thayna Bezerra\",\n                \"github\": \"https://github.com/thayna-bezerra\",\n                \"picture\": \"https://avatars.githubusercontent.com/u/58120519?v=4\"\n            }\n        ]\n    }\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost/api/"
+		},
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
