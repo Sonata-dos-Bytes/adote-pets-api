@@ -20,12 +20,16 @@ import { UnauthorizedException } from "src/exceptions/unauthorized";
 import { NotFoundException } from "src/exceptions/not-found";
 import { deleteFromAWSS3, uploadToAWSS3 } from "src/services/aws-s3.service";
 import { UnprocessableEntityException } from "src/exceptions/validation";
+import { isFileTypeValid } from "src/utils/file-utils";
 
 export async function signup(req: Request, res: Response, next: NextFunction) {
     try {
         const registerData: RegisterRequest = registerSchema.parse(req.body);
         const files = req.files as Express.Multer.File[];
         const avatar = files?.find((f) => f.fieldname === "avatar");
+        if (avatar) {
+            isFileTypeValid(avatar, ["image/jpeg", "image/png"], ["avatar"]);
+        }
 
         let user = await UserRepository.findByEmail(registerData.email);
         if (user) {
@@ -117,6 +121,8 @@ export async function updateProfile(req: Request, res: Response, next: NextFunct
         }
 
         if (avatar) {
+            isFileTypeValid(avatar, ["image/jpeg", "image/png"], ["avatar"]);
+
             if(user.avatar) {
                 await deleteFromAWSS3(AWS_CONFIG.bucket, user.avatar);
             }
