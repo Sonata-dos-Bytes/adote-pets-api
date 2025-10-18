@@ -1,5 +1,5 @@
 import { prismaClient } from "@config/database";
-import { RegisterRequest } from "src/schemas/auth.schema";
+import { RegisterRequest, UpdateProfileRequest } from "src/schemas/auth.schema";
 
 export default class UserRepository {
   static async findAll() {
@@ -32,11 +32,9 @@ export default class UserRepository {
     });
   }
 
-  static async updateUser(id: number, data: RegisterRequest) {
-
+  static async updateUser(id: number, data: UpdateProfileRequest) {
     const updateData: any = {
       name: data.name,
-      email: data.email,
       password: data.password,
       phone: data.phone,
       avatar: data.avatar,

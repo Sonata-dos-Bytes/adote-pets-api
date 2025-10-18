@@ -5,6 +5,8 @@ import {
     RegisterRequest,
     registerSchema,
     loginSchema,
+    UpdateProfileRequest,
+    updateProfileSchema,
 } from "src/schemas/auth.schema.js";
 import { ErrorCodes, HTTP_STATUS } from "src/utils/constants.js";
 import { comparePassword, hashPassword } from "src/utils/encryption.js";
@@ -16,7 +18,8 @@ import { BadRequestException } from "src/exceptions/bad-requests";
 import { ConflictException } from "src/exceptions/conflict";
 import { UnauthorizedException } from "src/exceptions/unauthorized";
 import { NotFoundException } from "src/exceptions/not-found";
-import { uploadToAWSS3 } from "src/services/aws-s3.service";
+import { deleteFromAWSS3, uploadToAWSS3 } from "src/services/aws-s3.service";
+import { UnprocessableEntityException } from "src/exceptions/validation";
 
 export async function signup(req: Request, res: Response, next: NextFunction) {
     try {
@@ -89,4 +92,52 @@ export async function me(req: Request, res: Response, next: NextFunction) {
             user: toUserResource(req.user!),
         })
     );
+}
+
+export async function updateProfile(req: Request, res: Response, next: NextFunction) {
+    try {
+        const updateData: UpdateProfileRequest = updateProfileSchema.parse(req.body);
+        const files = req.files as Express.Multer.File[];
+        const avatar = files?.find((f) => f.fieldname === "avatar");
+
+        let user = req.user!;
+
+        if (updateData.password) {
+            if (!(await comparePassword(updateData.oldPassword!, user.password))) {
+                throw new UnprocessableEntityException("Old password is incorrect", [
+                    {
+                        code: "custom",
+                        path: ["oldPassword"],
+                        message: "A senha antiga está incorreta."
+                    }
+                ]);
+            }
+
+            updateData.password = await hashPassword(updateData.password);
+        }
+
+        if (avatar) {
+            if(user.avatar) {
+                await deleteFromAWSS3(AWS_CONFIG.bucket, user.avatar);
+            }
+
+            const { key } = await uploadToAWSS3(
+                {
+                    bucket: AWS_CONFIG.bucket,
+                    file: avatar,
+                    folder: `users/${user.externalId}/`
+                }
+            )
+
+            updateData.avatar = key;
+        }
+
+        user = await UserRepository.updateUser(user.id, updateData);
+
+        return res.status(HTTP_STATUS.NO_CONTENT).json(
+            success("User profile updated successfully")
+        );
+    } catch (err) {
+        return next(err);
+    }
 }
