@@ -1,9 +1,19 @@
-import { createAdoptionRequest } from '@controllers/adoption.controller';
-import { Router } from 'express';
+import {
+  createAdoptionRequest,
+  deleteAdoptionRequest,
+  showPetAdoptionRequests,
+  showPetAdoptionRequest,
+} from "@controllers/adoption.controller"
+import { Router } from "express"
 
+const adoptionRequestRouter = Router()
 
-const router = Router();
+adoptionRequestRouter.post("/:petId/requests", createAdoptionRequest)
 
-router.post("/adoption", createAdoptionRequest);
+adoptionRequestRouter.get("/:petId/requests", showPetAdoptionRequests)
 
-export default router;
+adoptionRequestRouter.get("/:petId/requests/:requestId", showPetAdoptionRequest)
+
+adoptionRequestRouter.delete("/:petId/requests", deleteAdoptionRequest)
+
+export default adoptionRequestRouter

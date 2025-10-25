@@ -1,7 +1,8 @@
-import { Router } from 'express';
+import { getAdoptionRequestsHistoryByUser } from "@controllers/adoption.controller"
+import { Router } from "express"
 
-const router = Router();
+const adoptionRouter = Router()
 
-// Pegar histórico de adoções do usuário
+adoptionRouter.get("/adoption-requests", getAdoptionRequestsHistoryByUser)
 
-export default router;
+export default adoptionRouter
