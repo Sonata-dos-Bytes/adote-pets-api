@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,4 +5,85 @@ generator client {
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  externalId String   @unique @default(uuid()) @map("external_id")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  name     String
+  email    String  @unique
+  password String
+  phone    String?
+  avatar   String?
+
+  pets          Pet[]
+  adoteRequests AdoteRequest[]
+
+  @@map("users")
+}
+
+model Pet {
+  id         Int      @id @default(autoincrement())
+  externalId String   @unique @default(uuid()) @map("external_id")
+  ownerId    Int      @map("owner_id")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  name        String
+  lore        String?
+  birthDay    DateTime @map("birth_day")
+  species     String
+  breed       String
+  gender      String
+  color       String?
+  city        String
+  state       String
+  uf          String
+  isCastrated Boolean  @map("is_castrated")
+  isAdote     Boolean  @map("is_adote")
+
+  owner         User           @relation(fields: [ownerId], references: [id])
+  files         PetFile[]
+  adoteRequests AdoteRequest[]
+
+  @@map("pets")
+}
+
+model PetFile {
+  id         Int      @id @default(autoincrement())
+  externalId String   @unique @default(uuid()) @map("external_id")
+  petId      Int      @map("pet_id")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  path        String
+  mimeType    String  @map("mime_type")
+  size        Int
+  extension   String
+  type        String
+  description String?
+  orderIndex  Int     @default(0) @map("order_index")
+
+  pet Pet @relation(fields: [petId], references: [id])
+
+  @@map("pets_files")
+}
+
+model AdoteRequest {
+  id         Int      @id @default(autoincrement())
+  externalId String   @unique @default(uuid()) @map("external_id")
+  userId     Int      @map("user_id")
+  petId      Int      @map("pet_id")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  reason String
+
+  user User @relation(fields: [userId], references: [id])
+  pet  Pet  @relation(fields: [petId], references: [id])
+
+  @@map("adote_requests")
 }
