@@ -12,6 +12,6 @@ router.put("/:externalId", update);
 
 router.delete("/:externalId", destroy);
 
-router.use('/adoptions', adoptionRouter);
+router.use('/:petExternalId/adoptions', adoptionRouter);
 
 export default router;

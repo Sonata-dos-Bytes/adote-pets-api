@@ -3,136 +3,228 @@ import { ConflictException } from "src/exceptions/conflict";
 import { NotFoundException } from "src/exceptions/not-found";
 import AdoptionRepository from "src/repository/adoption.repository";
 import PetRepository from "src/repository/pet.repository";
-import { toAdoteRequestResource } from "src/resources/adoption.resource";
+import {
+    toAdoteRequestResource,
+    toAdoteRequestsResource,
+} from "src/resources/adoption.resource";
 import { AdoptionRequest, adoptionSchema } from "src/schemas/adoption.schema";
+import { QueryRequest } from "src/types/query.request";
 import { ErrorCodes, HTTP_STATUS } from "src/utils/constants";
 import { success } from "src/utils/response";
 
-export async function getAdoptionRequestsHistoryByUser(req: Request, res: Response, next: NextFunction) {
-  try {
-    const user = req.user!;
+export async function getAdoptionRequestsHistoryByUser(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
+    try {
+        const user = req.user!;
+        const filters: QueryRequest = req.query;
+        const adoptions = await AdoptionRepository.findRequestsByUser(user.id, filters);
 
-    const adoptions = await AdoptionRepository.findRequestsByUser(user.id);
-
-    return res
-      .status(HTTP_STATUS.OK)
-      .json(success("Histórico de adoções recuperado com sucesso.", {
-        adoptions: adoptions.map(toAdoteRequestResource),
-      }));
-  } catch (err) {
-    return next(err);
-  }
+        return res.status(HTTP_STATUS.OK).json(
+            success("Histórico de adoções recuperado com sucesso.", {
+                adoptions: toAdoteRequestsResource(adoptions.data),
+                meta: adoptions.meta,
+            })
+        );
+    } catch (err) {
+        return next(err);
+    }
 }
 
-export async function createAdoptionRequest(req: Request, res: Response, next: NextFunction) {
-  try {
-    const user = req.user!;
-    const adoptionData: AdoptionRequest = adoptionSchema.parse(req.body);
-    const petId = Number(req.params.petId);
+export async function createAdoptionRequest(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
+    try {
+        const user = req.user!;
+        const adoptionData: AdoptionRequest = adoptionSchema.parse(req.body);
+        const petExternalId = req.params.petExternalId;
 
-    const pet = await PetRepository.findById(petId);
+        const pet = await PetRepository.findByExternalId(petExternalId);
 
-    if (!pet) {
-      throw new NotFoundException("Pet não encontrado!", ErrorCodes.PET_NOT_FOUND);
+        if (!pet) {
+            throw new NotFoundException(
+                "Pet não encontrado!",
+                ErrorCodes.PET_NOT_FOUND
+            );
+        }
+
+        if (pet.isAdote === true) {
+            throw new ConflictException(
+                "Este pet já foi adotado.",
+                ErrorCodes.PET_NOT_FOUND
+            );
+        }
+
+        if (pet.ownerId === user.id) {
+            throw new ConflictException(
+                "Você não pode solicitar a adoção do seu próprio pet.",
+                ErrorCodes.ADOPTION_OWN_PET
+            );
+        }
+
+        const existingRequest = await AdoptionRepository.findUserRequestByPet(
+            user.id,
+            pet.id
+        );
+
+        if (existingRequest) {
+            throw new ConflictException(
+                "Você já solicitou adoção para este pet.",
+                ErrorCodes.ADOPTION_ALREADY_EXISTS
+            );
+        }
+
+        const newRequest = await AdoptionRepository.create({
+            userId: user.id,
+            petId: pet.id,
+            reason: adoptionData.reason,
+        });
+
+        const requestWithRelations = await AdoptionRepository.findById(
+            newRequest.id
+        );
+
+        return res.status(HTTP_STATUS.CREATED).json(
+            success("Solicitação criada com sucesso.", {
+                adoption: toAdoteRequestResource(requestWithRelations!),
+            })
+        );
+    } catch (err) {
+        return next(err);
     }
-
-    const existingRequest = await AdoptionRepository.findUserRequestByPet(user.id, pet.id)
-
-    if (existingRequest) {
-      throw new ConflictException("Você já solicitou adoção para este pet.", ErrorCodes.ADOPTION_ALREADY_EXISTS)
-    }
-
-    const newRequest = await AdoptionRepository.create({
-      userId: user.id, 
-      petId: pet.id,
-      reason: adoptionData.reason,
-    });
-
-    return res
-      .status(HTTP_STATUS.CREATED)
-      .json(success("Solicitação criada com sucesso.", {
-        adoption: toAdoteRequestResource(newRequest), 
-      }));
-  } catch (err) {
-    return next(err);
-  }
 }
 
-export async function showPetAdoptionRequests(req: Request, res: Response, next: NextFunction) {
-  try {
-    const petId = Number(req.params.petId);
-    const pet = await PetRepository.findById(petId);
+export async function showPetAdoptionRequests(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
+    try {
+        const petExternalId = req.params.petExternalId;
+        const pet = await PetRepository.findByExternalId(petExternalId);
+        const filters: QueryRequest = req.query;
+        const user = req.user!;
 
-    if (!pet) {
-      throw new NotFoundException("Pet não encontrado!", ErrorCodes.PET_NOT_FOUND);
+        if (!pet) {
+            throw new NotFoundException(
+                "Pet não encontrado!",
+                ErrorCodes.PET_NOT_FOUND
+            );
+        }
+
+        if (pet.ownerId !== user.id) {
+            filters.userId = user.id;
+        }
+
+        const requests = await AdoptionRepository.findRequestsByPet(
+            pet.id,
+            filters
+        );
+
+        if (!requests) {
+            throw new NotFoundException(
+                "Solicitações de adoção não encontrada!",
+                ErrorCodes.REQUEST_NOT_FOUND
+            );
+        }
+
+        return res.status(HTTP_STATUS.OK).json(
+            success("Solicitações recuperadas com sucesso.", {
+                requests: toAdoteRequestsResource(requests.data),
+                meta: requests.meta,
+            })
+        );
+    } catch (err) {
+        return next(err);
     }
-
-    const requests = await AdoptionRepository.findRequestsByPet(pet.id);
-
-    if (!requests || requests.length === 0) {
-      throw new NotFoundException("Solicitações de adoção não encontrada!", ErrorCodes.REQUEST_NOT_FOUND);
-    }
-
-    return res
-      .status(HTTP_STATUS.OK)
-      .json(success("Solicitações recuperadas com sucesso.", {
-        requests: requests.map(toAdoteRequestResource),
-      }));
-  } catch (err) {
-    return next(err);
-  }
 }
 
-export async function showPetAdoptionRequest(req: Request, res: Response, next: NextFunction) {
-  try {
-    const petId = Number(req.params.petId);
-    const requestId = Number(req.params.requestId);
+export async function showPetAdoptionRequest(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
+    try {
+        const petExternalId = req.params.petExternalId;
+        const requestExternalId = req.params.requestId;
+        const user = req.user!;
+        const pet = await PetRepository.findByExternalId(petExternalId);
 
-    const pet = await PetRepository.findById(petId);
+        if (!pet) {
+            throw new NotFoundException(
+                "Pet não encontrado!",
+                ErrorCodes.PET_NOT_FOUND
+            );
+        }
 
-    if (!pet) {
-      throw new NotFoundException("Pet não encontrado!", ErrorCodes.PET_NOT_FOUND);
+        const request = await AdoptionRepository.findByExternalId(requestExternalId);
+
+        if (!request || request.pet.externalId !== pet.externalId) {
+            throw new NotFoundException(
+                "Solicitação de adoção não encontrada!",
+                ErrorCodes.REQUEST_NOT_FOUND
+            );
+        }
+
+        if (request.pet.ownerId !== user.id && request.userId !== user.id) {
+            throw new ConflictException(
+                "Você não tem permissão para visualizar esta solicitação de adoção.",
+                ErrorCodes.FORBIDDEN
+            );
+        }
+
+        return res.status(HTTP_STATUS.OK).json(
+            success("Solicitação recuperada com sucesso.", {
+                request: toAdoteRequestResource(request),
+            })
+        );
+    } catch (err) {
+        return next(err);
     }
-
-    const request = await AdoptionRepository.findById(requestId);
-
-    if (!request || request.petId !== pet.id) {
-      throw new NotFoundException("Solicitação de adoção não encontrada!", ErrorCodes.REQUEST_NOT_FOUND);
-    }
-
-    return res
-      .status(HTTP_STATUS.OK)
-      .json(success("Solicitação recuperada com sucesso.", {
-        request: toAdoteRequestResource(request),
-      }));
-  } catch (err) {
-    return next(err);
-  }
 }
 
-export async function deleteAdoptionRequest(req: Request, res: Response, next: NextFunction) {
-  try {
-    const petId = Number(req.params.petId);
-    const user = req.user!;
+export async function deleteAdoptionRequest(
+    req: Request,
+    res: Response,
+    next: NextFunction
+) {
+    try {
+        const petExternalId = req.params.petExternalId;
+        const requestExternalId = req.params.requestId;
+        const user = req.user!;
+        const pet = await PetRepository.findByExternalId(petExternalId);
 
-    const pet = await PetRepository.findById(petId);
+        if (!pet) {
+            throw new NotFoundException(
+                "Pet não encontrado!",
+                ErrorCodes.PET_NOT_FOUND
+            );
+        }
 
-    if (!pet) {
-      throw new NotFoundException("Pet não encontrado!", ErrorCodes.PET_NOT_FOUND);
+        const request = await AdoptionRepository.findByExternalId(requestExternalId);
+
+        if (!request || request.pet.externalId !== pet.externalId) {
+            throw new NotFoundException(
+                "Solicitação de adoção não encontrada!",
+                ErrorCodes.REQUEST_NOT_FOUND
+            );
+        }
+
+        if (request.pet.ownerId !== user.id && request.userId !== user.id) {
+            throw new ConflictException(
+                "Você não tem permissão para cancelar esta solicitação de adoção.",
+                ErrorCodes.FORBIDDEN
+            );
+        }
+
+        await AdoptionRepository.delete(request.id);
+
+        return res.status(HTTP_STATUS.NO_CONTENT).json();
+    } catch (err) {
+        return next(err);
     }
-
-    const request = await AdoptionRepository.findRequestsByPet(pet.id)
-
-    if (!request) {
-      throw new NotFoundException("Solicitação de adoção não encontrada!", ErrorCodes.REQUEST_NOT_FOUND);
-    }
-
-    await AdoptionRepository.findByUserIdWithPetId(user.id, pet.id)
-
-    return res
-      .status(HTTP_STATUS.NO_CONTENT)
-      .json();
-  } catch (err) {
-    return next(err);
-  }
 }

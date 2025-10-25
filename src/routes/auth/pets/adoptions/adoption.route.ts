@@ -8,12 +8,12 @@ import { Router } from "express"
 
 const adoptionRequestRouter = Router()
 
-adoptionRequestRouter.post("/:petId/requests", createAdoptionRequest)
+adoptionRequestRouter.get("/requests", showPetAdoptionRequests)
 
-adoptionRequestRouter.get("/:petId/requests", showPetAdoptionRequests)
+adoptionRequestRouter.post("/requests", createAdoptionRequest)
 
-adoptionRequestRouter.get("/:petId/requests/:requestId", showPetAdoptionRequest)
+adoptionRequestRouter.get("/requests/:externalId", showPetAdoptionRequest)
 
-adoptionRequestRouter.delete("/:petId/requests", deleteAdoptionRequest)
+adoptionRequestRouter.delete("/requests/:externalId", deleteAdoptionRequest)
 
 export default adoptionRequestRouter

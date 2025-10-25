@@ -66,17 +66,17 @@ export default class PetRepository {
             }),
         ]);
 
-        const lastPage = Math.ceil(total / perPageNumber);
+        const meta: MetaResponse = {
+            total,
+            lastPage: Math.ceil(total / perPageNumber),
+            ...filters,
+            page: pageNumber,
+            perPage: perPageNumber,
+        };
 
         return {
             data: pets,
-            meta: {
-                total,
-                lastPage,
-                ...filters,
-                page: pageNumber,
-                perPage: perPageNumber,
-            },
+            meta: meta,
         };
     }
 
@@ -136,17 +136,17 @@ export default class PetRepository {
             }),
         ]);
 
-        const lastPage = Math.ceil(total / perPageNumber);
+        const meta: MetaResponse = {
+            total,
+            lastPage: Math.ceil(total / perPageNumber),
+            ...filters,
+            page: pageNumber,
+            perPage: perPageNumber,
+        };
 
         return {
             data: pets,
-            meta: {
-                total,
-                lastPage,
-                ...filters,
-                page: pageNumber,
-                perPage: perPageNumber,
-            },
+            meta: meta,
         };
     }
 
