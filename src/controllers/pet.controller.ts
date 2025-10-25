@@ -76,24 +76,29 @@ export async function store(req: Request, res: Response, next: NextFunction) {
     try {
         const petData: CreatePetRequest = createPetSchema.parse(req.body);
         const user = req.user!;
+        const files = req.files as Express.Multer.File[];
+
+        for (const file of files) {
+            isFileTypeValid(
+                file,
+                ["image/jpeg", "image/png", "image/jpg", "image/webp"],
+                ["files"]
+            );
+        }
 
         const pet = await PetRepository.create({
             ...petData,
             ownerId: user.id,
         });
 
-        for (const [index, file] of (
-            req.files as Express.Multer.File[]
-        ).entries()) {
-            isFileTypeValid(file, ["image/jpeg", "image/png"], ["files"]);
-
+        for (const [index, file] of files.entries()) {
             const upload = await uploadToAWSS3({
                 bucket: AWS_CONFIG.bucket!,
                 file,
                 folder: `pets/${pet.externalId}`,
             });
 
-            const petFile = await PetFileRepository.create({
+            await PetFileRepository.create({
                 petId: pet.id,
                 path: upload.key,
                 mimeType: upload.contentType,
@@ -105,40 +110,45 @@ export async function store(req: Request, res: Response, next: NextFunction) {
             });
         }
 
-        return res.status(HTTP_STATUS.CREATED).json(success("Pet criado com sucesso", {
-            pet: toPetResource(pet),
-        }));
+        const petWithRelations = await PetRepository.findById(pet.id);
+
+        return res.status(HTTP_STATUS.CREATED).json(
+            success("Pet criado com sucesso", {
+                pet: toPetResource(petWithRelations!),
+            })
+        );
     } catch (err) {
         return next(err);
     }
 }
 
 export async function update(req: Request, res: Response, next: NextFunction) {
-   try {
-    const id: number = Number(req.params.id);
-    const petUpdatedData: UpdatePetRequest = updatePetSchema.parse(req.body);
-    const user = req.user!;
-
-    const pet = await PetRepository.findById(id);
-    if (!pet)
-      throw new NotFoundException(
-          "Pet não encontrado",
-          ErrorCodes.PET_NOT_FOUND
-      );
-
-    if (pet.ownerId !== user.id) 
-      throw new ForbiddenException(
-          "Você não tem permissão para atualizar este pet", 
-          ErrorCodes.FORBIDDEN
+    try {
+        const id: number = Number(req.params.id);
+        const petUpdatedData: UpdatePetRequest = updatePetSchema.parse(
+            req.body
         );
+        const user = req.user!;
 
-    const updated = await PetRepository.update(id, petUpdatedData);
+        const pet = await PetRepository.findById(id);
+        if (!pet)
+            throw new NotFoundException(
+                "Pet não encontrado",
+                ErrorCodes.PET_NOT_FOUND
+            );
 
-    return res.status(HTTP_STATUS.NO_CONTENT).send();
-   }
-   catch (err) {
-      return next(err);
-   } 
+        if (pet.ownerId !== user.id)
+            throw new ForbiddenException(
+                "Você não tem permissão para atualizar este pet",
+                ErrorCodes.FORBIDDEN
+            );
+
+        const updated = await PetRepository.update(id, petUpdatedData);
+
+        return res.status(HTTP_STATUS.NO_CONTENT).send();
+    } catch (err) {
+        return next(err);
+    }
 }
 
 export async function destroy(req: Request, res: Response, next: NextFunction) {
@@ -147,24 +157,23 @@ export async function destroy(req: Request, res: Response, next: NextFunction) {
 
     const pet = await PetRepository.findById(id);
     if (!pet)
-      throw new NotFoundException(
-          "Pet não encontrado",
-          ErrorCodes.PET_NOT_FOUND
-      );
+        throw new NotFoundException(
+            "Pet não encontrado",
+            ErrorCodes.PET_NOT_FOUND
+        );
 
-    if (pet.ownerId !== user.id) 
-      throw new ForbiddenException(
-          "Você não tem permissão para atualizar este pet", 
-          ErrorCodes.FORBIDDEN
+    if (pet.ownerId !== user.id)
+        throw new ForbiddenException(
+            "Você não tem permissão para atualizar este pet",
+            ErrorCodes.FORBIDDEN
         );
 
     for (const file of pet.files) {
-      await deleteFromAWSS3(AWS_CONFIG.bucket, file.path);
-      await PetFileRepository.delete(file.id);
-
+        await deleteFromAWSS3(AWS_CONFIG.bucket, file.path);
+        await PetFileRepository.delete(file.id);
     }
 
     await PetRepository.delete(id);
 
     return res.status(HTTP_STATUS.NO_CONTENT).send();
-  }
+}
