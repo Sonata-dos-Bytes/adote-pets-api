@@ -5,6 +5,6 @@ const router = Router();
 
 router.get("/", index);
 
-router.get("/:id", show);
+router.get("/:externalId", show);
 
 export default router;

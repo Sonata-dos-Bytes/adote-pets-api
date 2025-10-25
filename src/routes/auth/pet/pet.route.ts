@@ -7,8 +7,8 @@ router.post("/", store);
 
 router.get("/my-pet", myPets);
 
-router.put("/:id", update);
+router.put("/:externalId", update);
 
-router.delete("/:id", destroy);
+router.delete("/:externalId", destroy);
 
 export default router;

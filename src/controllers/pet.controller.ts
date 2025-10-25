@@ -13,22 +13,24 @@ import { UnauthorizedException } from "src/exceptions/unauthorized";
 import { NotFoundException } from "src/exceptions/not-found";
 import { UnprocessableEntityException } from "src/exceptions/validation";
 import { BadRequestException } from "src/exceptions/bad-requests";
-import PetRepository, { PetFilter } from "src/repository/pet.repository";
+import PetRepository from "src/repository/pet.repository";
 import { success } from "src/utils/response";
 import { toPetResource, toPetsResource } from "src/resources/pet.resource";
 import PetFileRepository from "src/repository/pet-file.repository";
 import { ForbiddenException } from "src/exceptions/forbidden";
 import { isFileTypeValid } from "src/utils/file-utils";
 import { AWS_CONFIG } from "@config/index";
+import { QueryRequest } from "src/types/query.request";
 
 export async function index(req: Request, res: Response, next: NextFunction) {
     try {
-        const filters: PetFilter = req.query;
+        const filters: QueryRequest = req.query;
         const pets = await PetRepository.findAll(filters);
 
         return res.status(HTTP_STATUS.OK).json(
-            success("Pet pegados com sucesso", {
-                pets: toPetsResource(pets),
+            success("Pets encontrados com sucesso", {
+                pets: toPetsResource(pets.data),
+                meta: pets.meta,
             })
         );
     } catch (err) {
@@ -38,8 +40,8 @@ export async function index(req: Request, res: Response, next: NextFunction) {
 
 export async function show(req: Request, res: Response, next: NextFunction) {
     try {
-        const id: number = Number(req.params.id);
-        const pet = await PetRepository.findById(id);
+        const externalId: string = req.params.externalId;
+        const pet = await PetRepository.findByExternalId(externalId);
 
         if (!pet)
             throw new NotFoundException(
@@ -59,7 +61,6 @@ export async function show(req: Request, res: Response, next: NextFunction) {
 export async function myPets(req: Request, res: Response, next: NextFunction) {
     try {
         const user = req.user!;
-
         const pets = await PetRepository.findByOwnerId(user.id);
 
         return res.status(HTTP_STATUS.OK).json(
@@ -124,13 +125,13 @@ export async function store(req: Request, res: Response, next: NextFunction) {
 
 export async function update(req: Request, res: Response, next: NextFunction) {
     try {
-        const id: number = Number(req.params.id);
+        const externalId: string = req.params.externalId;
         const petUpdatedData: UpdatePetRequest = updatePetSchema.parse(
             req.body
         );
+        const pet = await PetRepository.findByExternalId(externalId);
         const user = req.user!;
 
-        const pet = await PetRepository.findById(id);
         if (!pet)
             throw new NotFoundException(
                 "Pet não encontrado",
@@ -143,7 +144,7 @@ export async function update(req: Request, res: Response, next: NextFunction) {
                 ErrorCodes.FORBIDDEN
             );
 
-        const updated = await PetRepository.update(id, petUpdatedData);
+        await PetRepository.update(pet.id, petUpdatedData);
 
         return res.status(HTTP_STATUS.NO_CONTENT).send();
     } catch (err) {
@@ -152,10 +153,10 @@ export async function update(req: Request, res: Response, next: NextFunction) {
 }
 
 export async function destroy(req: Request, res: Response, next: NextFunction) {
-    const id: number = Number(req.params.id);
+    const externalId: string = req.params.externalId;
+    const pet = await PetRepository.findByExternalId(externalId);
     const user = req.user!;
 
-    const pet = await PetRepository.findById(id);
     if (!pet)
         throw new NotFoundException(
             "Pet não encontrado",
@@ -173,7 +174,7 @@ export async function destroy(req: Request, res: Response, next: NextFunction) {
         await PetFileRepository.delete(file.id);
     }
 
-    await PetRepository.delete(id);
+    await PetRepository.delete(pet.id);
 
     return res.status(HTTP_STATUS.NO_CONTENT).send();
 }
