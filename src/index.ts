@@ -6,6 +6,7 @@ import { setupServer } from './config/server.js';
 import appRouter from './routes/app.route.js';
 import { connectDatabase } from '@config/database.js';
 import { logger } from '@config/logger.js';
+import petRoutes from './routes/auth/pet/pet.route.js';
 import { HTTP_STATUS } from './utils/constants.js';
 import { errorMiddleware } from './middlewares/error.middleware.js';
 
@@ -14,6 +15,10 @@ const app: express.Application = express();
 setupServer(app);
 
 app.use(appRouter);
+
+// Rotas de Pets
+app.use('/api/pets', petRoutes);
+
 
 app.use((req, res) => {
   res.status(HTTP_STATUS.NOT_FOUND).json({ status: false, message: 'Not Found' });

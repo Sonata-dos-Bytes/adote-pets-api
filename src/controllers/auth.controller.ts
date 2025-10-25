@@ -28,7 +28,7 @@ export async function signup(req: Request, res: Response, next: NextFunction) {
         const files = req.files as Express.Multer.File[];
         const avatar = files?.find((f) => f.fieldname === "avatar");
         if (avatar) {
-            isFileTypeValid(avatar, ["image/jpeg", "image/png"], ["avatar"]);
+            isFileTypeValid(avatar, ["image/jpeg", "image/png", "image/jpg", "image/webp"], ["avatar"]);
         }
 
         let user = await UserRepository.findByEmail(registerData.email);
@@ -91,11 +91,15 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 }
 
 export async function me(req: Request, res: Response, next: NextFunction) {
-    return res.status(HTTP_STATUS.OK).json(
-        success("User retrieved successfully", {
-            user: toUserResource(req.user!),
-        })
-    );
+    try {
+        return res.status(HTTP_STATUS.OK).json(
+            success("User retrieved successfully", {
+                user: toUserResource(req.user!),
+            })
+        );
+    } catch (err) {
+        return next(err);
+    }
 }
 
 export async function updateProfile(req: Request, res: Response, next: NextFunction) {
@@ -103,6 +107,9 @@ export async function updateProfile(req: Request, res: Response, next: NextFunct
         const updateData: UpdateProfileRequest = updateProfileSchema.parse(req.body);
         const files = req.files as Express.Multer.File[];
         const avatar = files?.find((f) => f.fieldname === "avatar");
+        if (avatar) {
+            isFileTypeValid(avatar, ["image/jpeg", "image/png", "image/jpg", "image/webp"], ["avatar"]);
+        }
 
         let user = req.user!;
 
@@ -121,8 +128,6 @@ export async function updateProfile(req: Request, res: Response, next: NextFunct
         }
 
         if (avatar) {
-            isFileTypeValid(avatar, ["image/jpeg", "image/png"], ["avatar"]);
-
             if(user.avatar) {
                 await deleteFromAWSS3(AWS_CONFIG.bucket, user.avatar);
             }
