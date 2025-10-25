@@ -1,8 +1,17 @@
-import adoptionRoutes from './adoptions/adoption.route';
-import { Router } from 'express';
+import { destroy, myPets, store, update } from "@controllers/pet.controller";
+import { Router } from "express";
+import adoptionRouter from "./adoptions/adoption.route";
 
 const router = Router();
 
-router.use('/adoptions', adoptionRoutes);
+router.post("/", store);
+
+router.get("/my-pet", myPets);
+
+router.put("/:externalId", update);
+
+router.delete("/:externalId", destroy);
+
+router.use('/adoptions', adoptionRouter);
 
 export default router;

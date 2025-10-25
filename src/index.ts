@@ -6,7 +6,7 @@ import { setupServer } from './config/server.js';
 import appRouter from './routes/app.route.js';
 import { connectDatabase } from '@config/database.js';
 import { logger } from '@config/logger.js';
-import petRoutes from './routes/auth/pet/pet.route.js';
+import petRoutes from './routes/auth/pets/pet.route.js';
 import { HTTP_STATUS } from './utils/constants.js';
 import { errorMiddleware } from './middlewares/error.middleware.js';
 
