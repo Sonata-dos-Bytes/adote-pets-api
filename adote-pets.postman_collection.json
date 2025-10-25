@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "a889ef43-b60a-4fae-a471-7753055ec54f",
 		"name": "adote-pets",
+		"description": "<img src=\"https://content.pstmn.io/7f99f3db-6028-4433-800d-0f32e6e7b4c7/aW1hZ2UucG5n\" alt=\"\" height=\"376\" width=\"326\">\n\nIntrodução — Collection Postman • Adote Pets API\n\nEsta collection reúne os principais endpoints da Adote Pets API, projetada para gerenciar usuários, pets, uploads de imagens e solicitações de adoção. Use-a para testes manuais e automação de fluxos durante o desenvolvimento.\n\nVariáveis importantes:\n\n- base_url: URL base da API (ex.: [http://localhost/api/](http://localhost/api/))\n    \n- token: Bearer token retornado pelo login\n    \n\nFluxo recomendado:\n\n1) auth.register — criar usuário (form-data)  \n2) auth.login — obter token (salvar em variável `token`)  \n3) Incluir Authorization: Bearer {{token}} nos requests autenticados  \n4) pet.create — cadastrar um pet (form-data com arquivos em files\\[\\])  \n5) pet.my-pets / pet.index / pet.show — consultar pets  \n6) files.store — enviar imagens adicionais ao pet  \n7) adoption.create / adoption.by-user — criar e listar solicitações de adoção\n\nDicas rápidas:\n\n- Uploads devem ser enviados em form-data; campos de arquivo geralmente são `files[]` ou `file`.\n    \n- Erros de validação retornam 422 com detalhes em `errors`.\n    \n- Consulte o endpoint GET /api/ para informações gerais da API.\n    \n- Consulte o README.md do repositório para configuração local, variáveis de ambiente e comandos úteis.\n    \n\nArquivos úteis:\n\n- README.md\n    \n- adote-pets.postman_collection.json",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "36606064"
 	},
@@ -40,17 +41,18 @@
 											}
 										},
 										"url": {
-											"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests",
+											"raw": "{{base_url}}auth/pets/0f123be1-14e2-48cd-8023-2ea04d2b0081/adoptions/requests",
 											"host": [
 												"{{base_url}}auth"
 											],
 											"path": [
 												"pets",
-												"e30e1248-9753-4ab7-9842-4f0738d1cf25",
+												"0f123be1-14e2-48cd-8023-2ea04d2b0081",
 												"adoptions",
 												"requests"
 											]
-										}
+										},
+										"description": "**Descrição:**  \n  \nCria uma solicitação de adoção para o pet especificado. O usuário precisa estar autenticado. A solicitação inclui o motivo pelo qual quer adotar o pet."
 									},
 									"response": [
 										{
@@ -60,7 +62,7 @@
 												"header": [
 													{
 														"key": "Authorization",
-														"value": "{{token}}",
+														"value": "",
 														"type": "text"
 													}
 												],
@@ -74,11 +76,14 @@
 													}
 												},
 												"url": {
-													"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests",
+													"raw": "http://localhost/api/auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests",
+													"protocol": "http",
 													"host": [
-														"{{base_url}}auth"
+														"localhost"
 													],
 													"path": [
+														"api",
+														"auth",
 														"pets",
 														"e30e1248-9753-4ab7-9842-4f0738d1cf25",
 														"adoptions",
@@ -294,7 +299,8 @@
 												"adoptions",
 												"requests"
 											]
-										}
+										},
+										"description": "**Descrição:**  \n  \nRetorna todas as solicitações de adoção feitas para o pet especificado. Apenas usuários autenticados podem acessar."
 									},
 									"response": [
 										{
@@ -304,16 +310,19 @@
 												"header": [
 													{
 														"key": "Authorization",
-														"value": "{{token}}",
+														"value": "",
 														"type": "text"
 													}
 												],
 												"url": {
-													"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests",
+													"raw": "http://localhost/api/auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests",
+													"protocol": "http",
 													"host": [
-														"{{base_url}}auth"
+														"localhost"
 													],
 													"path": [
+														"api",
+														"auth",
 														"pets",
 														"e30e1248-9753-4ab7-9842-4f0738d1cf25",
 														"adoptions",
@@ -443,7 +452,7 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests/18ddd638-9d7d-4f18-9bb3-a3f8f08d9211",
+											"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests/b8044197-06be-4748-a2ee-6142f4e7cd6e",
 											"host": [
 												"{{base_url}}auth"
 											],
@@ -452,9 +461,10 @@
 												"e30e1248-9753-4ab7-9842-4f0738d1cf25",
 												"adoptions",
 												"requests",
-												"18ddd638-9d7d-4f18-9bb3-a3f8f08d9211"
+												"b8044197-06be-4748-a2ee-6142f4e7cd6e"
 											]
-										}
+										},
+										"description": "**Descrição:**  \n  \nRetorna os detalhes de uma solicitação de adoção específica de um pet. Apenas usuários autenticados podem acessar."
 									},
 									"response": [
 										{
@@ -464,16 +474,19 @@
 												"header": [
 													{
 														"key": "Authorization",
-														"value": "{{token}}",
+														"value": "",
 														"type": "text"
 													}
 												],
 												"url": {
-													"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests/110961e4-5e3d-4477-b15b-645a2f190878",
+													"raw": "http://localhost/api/auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests/110961e4-5e3d-4477-b15b-645a2f190878",
+													"protocol": "http",
 													"host": [
-														"{{base_url}}auth"
+														"localhost"
 													],
 													"path": [
+														"api",
+														"auth",
 														"pets",
 														"e30e1248-9753-4ab7-9842-4f0738d1cf25",
 														"adoptions",
@@ -616,7 +629,8 @@
 												"requests",
 												"b8044197-06be-4748-a2ee-6142f4e7cd6e"
 											]
-										}
+										},
+										"description": "**Descrição:**  \n  \nCancela ou remove uma solicitação de adoção feita por um usuário para um pet específico. Apenas usuários autenticados podem realizar a ação."
 									},
 									"response": [
 										{
@@ -626,16 +640,19 @@
 												"header": [
 													{
 														"key": "Authorization",
-														"value": "{{token}}",
+														"value": "",
 														"type": "text"
 													}
 												],
 												"url": {
-													"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests/110961e4-5e3d-4477-b15b-645a2f190878",
+													"raw": "http://localhost/api/auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests/110961e4-5e3d-4477-b15b-645a2f190878",
+													"protocol": "http",
 													"host": [
-														"{{base_url}}auth"
+														"localhost"
 													],
 													"path": [
+														"api",
+														"auth",
 														"pets",
 														"e30e1248-9753-4ab7-9842-4f0738d1cf25",
 														"adoptions",
@@ -835,7 +852,8 @@
 												"9f57ffec-c359-4545-ae3b-d61f0a43ed11",
 												"files"
 											]
-										}
+										},
+										"description": "**Descrição:**\n\nRetorna todos os arquivos (imagens) de um pet específico do usuário autenticado, ordenados pelo `orderIndex`."
 									},
 									"response": [
 										{
@@ -848,11 +866,14 @@
 													"formdata": []
 												},
 												"url": {
-													"raw": "{{base_url}}auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files",
+													"raw": "http://localhost/api/auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files",
+													"protocol": "http",
 													"host": [
-														"{{base_url}}auth"
+														"localhost"
 													],
 													"path": [
+														"api",
+														"auth",
 														"pets",
 														"9f57ffec-c359-4545-ae3b-d61f0a43ed11",
 														"files"
@@ -936,7 +957,8 @@
 												"9f57ffec-c359-4545-ae3b-d61f0a43ed11",
 												"files"
 											]
-										}
+										},
+										"description": "**Descrição:**  \n  \nFaz upload de um arquivo (imagem) para o pet específico do usuário autenticado. O arquivo será adicionado à lista de `files` do pet, e o `orderIndex` será ajustado automaticamente."
 									},
 									"response": [
 										{
@@ -955,11 +977,14 @@
 													]
 												},
 												"url": {
-													"raw": "{{base_url}}auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files",
+													"raw": "http://localhost/api/auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files",
+													"protocol": "http",
 													"host": [
-														"{{base_url}}auth"
+														"localhost"
 													],
 													"path": [
+														"api",
+														"auth",
 														"pets",
 														"9f57ffec-c359-4545-ae3b-d61f0a43ed11",
 														"files"
@@ -1028,7 +1053,7 @@
 											"formdata": []
 										},
 										"url": {
-											"raw": "{{base_url}}auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files/42efab05-f6a0-4b09-9554-6772b0a35abd/set-as-main",
+											"raw": "{{base_url}}auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files/50df195e-1af5-4a24-aa1d-96000ff54e9b/set-as-main",
 											"host": [
 												"{{base_url}}auth"
 											],
@@ -1036,10 +1061,11 @@
 												"pets",
 												"9f57ffec-c359-4545-ae3b-d61f0a43ed11",
 												"files",
-												"42efab05-f6a0-4b09-9554-6772b0a35abd",
+												"50df195e-1af5-4a24-aa1d-96000ff54e9b",
 												"set-as-main"
 											]
-										}
+										},
+										"description": "**Descrição:**  \n  \nDefine o arquivo de um pet como principal (`orderIndex = 0`). Todos os outros arquivos terão seus `orderIndex` ajustados sequencialmente (`1, 2, 3...`)."
 									},
 									"response": [
 										{
@@ -1052,11 +1078,14 @@
 													"formdata": []
 												},
 												"url": {
-													"raw": "{{base_url}}auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files/29864a4e-68f2-422f-bdfa-1cd0828dc9f3/set-as-main",
+													"raw": "http://localhost/api/auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files/29864a4e-68f2-422f-bdfa-1cd0828dc9f3/set-as-main",
+													"protocol": "http",
 													"host": [
-														"{{base_url}}auth"
+														"localhost"
 													],
 													"path": [
+														"api",
+														"auth",
 														"pets",
 														"9f57ffec-c359-4545-ae3b-d61f0a43ed11",
 														"files",
@@ -1188,7 +1217,8 @@
 												"files",
 												"cc27699b-e8e5-422f-927b-d2f9f20a37d0"
 											]
-										}
+										},
+										"description": "**Descrição:**  \n  \nRemove um arquivo de um pet. Após a exclusão, os `orderIndex` dos outros arquivos são reorganizados de forma sequencial (`0, 1, 2...`), mantendo a consistência da ordem."
 									},
 									"response": [
 										{
@@ -1201,11 +1231,14 @@
 													"formdata": []
 												},
 												"url": {
-													"raw": "{{base_url}}auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files/1527034d-71ad-4708-b81a-44dc615c9b0b",
+													"raw": "http://localhost/api/auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files/1527034d-71ad-4708-b81a-44dc615c9b0b",
+													"protocol": "http",
 													"host": [
-														"{{base_url}}auth"
+														"localhost"
 													],
 													"path": [
+														"api",
+														"auth",
 														"pets",
 														"9f57ffec-c359-4545-ae3b-d61f0a43ed11",
 														"files",
@@ -1389,11 +1422,6 @@
 											"key": "files[]",
 											"type": "file",
 											"src": "/home/pedroh/Downloads/pastor-alemao-filhote.jpg"
-										},
-										{
-											"key": "files[]",
-											"type": "file",
-											"src": "/home/pedroh/Downloads/pastor-alemao-441x360.jpg"
 										}
 									]
 								},
@@ -1405,7 +1433,8 @@
 									"path": [
 										"pets"
 									]
-								}
+								},
+								"description": "**Descrição:**  \n  \nCria um novo pet para o usuário autenticado. Requer autenticação via JWT. Permite enviar arquivos de imagens junto com os dados do pet."
 							},
 							"response": [
 								{
@@ -1489,11 +1518,14 @@
 											]
 										},
 										"url": {
-											"raw": "{{base_url}}auth/pets",
+											"raw": "http://localhost/api/auth/pets",
+											"protocol": "http",
 											"host": [
-												"{{base_url}}auth"
+												"localhost"
 											],
 											"path": [
+												"api",
+												"auth",
 												"pets"
 											]
 										}
@@ -2027,7 +2059,8 @@
 										"pets",
 										"bb7c5a04-9b84-42f9-82fc-51a0be24b5a2"
 									]
-								}
+								},
+								"description": "**Descrição:**  \n  \nAtualiza os dados de um pet existente. É necessário passar o `externalId` do pet na URL. Suporta atualização de campos do pet e upload de novas imagens. Requer autenticação via JWT."
 							},
 							"response": [
 								{
@@ -2303,7 +2336,8 @@
 											"disabled": true
 										}
 									]
-								}
+								},
+								"description": "**Descrição:**  \n  \nRetorna a lista de pets do usuário autenticado com paginação e filtros opcionais. Requer autenticação via JWT."
 							},
 							"response": [
 								{
@@ -2405,7 +2439,8 @@
 										"pets",
 										"bb7c5a04-9b84-42f9-82fc-51a0be24b5a2"
 									]
-								}
+								},
+								"description": "**Descrição:**  \n  \nDeleta um pet do usuário autenticado pelo `externalId`. Requer autenticação via JWT."
 							},
 							"response": [
 								{
@@ -2539,7 +2574,8 @@
 										"adoptions",
 										"adoption-requests"
 									]
-								}
+								},
+								"description": "**Descrição:**  \n  \nRetorna todas as solicitações de adoção feitas pelo usuário autenticado. Requer autenticação via JWT. Permite paginação usando query params."
 							},
 							"response": [
 								{
@@ -2709,7 +2745,8 @@
 							"path": [
 								"login"
 							]
-						}
+						},
+						"description": "**Descrição:**  \n  \nRealiza o **login do usuário** na plataforma.  \n  \nEste endpoint autentica as credenciais (e-mail e senha) e retorna um **token JWT**, que deve ser usado nas próximas requisições autenticadas via cabeçalho `Authorization: Bearer` ."
 					},
 					"response": [
 						{
@@ -3029,8 +3066,7 @@
 								{
 									"key": "phone",
 									"value": "99984775122",
-									"type": "text",
-									"disabled": true
+									"type": "text"
 								},
 								{
 									"key": "avatar",
@@ -3047,7 +3083,8 @@
 							"path": [
 								"register"
 							]
-						}
+						},
+						"description": "**Descrição:**  \n  \nCria um **novo usuário** na plataforma.  \n  \nEste endpoint cadastra o usuário com as informações básicas (nome, e-mail, senha, telefone e opcionalmente uma imagem de perfil/avatar).  \n  \nApós o cadastro, o usuário já pode realizar login via `/api/auth/login`."
 					},
 					"response": [
 						{
@@ -3441,7 +3478,8 @@
 							"path": [
 								"me"
 							]
-						}
+						},
+						"description": "**Descrição:**  \n  \nRetorna os dados do usuário atualmente autenticado com base no token JWT fornecido no cabeçalho `Authorization`.  \n  \nÚtil para exibir informações do perfil logado ou verificar sessão ativa."
 					},
 					"response": [
 						{
@@ -3591,20 +3629,17 @@
 								{
 									"key": "name",
 									"value": "Pedro Henrique MB",
-									"type": "text",
-									"disabled": true
+									"type": "text"
 								},
 								{
 									"key": "avatar",
 									"type": "file",
-									"src": "/home/pedroh/Downloads/WhatsApp Image 2025-09-06 at 15.38.40.jpeg",
-									"disabled": true
+									"src": "/home/pedroh/Downloads/WhatsApp Image 2025-09-06 at 15.38.40.jpeg"
 								},
 								{
 									"key": "oldPassword",
 									"value": "pedroerosa1#",
-									"type": "text",
-									"disabled": true
+									"type": "text"
 								},
 								{
 									"key": "password",
@@ -3626,7 +3661,8 @@
 							"path": [
 								"update-profile"
 							]
-						}
+						},
+						"description": "**Descrição:**  \n  \nAtualiza os dados do perfil do usuário autenticado. Permite alterar nome, avatar e senha. O endpoint exige autenticação via JWT."
 					},
 					"response": [
 						{
@@ -3913,7 +3949,8 @@
 									"disabled": true
 								}
 							]
-						}
+						},
+						"description": "**Descrição:**  \n  \nRetorna a lista de pets cadastrados no sistema, incluindo informações básicas (nome, espécie, raça, idade etc.) e seus respectivos arquivos (imagens), já ordenados pelo campo `orderIndex`.  \n  \nEsse endpoint é utilizado principalmente para exibir os pets disponíveis para adoção."
 					},
 					"response": [
 						{
@@ -4135,7 +4172,8 @@
 							"path": [
 								"5a80e5d2-864d-4e4f-95b0-4538f3813283"
 							]
-						}
+						},
+						"description": "**Descrição:**  \n  \nRetorna as informações completas de um pet específico identificado pelo seu `externalId`.  \n  \nInclui todos os detalhes do pet, além da lista de arquivos (imagens), já ordenados pelo campo `orderIndex`."
 					},
 					"response": [
 						{
@@ -4269,7 +4307,8 @@
 					"host": [
 						"{{base_url}}"
 					]
-				}
+				},
+				"description": "**Descrição:**  \n  \nEndpoint base da API.  \n  \nServe como um **health check** (verificação de status) para confirmar que a API está operacional.  \n  \nPode também retornar informações básicas sobre o sistema ou versão atual da API."
 			},
 			"response": [
 				{
