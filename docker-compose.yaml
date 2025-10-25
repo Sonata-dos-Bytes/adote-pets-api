@@ -7,10 +7,11 @@ services:
     env_file:
       - .env
     ports:
-      - "${PORT:-3000}:3000"  
+      - "${PORT:-3000}:3000"
     volumes:
-      - ./:/app               
-      - /app/node_modules   
+      - ./:/app
+      - /app/node_modules
+      - adote-pets-db:/app/prisma     
     restart: always
     networks:
       - adote-pets-network
@@ -27,6 +28,7 @@ services:
     volumes:
       - ./:/app
       - /app/node_modules
+      - adote-pets-db:/app/prisma      
     command: npx prisma studio --port 5555 --hostname 0.0.0.0
     depends_on:
       - app
@@ -34,6 +36,9 @@ services:
     networks:
       - adote-pets-network
 
+volumes:
+  adote-pets-db:
+
 networks:
   adote-pets-network:
-    driver: bridge           
+    driver: bridge

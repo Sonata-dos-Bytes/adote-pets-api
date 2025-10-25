@@ -5,16 +5,6 @@ import petRouter from './pet/pet.route';
 
 const router = Router();
 
-router.post('/login', login);
-
-router.post('/register', signup);
-
-router.use(authMiddleware);
-
-router.get('/me', me);
-
-router.put('/update-profile', updateProfile);
-
 router.use('/pet', petRouter);
 
 export default router;
