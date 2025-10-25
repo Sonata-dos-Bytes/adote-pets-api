@@ -1,6 +1,7 @@
 import { destroy, myPets, store, update } from "@controllers/pet.controller";
 import { Router } from "express";
 import adoptionRouter from "./adoptions/adoption.route";
+import authMiddleware from "src/middlewares/auth.middleware";
 
 const router = Router();
 

@@ -6,14 +6,14 @@ import {
 } from "@controllers/adoption.controller"
 import { Router } from "express"
 
-const adoptionRequestRouter = Router()
+const router = Router({ mergeParams: true })
 
-adoptionRequestRouter.get("/requests", showPetAdoptionRequests)
+router.get("/requests", showPetAdoptionRequests)
 
-adoptionRequestRouter.post("/requests", createAdoptionRequest)
+router.post("/requests", createAdoptionRequest)
 
-adoptionRequestRouter.get("/requests/:externalId", showPetAdoptionRequest)
+router.get("/requests/:externalId", showPetAdoptionRequest)
 
-adoptionRequestRouter.delete("/requests/:externalId", deleteAdoptionRequest)
+router.delete("/requests/:externalId", deleteAdoptionRequest)
 
-export default adoptionRequestRouter
+export default router

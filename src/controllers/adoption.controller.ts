@@ -1,3 +1,4 @@
+import { logger } from "@config/logger";
 import { Request, Response, NextFunction } from "express";
 import { ConflictException } from "src/exceptions/conflict";
 import { NotFoundException } from "src/exceptions/not-found";
@@ -19,6 +20,7 @@ export async function getAdoptionRequestsHistoryByUser(
 ) {
     try {
         const user = req.user!;
+        logger.info(`Usuário ${user.id} está recuperando o histórico de adoções.`);
         const filters: QueryRequest = req.query;
         const adoptions = await AdoptionRepository.findRequestsByUser(user.id, filters);
 
@@ -150,7 +152,7 @@ export async function showPetAdoptionRequest(
 ) {
     try {
         const petExternalId = req.params.petExternalId;
-        const requestExternalId = req.params.requestId;
+        const requestExternalId = req.params.externalId;
         const user = req.user!;
         const pet = await PetRepository.findByExternalId(petExternalId);
 
@@ -194,7 +196,7 @@ export async function deleteAdoptionRequest(
 ) {
     try {
         const petExternalId = req.params.petExternalId;
-        const requestExternalId = req.params.requestId;
+        const requestExternalId = req.params.externalId;
         const user = req.user!;
         const pet = await PetRepository.findByExternalId(petExternalId);
 
@@ -214,7 +216,7 @@ export async function deleteAdoptionRequest(
             );
         }
 
-        if (request.pet.ownerId !== user.id && request.userId !== user.id) {
+        if (request.userId !== user.id) {
             throw new ConflictException(
                 "Você não tem permissão para cancelar esta solicitação de adoção.",
                 ErrorCodes.FORBIDDEN
