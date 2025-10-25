@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { ConflictException } from "src/exceptions/conflict";
 import { NotFoundException } from "src/exceptions/not-found";
-import { AdoptionRepository } from "src/repository/adoption.repository";
-import { PetRepository } from "src/repository/pet.repository";
+import AdoptionRepository from "src/repository/adoption.repository";
+import PetRepository from "src/repository/pet.repository";
 import { toAdoteRequestResource } from "src/resources/adoption.resource";
 import { AdoptionRequest, adoptionSchema } from "src/schemas/adoption.schema";
 import { ErrorCodes, HTTP_STATUS } from "src/utils/constants";

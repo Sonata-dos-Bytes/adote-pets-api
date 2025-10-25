@@ -6,7 +6,7 @@ const router = Router();
 
 router.post("/", store);
 
-router.get("/my-pet", myPets);
+router.get("/my-pets", myPets);
 
 router.put("/:externalId", update);
 

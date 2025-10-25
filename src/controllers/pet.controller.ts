@@ -61,11 +61,13 @@ export async function show(req: Request, res: Response, next: NextFunction) {
 export async function myPets(req: Request, res: Response, next: NextFunction) {
     try {
         const user = req.user!;
-        const pets = await PetRepository.findByOwnerId(user.id);
+        const filters: QueryRequest = req.query;
+        const pets = await PetRepository.findByOwnerId(user.id, filters);
 
         return res.status(HTTP_STATUS.OK).json(
-            success("Meus pets pegados com sucesso", {
-                pets: toPetsResource(pets),
+            success("Seus Pets encontrados com sucesso", {
+                pets: toPetsResource(pets.data),
+                meta: pets.meta,
             })
         );
     } catch (err) {

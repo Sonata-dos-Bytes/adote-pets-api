@@ -6,7 +6,7 @@ interface CreateAdoptionDTO {
   reason: string
 }
 
-export class AdoptionRepository {
+export default class AdoptionRepository {
   static async findById(id: number) {
     return await prismaClient.adoteRequest.findUnique({ where: { id } })
   }
