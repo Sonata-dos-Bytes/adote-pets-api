@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "88a05325-b472-42a9-a62e-91d947fc027a",
+		"_postman_id": "a889ef43-b60a-4fae-a471-7753055ec54f",
 		"name": "adote-pets",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "36606064"
@@ -9,6 +9,2655 @@
 		{
 			"name": "auth",
 			"item": [
+				{
+					"name": "pet",
+					"item": [
+						{
+							"name": "adoption",
+							"item": [
+								{
+									"name": "adoption.create",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"reason\": \"Quero adotar esse animal porque me identifiquei com ele.\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests",
+											"host": [
+												"{{base_url}}auth"
+											],
+											"path": [
+												"pets",
+												"e30e1248-9753-4ab7-9842-4f0738d1cf25",
+												"adoptions",
+												"requests"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "201",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "{{token}}",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"reason\": \"Quero adotar esse animal porque me identifiquei com ele.\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests",
+													"host": [
+														"{{base_url}}auth"
+													],
+													"path": [
+														"pets",
+														"e30e1248-9753-4ab7-9842-4f0738d1cf25",
+														"adoptions",
+														"requests"
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": null,
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "1731"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"6c3-Xcp8WgmpIPpRt/VQwKbL1ld2Q40\""
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 25 Oct 2025 19:18:59 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": true,\n    \"message\": \"Solicitação criada com sucesso.\",\n    \"data\": {\n        \"adoption\": {\n            \"externalId\": \"110961e4-5e3d-4477-b15b-645a2f190878\",\n            \"createdAt\": \"2025-10-25T19:18:58.959Z\",\n            \"updatedAt\": \"2025-10-25T19:18:58.959Z\",\n            \"reason\": \"Quero adotar esse animal porque me identifiquei com ele.\",\n            \"pet\": {\n                \"externalId\": \"e30e1248-9753-4ab7-9842-4f0738d1cf25\",\n                \"createdAt\": \"2025-10-25T14:00:36.861Z\",\n                \"updatedAt\": \"2025-10-25T14:00:36.861Z\",\n                \"name\": \"Princesa\",\n                \"lore\": \"Cachorro amigável, adora crianças.\",\n                \"birthDay\": \"2021-05-10T00:00:00.000Z\",\n                \"species\": \"dog\",\n                \"breed\": \"Pastor Alemão\",\n                \"gender\": \"female\",\n                \"color\": \"Amarelo\",\n                \"city\": \"Balsas\",\n                \"state\": \"Balsas\",\n                \"uf\": \"MA\",\n                \"isCastrated\": true,\n                \"isAdote\": false,\n                \"files\": [\n                    {\n                        \"externalId\": \"17007d54-040b-44de-a5b8-97098503b6ae\",\n                        \"createdAt\": \"2025-10-25T14:00:37.351Z\",\n                        \"updatedAt\": \"2025-10-25T14:00:37.351Z\",\n                        \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/cb93b447-b014-4fb1-9c04-0cc2d3166bd1.jpg\",\n                        \"mimeType\": \"image/jpeg\",\n                        \"size\": 27157,\n                        \"extension\": \"jpg\",\n                        \"type\": \"image\",\n                        \"description\": \"\",\n                        \"orderIndex\": 0\n                    },\n                    {\n                        \"externalId\": \"bddac339-dd93-4a65-9b4e-35b06ed17fda\",\n                        \"createdAt\": \"2025-10-25T14:00:37.740Z\",\n                        \"updatedAt\": \"2025-10-25T14:00:37.740Z\",\n                        \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/d211b78b-2835-4631-a968-29e74c280ab5.jpg\",\n                        \"mimeType\": \"image/jpeg\",\n                        \"size\": 56506,\n                        \"extension\": \"jpg\",\n                        \"type\": \"image\",\n                        \"description\": \"\",\n                        \"orderIndex\": 1\n                    }\n                ]\n            },\n            \"user\": {\n                \"externalId\": \"8719c88f-6a93-4960-b791-ef1aab08145c\",\n                \"createdAt\": \"2025-10-25T19:17:25.877Z\",\n                \"updatedAt\": \"2025-10-25T19:17:25.877Z\",\n                \"name\": \"Matheus \",\n                \"email\": \"matheuszinho@gmail.com\",\n                \"phone\": null,\n                \"avatar\": null\n            }\n        }\n    }\n}"
+										},
+										{
+											"name": "409",
+											"originalRequest": {
+												"method": "POST",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "{{token}}",
+														"type": "text"
+													}
+												],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"reason\": \"Quero adotar esse animal porque me identifiquei com ele.\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests",
+													"host": [
+														"{{base_url}}auth"
+													],
+													"path": [
+														"pets",
+														"e30e1248-9753-4ab7-9842-4f0738d1cf25",
+														"adoptions",
+														"requests"
+													]
+												}
+											},
+											"status": "Conflict",
+											"code": 409,
+											"_postman_previewlanguage": null,
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "124"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"7c-cydOG1CeSOpB1mu7zwAllvUy7lQ\""
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 25 Oct 2025 19:19:39 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": false,\n    \"message\": \"Você já solicitou adoção para este pet.\",\n    \"errorCode\": \"ADOPTION_ALREADY_EXISTS\",\n    \"errors\": null\n}"
+										},
+										{
+											"name": "409",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "raw",
+													"raw": "{\n    \"reason\": \"Quero adotar esse animal porque me identifiquei com ele.\"\n}",
+													"options": {
+														"raw": {
+															"language": "json"
+														}
+													}
+												},
+												"url": {
+													"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests",
+													"host": [
+														"{{base_url}}auth"
+													],
+													"path": [
+														"pets",
+														"e30e1248-9753-4ab7-9842-4f0738d1cf25",
+														"adoptions",
+														"requests"
+													]
+												}
+											},
+											"status": "Conflict",
+											"code": 409,
+											"_postman_previewlanguage": null,
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "131"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"83-XKJ5hpjsnjIxDXx0ossr7yDA9aU\""
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 25 Oct 2025 19:32:12 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": false,\n    \"message\": \"Você não pode solicitar a adoção do seu próprio pet.\",\n    \"errorCode\": \"ADOPTION_OWN_PET\",\n    \"errors\": null\n}"
+										}
+									]
+								},
+								{
+									"name": "adoption.index",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests",
+											"host": [
+												"{{base_url}}auth"
+											],
+											"path": [
+												"pets",
+												"e30e1248-9753-4ab7-9842-4f0738d1cf25",
+												"adoptions",
+												"requests"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "200",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "{{token}}",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests",
+													"host": [
+														"{{base_url}}auth"
+													],
+													"path": [
+														"pets",
+														"e30e1248-9753-4ab7-9842-4f0738d1cf25",
+														"adoptions",
+														"requests"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": null,
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "1804"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"70c-Qisrc0kvaz5qBvgfKfr1TnnfyXg\""
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 25 Oct 2025 19:20:09 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": true,\n    \"message\": \"Solicitações recuperadas com sucesso.\",\n    \"data\": {\n        \"requests\": [\n            {\n                \"externalId\": \"110961e4-5e3d-4477-b15b-645a2f190878\",\n                \"createdAt\": \"2025-10-25T19:18:58.959Z\",\n                \"updatedAt\": \"2025-10-25T19:18:58.959Z\",\n                \"reason\": \"Quero adotar esse animal porque me identifiquei com ele.\",\n                \"pet\": {\n                    \"externalId\": \"e30e1248-9753-4ab7-9842-4f0738d1cf25\",\n                    \"createdAt\": \"2025-10-25T14:00:36.861Z\",\n                    \"updatedAt\": \"2025-10-25T14:00:36.861Z\",\n                    \"name\": \"Princesa\",\n                    \"lore\": \"Cachorro amigável, adora crianças.\",\n                    \"birthDay\": \"2021-05-10T00:00:00.000Z\",\n                    \"species\": \"dog\",\n                    \"breed\": \"Pastor Alemão\",\n                    \"gender\": \"female\",\n                    \"color\": \"Amarelo\",\n                    \"city\": \"Balsas\",\n                    \"state\": \"Balsas\",\n                    \"uf\": \"MA\",\n                    \"isCastrated\": true,\n                    \"isAdote\": false,\n                    \"files\": [\n                        {\n                            \"externalId\": \"17007d54-040b-44de-a5b8-97098503b6ae\",\n                            \"createdAt\": \"2025-10-25T14:00:37.351Z\",\n                            \"updatedAt\": \"2025-10-25T14:00:37.351Z\",\n                            \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/cb93b447-b014-4fb1-9c04-0cc2d3166bd1.jpg\",\n                            \"mimeType\": \"image/jpeg\",\n                            \"size\": 27157,\n                            \"extension\": \"jpg\",\n                            \"type\": \"image\",\n                            \"description\": \"\",\n                            \"orderIndex\": 0\n                        },\n                        {\n                            \"externalId\": \"bddac339-dd93-4a65-9b4e-35b06ed17fda\",\n                            \"createdAt\": \"2025-10-25T14:00:37.740Z\",\n                            \"updatedAt\": \"2025-10-25T14:00:37.740Z\",\n                            \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/d211b78b-2835-4631-a968-29e74c280ab5.jpg\",\n                            \"mimeType\": \"image/jpeg\",\n                            \"size\": 56506,\n                            \"extension\": \"jpg\",\n                            \"type\": \"image\",\n                            \"description\": \"\",\n                            \"orderIndex\": 1\n                        }\n                    ]\n                },\n                \"user\": {\n                    \"externalId\": \"8719c88f-6a93-4960-b791-ef1aab08145c\",\n                    \"createdAt\": \"2025-10-25T19:17:25.877Z\",\n                    \"updatedAt\": \"2025-10-25T19:17:25.877Z\",\n                    \"name\": \"Matheus \",\n                    \"email\": \"matheuszinho@gmail.com\",\n                    \"phone\": null,\n                    \"avatar\": null\n                }\n            }\n        ],\n        \"meta\": {\n            \"total\": 1,\n            \"lastPage\": 1,\n            \"userId\": 2,\n            \"page\": 1,\n            \"perPage\": 10\n        }\n    }\n}"
+										},
+										{
+											"name": "200",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "{{token}}",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests",
+													"host": [
+														"{{base_url}}auth"
+													],
+													"path": [
+														"pets",
+														"e30e1248-9753-4ab7-9842-4f0738d1cf25",
+														"adoptions",
+														"requests"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": null,
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "155"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"9b-5q1fq9xp2xrJthBexOUHu/2LG4s\""
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 25 Oct 2025 19:23:35 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": true,\n    \"message\": \"Solicitações recuperadas com sucesso.\",\n    \"data\": {\n        \"requests\": [],\n        \"meta\": {\n            \"total\": 0,\n            \"lastPage\": 0,\n            \"userId\": 2,\n            \"page\": 1,\n            \"perPage\": 10\n        }\n    }\n}"
+										}
+									]
+								},
+								{
+									"name": "adoption.get",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests/18ddd638-9d7d-4f18-9bb3-a3f8f08d9211",
+											"host": [
+												"{{base_url}}auth"
+											],
+											"path": [
+												"pets",
+												"e30e1248-9753-4ab7-9842-4f0738d1cf25",
+												"adoptions",
+												"requests",
+												"18ddd638-9d7d-4f18-9bb3-a3f8f08d9211"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "200",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "{{token}}",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests/110961e4-5e3d-4477-b15b-645a2f190878",
+													"host": [
+														"{{base_url}}auth"
+													],
+													"path": [
+														"pets",
+														"e30e1248-9753-4ab7-9842-4f0738d1cf25",
+														"adoptions",
+														"requests",
+														"110961e4-5e3d-4477-b15b-645a2f190878"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": null,
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "1734"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"6c6-2ieD8FAIT+/C4Nk3mKGyJs0o7B0\""
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 25 Oct 2025 19:22:03 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": true,\n    \"message\": \"Solicitação recuperada com sucesso.\",\n    \"data\": {\n        \"request\": {\n            \"externalId\": \"110961e4-5e3d-4477-b15b-645a2f190878\",\n            \"createdAt\": \"2025-10-25T19:18:58.959Z\",\n            \"updatedAt\": \"2025-10-25T19:18:58.959Z\",\n            \"reason\": \"Quero adotar esse animal porque me identifiquei com ele.\",\n            \"pet\": {\n                \"externalId\": \"e30e1248-9753-4ab7-9842-4f0738d1cf25\",\n                \"createdAt\": \"2025-10-25T14:00:36.861Z\",\n                \"updatedAt\": \"2025-10-25T14:00:36.861Z\",\n                \"name\": \"Princesa\",\n                \"lore\": \"Cachorro amigável, adora crianças.\",\n                \"birthDay\": \"2021-05-10T00:00:00.000Z\",\n                \"species\": \"dog\",\n                \"breed\": \"Pastor Alemão\",\n                \"gender\": \"female\",\n                \"color\": \"Amarelo\",\n                \"city\": \"Balsas\",\n                \"state\": \"Balsas\",\n                \"uf\": \"MA\",\n                \"isCastrated\": true,\n                \"isAdote\": false,\n                \"files\": [\n                    {\n                        \"externalId\": \"17007d54-040b-44de-a5b8-97098503b6ae\",\n                        \"createdAt\": \"2025-10-25T14:00:37.351Z\",\n                        \"updatedAt\": \"2025-10-25T14:00:37.351Z\",\n                        \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/cb93b447-b014-4fb1-9c04-0cc2d3166bd1.jpg\",\n                        \"mimeType\": \"image/jpeg\",\n                        \"size\": 27157,\n                        \"extension\": \"jpg\",\n                        \"type\": \"image\",\n                        \"description\": \"\",\n                        \"orderIndex\": 0\n                    },\n                    {\n                        \"externalId\": \"bddac339-dd93-4a65-9b4e-35b06ed17fda\",\n                        \"createdAt\": \"2025-10-25T14:00:37.740Z\",\n                        \"updatedAt\": \"2025-10-25T14:00:37.740Z\",\n                        \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/d211b78b-2835-4631-a968-29e74c280ab5.jpg\",\n                        \"mimeType\": \"image/jpeg\",\n                        \"size\": 56506,\n                        \"extension\": \"jpg\",\n                        \"type\": \"image\",\n                        \"description\": \"\",\n                        \"orderIndex\": 1\n                    }\n                ]\n            },\n            \"user\": {\n                \"externalId\": \"8719c88f-6a93-4960-b791-ef1aab08145c\",\n                \"createdAt\": \"2025-10-25T19:17:25.877Z\",\n                \"updatedAt\": \"2025-10-25T19:17:25.877Z\",\n                \"name\": \"Matheus \",\n                \"email\": \"matheuszinho@gmail.com\",\n                \"phone\": null,\n                \"avatar\": null\n            }\n        }\n    }\n}"
+										},
+										{
+											"name": "404",
+											"originalRequest": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "{{token}}",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests/110961e4-5e3d-4477-b15b-645a2f190878a",
+													"host": [
+														"{{base_url}}auth"
+													],
+													"path": [
+														"pets",
+														"e30e1248-9753-4ab7-9842-4f0738d1cf25",
+														"adoptions",
+														"requests",
+														"110961e4-5e3d-4477-b15b-645a2f190878a"
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": null,
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "117"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"75-FgjI3u1zOQ3loZQ3GgLNhle670A\""
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 25 Oct 2025 19:23:24 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": false,\n    \"message\": \"Solicitação de adoção não encontrada!\",\n    \"errorCode\": \"REQUEST_NOT_FOUND\",\n    \"errors\": null\n}"
+										}
+									]
+								},
+								{
+									"name": "adoption.delete",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests/b8044197-06be-4748-a2ee-6142f4e7cd6e",
+											"host": [
+												"{{base_url}}auth"
+											],
+											"path": [
+												"pets",
+												"e30e1248-9753-4ab7-9842-4f0738d1cf25",
+												"adoptions",
+												"requests",
+												"b8044197-06be-4748-a2ee-6142f4e7cd6e"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "204",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "{{token}}",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests/110961e4-5e3d-4477-b15b-645a2f190878",
+													"host": [
+														"{{base_url}}auth"
+													],
+													"path": [
+														"pets",
+														"e30e1248-9753-4ab7-9842-4f0738d1cf25",
+														"adoptions",
+														"requests",
+														"110961e4-5e3d-4477-b15b-645a2f190878"
+													]
+												}
+											},
+											"status": "No Content",
+											"code": 204,
+											"_postman_previewlanguage": null,
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 25 Oct 2025 19:22:40 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": null
+										},
+										{
+											"name": "404",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "{{token}}",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests/110961e4-5e3d-4477-b15b-645a2f190878",
+													"host": [
+														"{{base_url}}auth"
+													],
+													"path": [
+														"pets",
+														"e30e1248-9753-4ab7-9842-4f0738d1cf25",
+														"adoptions",
+														"requests",
+														"110961e4-5e3d-4477-b15b-645a2f190878"
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": null,
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "117"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"75-FgjI3u1zOQ3loZQ3GgLNhle670A\""
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 25 Oct 2025 19:23:15 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": false,\n    \"message\": \"Solicitação de adoção não encontrada!\",\n    \"errorCode\": \"REQUEST_NOT_FOUND\",\n    \"errors\": null\n}"
+										},
+										{
+											"name": "409",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"url": {
+													"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests/b8044197-06be-4748-a2ee-6142f4e7cd6e",
+													"host": [
+														"{{base_url}}auth"
+													],
+													"path": [
+														"pets",
+														"e30e1248-9753-4ab7-9842-4f0738d1cf25",
+														"adoptions",
+														"requests",
+														"b8044197-06be-4748-a2ee-6142f4e7cd6e"
+													]
+												}
+											},
+											"status": "Conflict",
+											"code": 409,
+											"_postman_previewlanguage": null,
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "138"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"8a-7WhRnNBw2U1UURbY8f5w2n3L7JI\""
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 25 Oct 2025 19:36:38 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": false,\n    \"message\": \"Você não tem permissão para cancelar esta solicitação de adoção.\",\n    \"errorCode\": \"FORBIDDEN\",\n    \"errors\": null\n}"
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "file",
+							"item": [
+								{
+									"name": "file.index",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files",
+											"host": [
+												"{{base_url}}auth"
+											],
+											"path": [
+												"pets",
+												"9f57ffec-c359-4545-ae3b-d61f0a43ed11",
+												"files"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "200",
+											"originalRequest": {
+												"method": "GET",
+												"header": [],
+												"body": {
+													"mode": "formdata",
+													"formdata": []
+												},
+												"url": {
+													"raw": "{{base_url}}auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files",
+													"host": [
+														"{{base_url}}auth"
+													],
+													"path": [
+														"pets",
+														"9f57ffec-c359-4545-ae3b-d61f0a43ed11",
+														"files"
+													]
+												}
+											},
+											"status": "OK",
+											"code": 200,
+											"_postman_previewlanguage": null,
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "917"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"395-6ID+nSEqRhcvrt7NA+aCbh8l8BQ\""
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 25 Oct 2025 20:44:14 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": true,\n    \"message\": \"Arquivos do pet encontrados com sucesso\",\n    \"data\": {\n        \"petFiles\": [\n            {\n                \"externalId\": \"1527034d-71ad-4708-b81a-44dc615c9b0b\",\n                \"createdAt\": \"2025-10-25T20:14:58.787Z\",\n                \"updatedAt\": \"2025-10-25T20:14:58.787Z\",\n                \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/d7ff4b26-268f-46cc-9ec9-e86d3907ff35.jpg\",\n                \"mimeType\": \"image/jpeg\",\n                \"size\": 56506,\n                \"extension\": \"jpg\",\n                \"type\": \"image\",\n                \"description\": \"\",\n                \"orderIndex\": 0\n            },\n            {\n                \"externalId\": \"cc27699b-e8e5-422f-927b-d2f9f20a37d0\",\n                \"createdAt\": \"2025-10-25T20:14:59.106Z\",\n                \"updatedAt\": \"2025-10-25T20:14:59.106Z\",\n                \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/bb85741d-abe8-49a6-8384-c977932273a3.jpg\",\n                \"mimeType\": \"image/jpeg\",\n                \"size\": 27157,\n                \"extension\": \"jpg\",\n                \"type\": \"image\",\n                \"description\": \"\",\n                \"orderIndex\": 1\n            }\n        ]\n    }\n}"
+										}
+									]
+								},
+								{
+									"name": "file.store",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "file",
+													"type": "file",
+													"src": "/home/pedroh/Downloads/pastor-alemao-filhote-pequeno.png"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files",
+											"host": [
+												"{{base_url}}auth"
+											],
+											"path": [
+												"pets",
+												"9f57ffec-c359-4545-ae3b-d61f0a43ed11",
+												"files"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "201",
+											"originalRequest": {
+												"method": "POST",
+												"header": [],
+												"body": {
+													"mode": "formdata",
+													"formdata": [
+														{
+															"key": "file",
+															"type": "file",
+															"src": "/home/pedroh/Downloads/pastor-alemao-filhote-pequeno.png"
+														}
+													]
+												},
+												"url": {
+													"raw": "{{base_url}}auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files",
+													"host": [
+														"{{base_url}}auth"
+													],
+													"path": [
+														"pets",
+														"9f57ffec-c359-4545-ae3b-d61f0a43ed11",
+														"files"
+													]
+												}
+											},
+											"status": "Created",
+											"code": 201,
+											"_postman_previewlanguage": null,
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "495"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"1ef-Ghn5NCC8/DtWTcQoZ3vYBq6fxQ8\""
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 25 Oct 2025 20:49:50 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": true,\n    \"message\": \"Arquivo do pet enviado com sucesso\",\n    \"data\": {\n        \"petFile\": {\n            \"externalId\": \"29864a4e-68f2-422f-bdfa-1cd0828dc9f3\",\n            \"createdAt\": \"2025-10-25T20:49:49.996Z\",\n            \"updatedAt\": \"2025-10-25T20:49:49.996Z\",\n            \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/2c802016-befb-48c9-8221-644643b02b34.png\",\n            \"mimeType\": \"image/png\",\n            \"size\": 536520,\n            \"extension\": \"png\",\n            \"type\": \"image\",\n            \"description\": \"\",\n            \"orderIndex\": 2\n        }\n    }\n}"
+										}
+									]
+								},
+								{
+									"name": "file.set-as-main",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files/42efab05-f6a0-4b09-9554-6772b0a35abd/set-as-main",
+											"host": [
+												"{{base_url}}auth"
+											],
+											"path": [
+												"pets",
+												"9f57ffec-c359-4545-ae3b-d61f0a43ed11",
+												"files",
+												"42efab05-f6a0-4b09-9554-6772b0a35abd",
+												"set-as-main"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "204",
+											"originalRequest": {
+												"method": "PATCH",
+												"header": [],
+												"body": {
+													"mode": "formdata",
+													"formdata": []
+												},
+												"url": {
+													"raw": "{{base_url}}auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files/29864a4e-68f2-422f-bdfa-1cd0828dc9f3/set-as-main",
+													"host": [
+														"{{base_url}}auth"
+													],
+													"path": [
+														"pets",
+														"9f57ffec-c359-4545-ae3b-d61f0a43ed11",
+														"files",
+														"29864a4e-68f2-422f-bdfa-1cd0828dc9f3",
+														"set-as-main"
+													]
+												}
+											},
+											"status": "No Content",
+											"code": 204,
+											"_postman_previewlanguage": null,
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 25 Oct 2025 20:56:13 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": null
+										},
+										{
+											"name": "404",
+											"originalRequest": {
+												"method": "PATCH",
+												"header": [],
+												"body": {
+													"mode": "formdata",
+													"formdata": []
+												},
+												"url": {
+													"raw": "{{base_url}}auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files/29864a4e-68f2-422f-bdfa-1cd0828dc9f3a/set-as-main",
+													"host": [
+														"{{base_url}}auth"
+													],
+													"path": [
+														"pets",
+														"9f57ffec-c359-4545-ae3b-d61f0a43ed11",
+														"files",
+														"29864a4e-68f2-422f-bdfa-1cd0828dc9f3a",
+														"set-as-main"
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": null,
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "107"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"6b-xieygEfr2Ezqsq1wOkhVheby/08\""
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 25 Oct 2025 20:58:15 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": false,\n    \"message\": \"Arquivo do pet não encontrado!\",\n    \"errorCode\": \"PET_FILE_NOT_FOUND\",\n    \"errors\": null\n}"
+										}
+									]
+								},
+								{
+									"name": "file.delete",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{token}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": {
+											"raw": "{{base_url}}auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files/cc27699b-e8e5-422f-927b-d2f9f20a37d0",
+											"host": [
+												"{{base_url}}auth"
+											],
+											"path": [
+												"pets",
+												"9f57ffec-c359-4545-ae3b-d61f0a43ed11",
+												"files",
+												"cc27699b-e8e5-422f-927b-d2f9f20a37d0"
+											]
+										}
+									},
+									"response": [
+										{
+											"name": "404",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"body": {
+													"mode": "formdata",
+													"formdata": []
+												},
+												"url": {
+													"raw": "{{base_url}}auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files/1527034d-71ad-4708-b81a-44dc615c9b0b",
+													"host": [
+														"{{base_url}}auth"
+													],
+													"path": [
+														"pets",
+														"9f57ffec-c359-4545-ae3b-d61f0a43ed11",
+														"files",
+														"1527034d-71ad-4708-b81a-44dc615c9b0b"
+													]
+												}
+											},
+											"status": "Not Found",
+											"code": 404,
+											"_postman_previewlanguage": null,
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												},
+												{
+													"key": "Content-Type",
+													"value": "application/json; charset=utf-8"
+												},
+												{
+													"key": "Content-Length",
+													"value": "107"
+												},
+												{
+													"key": "ETag",
+													"value": "W/\"6b-xieygEfr2Ezqsq1wOkhVheby/08\""
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 25 Oct 2025 20:59:26 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": "{\n    \"status\": false,\n    \"message\": \"Arquivo do pet não encontrado!\",\n    \"errorCode\": \"PET_FILE_NOT_FOUND\",\n    \"errors\": null\n}"
+										},
+										{
+											"name": "204",
+											"originalRequest": {
+												"method": "DELETE",
+												"header": [],
+												"body": {
+													"mode": "formdata",
+													"formdata": []
+												},
+												"url": {
+													"raw": "{{base_url}}auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files/f90c662c-36c6-4250-9f49-8f57ec9cb0eb",
+													"host": [
+														"{{base_url}}auth"
+													],
+													"path": [
+														"pets",
+														"9f57ffec-c359-4545-ae3b-d61f0a43ed11",
+														"files",
+														"f90c662c-36c6-4250-9f49-8f57ec9cb0eb"
+													]
+												}
+											},
+											"status": "No Content",
+											"code": 204,
+											"_postman_previewlanguage": null,
+											"header": [
+												{
+													"key": "X-Powered-By",
+													"value": "Express"
+												},
+												{
+													"key": "Access-Control-Allow-Origin",
+													"value": "*"
+												},
+												{
+													"key": "Date",
+													"value": "Sat, 25 Oct 2025 20:59:56 GMT"
+												},
+												{
+													"key": "Connection",
+													"value": "keep-alive"
+												},
+												{
+													"key": "Keep-Alive",
+													"value": "timeout=5"
+												}
+											],
+											"cookie": [],
+											"body": null
+										}
+									]
+								}
+							]
+						},
+						{
+							"name": "pet.create",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Princesa",
+											"type": "text"
+										},
+										{
+											"key": "lore",
+											"value": "Cachorro amigável, adora crianças.",
+											"type": "text"
+										},
+										{
+											"key": "birthDay",
+											"value": "2021-05-10",
+											"type": "text"
+										},
+										{
+											"key": "species",
+											"value": "dog",
+											"type": "text"
+										},
+										{
+											"key": "breed",
+											"value": "Pastor Alemão",
+											"type": "text"
+										},
+										{
+											"key": "gender",
+											"value": "female",
+											"type": "text"
+										},
+										{
+											"key": "color",
+											"value": "Amarelo",
+											"type": "text"
+										},
+										{
+											"key": "city",
+											"value": "Balsas",
+											"type": "text"
+										},
+										{
+											"key": "state",
+											"value": "Balsas",
+											"type": "text"
+										},
+										{
+											"key": "uf",
+											"value": "MA",
+											"type": "text"
+										},
+										{
+											"key": "isCastrated",
+											"value": "true",
+											"type": "text"
+										},
+										{
+											"key": "isAdote",
+											"value": "false",
+											"type": "text"
+										},
+										{
+											"key": "files[]",
+											"type": "file",
+											"src": "/home/pedroh/Downloads/pastor-alemao-filhote.jpg"
+										},
+										{
+											"key": "files[]",
+											"type": "file",
+											"src": "/home/pedroh/Downloads/pastor-alemao-441x360.jpg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}auth/pets",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"pets"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "201",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Rex",
+													"type": "text"
+												},
+												{
+													"key": "lore",
+													"value": "Cachorro amigável, adora crianças.",
+													"type": "text"
+												},
+												{
+													"key": "birthDay",
+													"value": "2021-05-10",
+													"type": "text"
+												},
+												{
+													"key": "species",
+													"value": "dog",
+													"type": "text"
+												},
+												{
+													"key": "breed",
+													"value": "Labrador",
+													"type": "text"
+												},
+												{
+													"key": "gender",
+													"value": "male",
+													"type": "text"
+												},
+												{
+													"key": "color",
+													"value": "Amarelo",
+													"type": "text"
+												},
+												{
+													"key": "city",
+													"value": "São Paulo",
+													"type": "text"
+												},
+												{
+													"key": "state",
+													"value": "São Paulo",
+													"type": "text"
+												},
+												{
+													"key": "uf",
+													"value": "SP",
+													"type": "text"
+												},
+												{
+													"key": "isCastrated",
+													"value": "true",
+													"type": "text"
+												},
+												{
+													"key": "isAdote",
+													"value": "false",
+													"type": "text"
+												},
+												{
+													"key": "files[]",
+													"type": "file",
+													"src": "/home/pedroh/Downloads/pastor-alemao-441x360.jpg"
+												},
+												{
+													"key": "files[]",
+													"type": "file",
+													"src": "/home/pedroh/Downloads/pastor-alemao-filhote.jpg"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}auth/pets",
+											"host": [
+												"{{base_url}}auth"
+											],
+											"path": [
+												"pets"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "1287"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"507-5mxbvwuaHgh7v3zmv1n+hTYVoKU\""
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 25 Oct 2025 13:56:15 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": true,\n    \"message\": \"Pet criado com sucesso\",\n    \"data\": {\n        \"pet\": {\n            \"externalId\": \"fd10d2b1-343c-47c4-9721-42a7453853fa\",\n            \"createdAt\": \"2025-10-25T13:56:14.387Z\",\n            \"updatedAt\": \"2025-10-25T13:56:14.387Z\",\n            \"name\": \"Rex\",\n            \"lore\": \"Cachorro amigável, adora crianças.\",\n            \"birthDay\": \"2021-05-10T00:00:00.000Z\",\n            \"species\": \"dog\",\n            \"breed\": \"Labrador\",\n            \"gender\": \"male\",\n            \"color\": \"Amarelo\",\n            \"city\": \"São Paulo\",\n            \"state\": \"São Paulo\",\n            \"uf\": \"SP\",\n            \"isCastrated\": true,\n            \"isAdote\": false,\n            \"files\": [\n                {\n                    \"externalId\": \"34484e71-b160-42de-939d-1c569d837c57\",\n                    \"createdAt\": \"2025-10-25T13:56:14.920Z\",\n                    \"updatedAt\": \"2025-10-25T13:56:14.920Z\",\n                    \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/fd10d2b1-343c-47c4-9721-42a7453853fa/4446ecad-19d2-4c12-8207-cb99e0e8f456.jpg\",\n                    \"mimeType\": \"image/jpeg\",\n                    \"size\": 27157,\n                    \"extension\": \"jpg\",\n                    \"type\": \"image\",\n                    \"description\": \"\",\n                    \"orderIndex\": 0\n                },\n                {\n                    \"externalId\": \"ca81bd5c-c9ed-4fe0-9c77-8ad789434114\",\n                    \"createdAt\": \"2025-10-25T13:56:15.339Z\",\n                    \"updatedAt\": \"2025-10-25T13:56:15.339Z\",\n                    \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/fd10d2b1-343c-47c4-9721-42a7453853fa/11b9cdfe-ec03-47ce-852f-df82616e5b11.jpg\",\n                    \"mimeType\": \"image/jpeg\",\n                    \"size\": 56506,\n                    \"extension\": \"jpg\",\n                    \"type\": \"image\",\n                    \"description\": \"\",\n                    \"orderIndex\": 1\n                }\n            ]\n        }\n    }\n}"
+								},
+								{
+									"name": "201",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Princesa",
+													"type": "text"
+												},
+												{
+													"key": "lore",
+													"value": "Cachorro amigável, adora crianças.",
+													"type": "text"
+												},
+												{
+													"key": "birthDay",
+													"value": "2021-05-10",
+													"type": "text"
+												},
+												{
+													"key": "species",
+													"value": "dog",
+													"type": "text"
+												},
+												{
+													"key": "breed",
+													"value": "Pastor Alemão",
+													"type": "text"
+												},
+												{
+													"key": "gender",
+													"value": "female",
+													"type": "text"
+												},
+												{
+													"key": "color",
+													"value": "Amarelo",
+													"type": "text"
+												},
+												{
+													"key": "city",
+													"value": "Balsas",
+													"type": "text"
+												},
+												{
+													"key": "state",
+													"value": "Balsas",
+													"type": "text"
+												},
+												{
+													"key": "uf",
+													"value": "MA",
+													"type": "text"
+												},
+												{
+													"key": "isCastrated",
+													"value": "true",
+													"type": "text"
+												},
+												{
+													"key": "isAdote",
+													"value": "false",
+													"type": "text"
+												},
+												{
+													"key": "files[]",
+													"type": "file",
+													"src": "/home/pedroh/Downloads/pastor-alemao-441x360.jpg"
+												},
+												{
+													"key": "files[]",
+													"type": "file",
+													"src": "/home/pedroh/Downloads/pastor-alemao-filhote.jpg"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}auth/pets",
+											"host": [
+												"{{base_url}}auth"
+											],
+											"path": [
+												"pets"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "1292"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"50c-ovoORwwNYKMsexHw+gidmJcwjlo\""
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 25 Oct 2025 14:00:37 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": true,\n    \"message\": \"Pet criado com sucesso\",\n    \"data\": {\n        \"pet\": {\n            \"externalId\": \"e30e1248-9753-4ab7-9842-4f0738d1cf25\",\n            \"createdAt\": \"2025-10-25T14:00:36.861Z\",\n            \"updatedAt\": \"2025-10-25T14:00:36.861Z\",\n            \"name\": \"Princesa\",\n            \"lore\": \"Cachorro amigável, adora crianças.\",\n            \"birthDay\": \"2021-05-10T00:00:00.000Z\",\n            \"species\": \"dog\",\n            \"breed\": \"Pastor Alemão\",\n            \"gender\": \"female\",\n            \"color\": \"Amarelo\",\n            \"city\": \"Balsas\",\n            \"state\": \"Balsas\",\n            \"uf\": \"MA\",\n            \"isCastrated\": true,\n            \"isAdote\": false,\n            \"files\": [\n                {\n                    \"externalId\": \"17007d54-040b-44de-a5b8-97098503b6ae\",\n                    \"createdAt\": \"2025-10-25T14:00:37.351Z\",\n                    \"updatedAt\": \"2025-10-25T14:00:37.351Z\",\n                    \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/cb93b447-b014-4fb1-9c04-0cc2d3166bd1.jpg\",\n                    \"mimeType\": \"image/jpeg\",\n                    \"size\": 27157,\n                    \"extension\": \"jpg\",\n                    \"type\": \"image\",\n                    \"description\": \"\",\n                    \"orderIndex\": 0\n                },\n                {\n                    \"externalId\": \"bddac339-dd93-4a65-9b4e-35b06ed17fda\",\n                    \"createdAt\": \"2025-10-25T14:00:37.740Z\",\n                    \"updatedAt\": \"2025-10-25T14:00:37.740Z\",\n                    \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/d211b78b-2835-4631-a968-29e74c280ab5.jpg\",\n                    \"mimeType\": \"image/jpeg\",\n                    \"size\": 56506,\n                    \"extension\": \"jpg\",\n                    \"type\": \"image\",\n                    \"description\": \"\",\n                    \"orderIndex\": 1\n                }\n            ]\n        }\n    }\n}"
+								},
+								{
+									"name": "422",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Princesa",
+													"type": "text"
+												},
+												{
+													"key": "lore",
+													"value": "Cachorro amigável, adora crianças.",
+													"type": "text"
+												},
+												{
+													"key": "birthDay",
+													"value": "2021-05-10",
+													"type": "text"
+												},
+												{
+													"key": "species",
+													"value": "dog",
+													"type": "text"
+												},
+												{
+													"key": "breed",
+													"value": "Pastor Alemão",
+													"type": "text"
+												},
+												{
+													"key": "gender",
+													"value": "female",
+													"type": "text"
+												},
+												{
+													"key": "color",
+													"value": "Amarelo",
+													"type": "text"
+												},
+												{
+													"key": "city",
+													"value": "Balsas",
+													"type": "text"
+												},
+												{
+													"key": "state",
+													"value": "Balsas",
+													"type": "text"
+												},
+												{
+													"key": "uf",
+													"value": "MA",
+													"type": "text"
+												},
+												{
+													"key": "isCastrated",
+													"value": "true",
+													"type": "text"
+												},
+												{
+													"key": "isAdote",
+													"value": "false",
+													"type": "text"
+												},
+												{
+													"key": "files[]",
+													"type": "file",
+													"src": "/home/pedroh/Downloads/pastor-alemao-441x360.jpg",
+													"disabled": true
+												},
+												{
+													"key": "files[]",
+													"type": "file",
+													"src": "/home/pedroh/Downloads/pastor-alemao-filhote.jpg",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}auth/pets",
+											"host": [
+												"{{base_url}}auth"
+											],
+											"path": [
+												"pets"
+											]
+										}
+									},
+									"status": "Unprocessable Entity",
+									"code": 422,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "217"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"d9-556unr9TkqwhIt5iQkrawM2POkQ\""
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 25 Oct 2025 19:59:58 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": false,\n    \"message\": \"É necessário enviar ao menos uma imagem do pet.\",\n    \"errorCode\": \"VALIDATION_ERROR\",\n    \"errors\": [\n        {\n            \"code\": \"custom\",\n            \"path\": [\n                \"files\"\n            ],\n            \"message\": \"É necessário enviar ao menos uma imagem do pet.\"\n        }\n    ]\n}"
+								},
+								{
+									"name": "422",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Princesa",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "lore",
+													"value": "Cachorro amigável, adora crianças.",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "birthDay",
+													"value": "2021-05-10",
+													"type": "text"
+												},
+												{
+													"key": "species",
+													"value": "dog",
+													"type": "text"
+												},
+												{
+													"key": "breed",
+													"value": "Pastor Alemão",
+													"type": "text"
+												},
+												{
+													"key": "gender",
+													"value": "female",
+													"type": "text"
+												},
+												{
+													"key": "color",
+													"value": "Amarelo",
+													"type": "text"
+												},
+												{
+													"key": "city",
+													"value": "Balsas",
+													"type": "text"
+												},
+												{
+													"key": "state",
+													"value": "Balsas",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "uf",
+													"value": "MA",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "isCastrated",
+													"value": "true",
+													"type": "text"
+												},
+												{
+													"key": "isAdote",
+													"value": "false",
+													"type": "text"
+												},
+												{
+													"key": "files[]",
+													"type": "file",
+													"src": "/home/pedroh/Downloads/pastor-alemao-441x360.jpg",
+													"disabled": true
+												},
+												{
+													"key": "files[]",
+													"type": "file",
+													"src": "/home/pedroh/Downloads/pastor-alemao-filhote.jpg",
+													"disabled": true
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}auth/pets",
+											"host": [
+												"{{base_url}}auth"
+											],
+											"path": [
+												"pets"
+											]
+										}
+									},
+									"status": "Unprocessable Entity",
+									"code": 422,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "455"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"1c7-CyXys71LzFz/fzhhPWwnSVHZQHU\""
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 25 Oct 2025 20:00:16 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": false,\n    \"message\": \"Validation Error\",\n    \"errorCode\": \"VALIDATION_ERROR\",\n    \"errors\": [\n        {\n            \"expected\": \"string\",\n            \"code\": \"invalid_type\",\n            \"path\": [\n                \"name\"\n            ],\n            \"message\": \"Invalid input: expected string, received undefined\"\n        },\n        {\n            \"expected\": \"string\",\n            \"code\": \"invalid_type\",\n            \"path\": [\n                \"state\"\n            ],\n            \"message\": \"Invalid input: expected string, received undefined\"\n        },\n        {\n            \"expected\": \"string\",\n            \"code\": \"invalid_type\",\n            \"path\": [\n                \"uf\"\n            ],\n            \"message\": \"Invalid input: expected string, received undefined\"\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "pet.update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Xer2",
+											"type": "text"
+										},
+										{
+											"key": "lore",
+											"value": "Cachorro amigável, adora crianças.",
+											"type": "text"
+										},
+										{
+											"key": "birthDay",
+											"value": "2021-05-10",
+											"type": "text"
+										},
+										{
+											"key": "species",
+											"value": "dog",
+											"type": "text"
+										},
+										{
+											"key": "breed",
+											"value": "Labrador",
+											"type": "text"
+										},
+										{
+											"key": "gender",
+											"value": "male",
+											"type": "text"
+										},
+										{
+											"key": "color",
+											"value": "Amarelo",
+											"type": "text"
+										},
+										{
+											"key": "city",
+											"value": "São Paulo",
+											"type": "text"
+										},
+										{
+											"key": "state",
+											"value": "São Paulo",
+											"type": "text"
+										},
+										{
+											"key": "uf",
+											"value": "SP",
+											"type": "text"
+										},
+										{
+											"key": "isCastrated",
+											"value": "true",
+											"type": "text"
+										},
+										{
+											"key": "isAdote",
+											"value": "true",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}auth/pets/bb7c5a04-9b84-42f9-82fc-51a0be24b5a2",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"pets",
+										"bb7c5a04-9b84-42f9-82fc-51a0be24b5a2"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "204",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Xer2",
+													"type": "text"
+												},
+												{
+													"key": "lore",
+													"value": "Cachorro amigável, adora crianças.",
+													"type": "text"
+												},
+												{
+													"key": "birthDay",
+													"value": "2021-05-10",
+													"type": "text"
+												},
+												{
+													"key": "species",
+													"value": "dog",
+													"type": "text"
+												},
+												{
+													"key": "breed",
+													"value": "Labrador",
+													"type": "text"
+												},
+												{
+													"key": "gender",
+													"value": "male",
+													"type": "text"
+												},
+												{
+													"key": "color",
+													"value": "Amarelo",
+													"type": "text"
+												},
+												{
+													"key": "city",
+													"value": "São Paulo",
+													"type": "text"
+												},
+												{
+													"key": "state",
+													"value": "São Paulo",
+													"type": "text"
+												},
+												{
+													"key": "uf",
+													"value": "SP",
+													"type": "text"
+												},
+												{
+													"key": "isCastrated",
+													"value": "true",
+													"type": "text"
+												},
+												{
+													"key": "isAdote",
+													"value": "true",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}auth/pets/fd10d2b1-343c-47c4-9721-42a7453853fa",
+											"host": [
+												"{{base_url}}auth"
+											],
+											"path": [
+												"pets",
+												"fd10d2b1-343c-47c4-9721-42a7453853fa"
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 25 Oct 2025 14:43:36 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": null
+								},
+								{
+									"name": "403",
+									"originalRequest": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "Xer2",
+													"type": "text"
+												},
+												{
+													"key": "lore",
+													"value": "Cachorro amigável, adora crianças.",
+													"type": "text"
+												},
+												{
+													"key": "birthDay",
+													"value": "2021-05-10",
+													"type": "text"
+												},
+												{
+													"key": "species",
+													"value": "dog",
+													"type": "text"
+												},
+												{
+													"key": "breed",
+													"value": "Labrador",
+													"type": "text"
+												},
+												{
+													"key": "gender",
+													"value": "male",
+													"type": "text"
+												},
+												{
+													"key": "color",
+													"value": "Amarelo",
+													"type": "text"
+												},
+												{
+													"key": "city",
+													"value": "São Paulo",
+													"type": "text"
+												},
+												{
+													"key": "state",
+													"value": "São Paulo",
+													"type": "text"
+												},
+												{
+													"key": "uf",
+													"value": "SP",
+													"type": "text"
+												},
+												{
+													"key": "isCastrated",
+													"value": "true",
+													"type": "text"
+												},
+												{
+													"key": "isAdote",
+													"value": "true",
+													"type": "text"
+												}
+											]
+										},
+										"url": {
+											"raw": "{{base_url}}auth/pets/bb7c5a04-9b84-42f9-82fc-51a0be24b5a2",
+											"host": [
+												"{{base_url}}auth"
+											],
+											"path": [
+												"pets",
+												"bb7c5a04-9b84-42f9-82fc-51a0be24b5a2"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "116"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"74-asIpSaL8KHDik91waew67WY5tN0\""
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 25 Oct 2025 19:30:29 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": false,\n    \"message\": \"Você não tem permissão para atualizar este pet\",\n    \"errorCode\": \"FORBIDDEN\",\n    \"errors\": null\n}"
+								}
+							]
+						},
+						{
+							"name": "pet.my-pets",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}auth/pets/my-pets",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"pets",
+										"my-pets"
+									],
+									"query": [
+										{
+											"key": "uf",
+											"value": "ma",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "2",
+											"disabled": true
+										},
+										{
+											"key": "perPage",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "200",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}auth/pets/my-pets",
+											"host": [
+												"{{base_url}}auth"
+											],
+											"path": [
+												"pets",
+												"my-pets"
+											],
+											"query": [
+												{
+													"key": "uf",
+													"value": "ma",
+													"disabled": true
+												},
+												{
+													"key": "page",
+													"value": "2",
+													"disabled": true
+												},
+												{
+													"key": "perPage",
+													"value": "1",
+													"disabled": true
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "1360"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"550-dnzX3zKKxetKRHtNmy1CuhlJe24\""
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 25 Oct 2025 15:57:19 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": true,\n    \"message\": \"Seus Pets encontrados com sucesso\",\n    \"data\": {\n        \"pets\": [\n            {\n                \"externalId\": \"e30e1248-9753-4ab7-9842-4f0738d1cf25\",\n                \"createdAt\": \"2025-10-25T14:00:36.861Z\",\n                \"updatedAt\": \"2025-10-25T14:00:36.861Z\",\n                \"name\": \"Princesa\",\n                \"lore\": \"Cachorro amigável, adora crianças.\",\n                \"birthDay\": \"2021-05-10T00:00:00.000Z\",\n                \"species\": \"dog\",\n                \"breed\": \"Pastor Alemão\",\n                \"gender\": \"female\",\n                \"color\": \"Amarelo\",\n                \"city\": \"Balsas\",\n                \"state\": \"Balsas\",\n                \"uf\": \"MA\",\n                \"isCastrated\": true,\n                \"isAdote\": false,\n                \"files\": [\n                    {\n                        \"externalId\": \"17007d54-040b-44de-a5b8-97098503b6ae\",\n                        \"createdAt\": \"2025-10-25T14:00:37.351Z\",\n                        \"updatedAt\": \"2025-10-25T14:00:37.351Z\",\n                        \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/cb93b447-b014-4fb1-9c04-0cc2d3166bd1.jpg\",\n                        \"mimeType\": \"image/jpeg\",\n                        \"size\": 27157,\n                        \"extension\": \"jpg\",\n                        \"type\": \"image\",\n                        \"description\": \"\",\n                        \"orderIndex\": 0\n                    },\n                    {\n                        \"externalId\": \"bddac339-dd93-4a65-9b4e-35b06ed17fda\",\n                        \"createdAt\": \"2025-10-25T14:00:37.740Z\",\n                        \"updatedAt\": \"2025-10-25T14:00:37.740Z\",\n                        \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/d211b78b-2835-4631-a968-29e74c280ab5.jpg\",\n                        \"mimeType\": \"image/jpeg\",\n                        \"size\": 56506,\n                        \"extension\": \"jpg\",\n                        \"type\": \"image\",\n                        \"description\": \"\",\n                        \"orderIndex\": 1\n                    }\n                ]\n            }\n        ],\n        \"meta\": {\n            \"total\": 1,\n            \"lastPage\": 1,\n            \"page\": 1,\n            \"perPage\": 10\n        }\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "pet.delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}auth/pets/bb7c5a04-9b84-42f9-82fc-51a0be24b5a2",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"pets",
+										"bb7c5a04-9b84-42f9-82fc-51a0be24b5a2"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "204",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}auth/pets/fd10d2b1-343c-47c4-9721-42a7453853fa",
+											"host": [
+												"{{base_url}}auth"
+											],
+											"path": [
+												"pets",
+												"fd10d2b1-343c-47c4-9721-42a7453853fa"
+											]
+										}
+									},
+									"status": "No Content",
+									"code": 204,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 25 Oct 2025 14:48:19 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": null
+								},
+								{
+									"name": "403",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}auth/pets/bb7c5a04-9b84-42f9-82fc-51a0be24b5a2",
+											"host": [
+												"{{base_url}}auth"
+											],
+											"path": [
+												"pets",
+												"bb7c5a04-9b84-42f9-82fc-51a0be24b5a2"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "116"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"74-asIpSaL8KHDik91waew67WY5tN0\""
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 25 Oct 2025 19:30:16 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": false,\n    \"message\": \"Você não tem permissão para atualizar este pet\",\n    \"errorCode\": \"FORBIDDEN\",\n    \"errors\": null\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "adoption",
+					"item": [
+						{
+							"name": "adoption.by-user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}auth/adoptions/adoption-requests",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"adoptions",
+										"adoption-requests"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "200",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}auth/adoptions/adoption-requests",
+											"host": [
+												"{{base_url}}auth"
+											],
+											"path": [
+												"adoptions",
+												"adoption-requests"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "1802"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"70a-x+Uvr8IGCL0DDyYLjuVpFSgXfDc\""
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 25 Oct 2025 19:26:51 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": true,\n    \"message\": \"Histórico de adoções recuperado com sucesso.\",\n    \"data\": {\n        \"adoptions\": [\n            {\n                \"externalId\": \"18ddd638-9d7d-4f18-9bb3-a3f8f08d9211\",\n                \"createdAt\": \"2025-10-25T19:23:41.799Z\",\n                \"updatedAt\": \"2025-10-25T19:23:41.799Z\",\n                \"reason\": \"Quero adotar esse animal porque me identifiquei com ele.\",\n                \"pet\": {\n                    \"externalId\": \"e30e1248-9753-4ab7-9842-4f0738d1cf25\",\n                    \"createdAt\": \"2025-10-25T14:00:36.861Z\",\n                    \"updatedAt\": \"2025-10-25T14:00:36.861Z\",\n                    \"name\": \"Princesa\",\n                    \"lore\": \"Cachorro amigável, adora crianças.\",\n                    \"birthDay\": \"2021-05-10T00:00:00.000Z\",\n                    \"species\": \"dog\",\n                    \"breed\": \"Pastor Alemão\",\n                    \"gender\": \"female\",\n                    \"color\": \"Amarelo\",\n                    \"city\": \"Balsas\",\n                    \"state\": \"Balsas\",\n                    \"uf\": \"MA\",\n                    \"isCastrated\": true,\n                    \"isAdote\": false,\n                    \"files\": [\n                        {\n                            \"externalId\": \"17007d54-040b-44de-a5b8-97098503b6ae\",\n                            \"createdAt\": \"2025-10-25T14:00:37.351Z\",\n                            \"updatedAt\": \"2025-10-25T14:00:37.351Z\",\n                            \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/cb93b447-b014-4fb1-9c04-0cc2d3166bd1.jpg\",\n                            \"mimeType\": \"image/jpeg\",\n                            \"size\": 27157,\n                            \"extension\": \"jpg\",\n                            \"type\": \"image\",\n                            \"description\": \"\",\n                            \"orderIndex\": 0\n                        },\n                        {\n                            \"externalId\": \"bddac339-dd93-4a65-9b4e-35b06ed17fda\",\n                            \"createdAt\": \"2025-10-25T14:00:37.740Z\",\n                            \"updatedAt\": \"2025-10-25T14:00:37.740Z\",\n                            \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/d211b78b-2835-4631-a968-29e74c280ab5.jpg\",\n                            \"mimeType\": \"image/jpeg\",\n                            \"size\": 56506,\n                            \"extension\": \"jpg\",\n                            \"type\": \"image\",\n                            \"description\": \"\",\n                            \"orderIndex\": 1\n                        }\n                    ]\n                },\n                \"user\": {\n                    \"externalId\": \"8719c88f-6a93-4960-b791-ef1aab08145c\",\n                    \"createdAt\": \"2025-10-25T19:17:25.877Z\",\n                    \"updatedAt\": \"2025-10-25T19:17:25.877Z\",\n                    \"name\": \"Matheus \",\n                    \"email\": \"matheuszinho@gmail.com\",\n                    \"phone\": null,\n                    \"avatar\": null\n                }\n            }\n        ],\n        \"meta\": {\n            \"total\": 1,\n            \"lastPage\": 1,\n            \"page\": 1,\n            \"perPage\": 10\n        }\n    }\n}"
+								},
+								{
+									"name": "401",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{base_url}}auth/adoptions/adoption-requests",
+											"host": [
+												"{{base_url}}auth"
+											],
+											"path": [
+												"adoptions",
+												"adoption-requests"
+											]
+										}
+									},
+									"status": "Unauthorized",
+									"code": 401,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "Access-Control-Allow-Origin",
+											"value": "*"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "88"
+										},
+										{
+											"key": "ETag",
+											"value": "W/\"58-1GdRzErWk/aiS+lCWuiJt7Q0grw\""
+										},
+										{
+											"key": "Date",
+											"value": "Sat, 25 Oct 2025 19:26:37 GMT"
+										},
+										{
+											"key": "Connection",
+											"value": "keep-alive"
+										},
+										{
+											"key": "Keep-Alive",
+											"value": "timeout=5"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"status\": false,\n    \"message\": \"No token provided\",\n    \"errorCode\": \"TOKEN_MISSING\",\n    \"errors\": null\n}"
+								}
+							]
+						}
+					]
+				},
 				{
 					"name": "auth.login",
 					"event": [
@@ -42,17 +2691,10 @@
 					],
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Accept-Language",
-								"value": "en",
-								"type": "text",
-								"disabled": true
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"login\": \"pedro.henrique.martins404@gmail.com\",\n    \"password\": \"pedroerosa1#2\"\n}",
+							"raw": "{\n    \"login\": \"matheuszinho@gmail.com\",\n    \"password\": \"12345678\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -103,7 +2745,7 @@
 							},
 							"status": "OK",
 							"code": 200,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "Text",
 							"header": [
 								{
 									"key": "X-Powered-By",
@@ -142,6 +2784,77 @@
 							"body": "{\n    \"status\": true,\n    \"message\": \"User logged in successfully\",\n    \"data\": {\n        \"user\": {\n            \"externalId\": \"8e269209-72b5-4922-a5a9-f2a726c4635f\",\n            \"createdAt\": \"2025-09-26T23:53:23.612Z\",\n            \"updatedAt\": \"2025-09-26T23:53:23.612Z\",\n            \"name\": \"Pedro Henrique Martins Borges\",\n            \"email\": \"pedro.henrique.martins404@gmail.com\",\n            \"phone\": \"99984775122\",\n            \"avatar\": null\n        },\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJwZWRyby5oZW5yaXF1ZS5tYXJ0aW5zNDA0QGdtYWlsLmNvbSIsImlhdCI6MTc2MDczMTM1NSwiZXhwIjoxNzYzNDA5NzU1fQ.U-NWe0ZgdXFfvSzKMTnPYTLJsFyFkUJUDOGJpMgPQ3Y\"\n    }\n}"
 						},
 						{
+							"name": "200",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "en",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"login\": \"matheuszinho@gmail.com\",\n    \"password\": \"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}auth/login",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "489"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"1e9-jYBeLE1EsS7IRPljhaOWYjRQShk\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 25 Oct 2025 19:18:07 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"User logged in successfully\",\n    \"data\": {\n        \"user\": {\n            \"externalId\": \"8719c88f-6a93-4960-b791-ef1aab08145c\",\n            \"createdAt\": \"2025-10-25T19:17:25.877Z\",\n            \"updatedAt\": \"2025-10-25T19:17:25.877Z\",\n            \"name\": \"Matheus \",\n            \"email\": \"matheuszinho@gmail.com\",\n            \"phone\": null,\n            \"avatar\": null\n        },\n        \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHRlcm5hbElkIjoiODcxOWM4OGYtNmE5My00OTYwLWI3OTEtZWYxYWFiMDgxNDVjIiwiaWF0IjoxNzYxNDE5ODg3LCJleHAiOjE3NjQwOTgyODd9.FdE_ncg631bDERErJ2Q_RQHjiH3OUQ6-jxJKX_tFqQI\"\n    }\n}"
+						},
+						{
 							"name": "401",
 							"originalRequest": {
 								"method": "POST",
@@ -174,7 +2887,7 @@
 							},
 							"status": "Unauthorized",
 							"code": 401,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "Text",
 							"header": [
 								{
 									"key": "X-Powered-By",
@@ -245,7 +2958,7 @@
 							},
 							"status": "Unprocessable Entity",
 							"code": 422,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "Text",
 							"header": [
 								{
 									"key": "X-Powered-By",
@@ -295,28 +3008,29 @@
 							"formdata": [
 								{
 									"key": "name",
-									"value": "Pedro Henrique Martins Borges",
+									"value": "Matheus ",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "pedro.henrique.martins404@gmail.com",
+									"value": "matheuszinho2@gmail.com",
 									"type": "text"
 								},
 								{
 									"key": "password",
-									"value": "pedroerosa1#",
+									"value": "12345678",
 									"type": "text"
 								},
 								{
 									"key": "passwordConfirmation",
-									"value": "pedroerosa1#2",
+									"value": "12345678",
 									"type": "text"
 								},
 								{
 									"key": "phone",
 									"value": "99984775122",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "avatar",
@@ -388,7 +3102,7 @@
 							},
 							"status": "Created",
 							"code": 201,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "Text",
 							"header": [
 								{
 									"key": "X-Powered-By",
@@ -425,6 +3139,98 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"status\": true,\n    \"message\": \"User registered successfully\",\n    \"data\": {\n        \"user\": {\n            \"externalId\": \"50d6f6c8-59e6-45b2-98ae-cecef1841153\",\n            \"createdAt\": \"2025-10-18T19:03:53.013Z\",\n            \"updatedAt\": \"2025-10-18T19:03:54.019Z\",\n            \"name\": \"Pedro Henrique Martins Borges\",\n            \"email\": \"pedro.henrique.martins404@gmail.com\",\n            \"phone\": \"99984775122\",\n            \"avatar\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/users/50d6f6c8-59e6-45b2-98ae-cecef1841153/920f4d48-af45-45a6-9b65-901d1443a6b4.jpg\"\n        }\n    }\n}"
+						},
+						{
+							"name": "201",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Matheus ",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "matheuszinho@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "12345678",
+											"type": "text"
+										},
+										{
+											"key": "passwordConfirmation",
+											"value": "12345678",
+											"type": "text"
+										},
+										{
+											"key": "phone",
+											"value": "99984775122",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "/home/pedroh/Downloads/file.jpeg",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}auth/register",
+									"host": [
+										"{{base_url}}auth"
+									],
+									"path": [
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "282"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"11a-bthNZlHww7b2Il/N2y0Law88Up4\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 25 Oct 2025 19:17:25 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"User registered successfully\",\n    \"data\": {\n        \"user\": {\n            \"externalId\": \"8719c88f-6a93-4960-b791-ef1aab08145c\",\n            \"createdAt\": \"2025-10-25T19:17:25.877Z\",\n            \"updatedAt\": \"2025-10-25T19:17:25.877Z\",\n            \"name\": \"Matheus \",\n            \"email\": \"matheuszinho@gmail.com\",\n            \"phone\": null,\n            \"avatar\": null\n        }\n    }\n}"
 						},
 						{
 							"name": "409",
@@ -479,7 +3285,7 @@
 							},
 							"status": "Conflict",
 							"code": 409,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "Text",
 							"header": [
 								{
 									"key": "X-Powered-By",
@@ -572,7 +3378,7 @@
 							},
 							"status": "Unprocessable Entity",
 							"code": 422,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "Text",
 							"header": [
 								{
 									"key": "X-Powered-By",
@@ -626,14 +3432,7 @@
 							]
 						},
 						"method": "GET",
-						"header": [
-							{
-								"key": "Accept-Language",
-								"value": "en",
-								"type": "text",
-								"disabled": true
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_url}}auth/me",
 							"host": [
@@ -669,7 +3468,7 @@
 							},
 							"status": "OK",
 							"code": 200,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "Text",
 							"header": [
 								{
 									"key": "X-Powered-By",
@@ -731,7 +3530,7 @@
 							},
 							"status": "Unauthorized",
 							"code": 401,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "Text",
 							"header": [
 								{
 									"key": "X-Powered-By",
@@ -785,14 +3584,7 @@
 							]
 						},
 						"method": "PUT",
-						"header": [
-							{
-								"key": "Accept-Language",
-								"value": "en",
-								"type": "text",
-								"disabled": true
-							}
-						],
+						"header": [],
 						"body": {
 							"mode": "formdata",
 							"formdata": [
@@ -876,7 +3668,7 @@
 							},
 							"status": "No Content",
 							"code": 204,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "Text",
 							"header": [
 								{
 									"key": "X-Powered-By",
@@ -904,7 +3696,7 @@
 								}
 							],
 							"cookie": [],
-							"body": null
+							"body": ""
 						},
 						{
 							"name": "204",
@@ -962,7 +3754,7 @@
 							},
 							"status": "No Content",
 							"code": 204,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "Text",
 							"header": [
 								{
 									"key": "X-Powered-By",
@@ -990,7 +3782,7 @@
 								}
 							],
 							"cookie": [],
-							"body": null
+							"body": ""
 						},
 						{
 							"name": "422",
@@ -1049,7 +3841,7 @@
 							},
 							"status": "Unprocessable Entity",
 							"code": 422,
-							"_postman_previewlanguage": null,
+							"_postman_previewlanguage": "Text",
 							"header": [
 								{
 									"key": "X-Powered-By",
@@ -1086,6 +3878,375 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"status\": false,\n    \"message\": \"Validation Error\",\n    \"errorCode\": \"VALIDATION_ERROR\",\n    \"errors\": [\n        {\n            \"code\": \"custom\",\n            \"path\": [\n                \"oldPassword\"\n            ],\n            \"message\": \"A senha antiga é obrigatória para alterar a senha.\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "pet",
+			"item": [
+				{
+					"name": "pet.index",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}pets",
+							"host": [
+								"{{base_url}}pets"
+							],
+							"query": [
+								{
+									"key": "uf",
+									"value": "ma",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "perPage",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}pets?page=1&perPage=1",
+									"host": [
+										"{{base_url}}pets"
+									],
+									"query": [
+										{
+											"key": "uf",
+											"value": "ma",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "perPage",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1354"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"54a-CnYJ5/N1fplQl/bgHoEjapEqu5M\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 25 Oct 2025 14:32:02 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Pets encontrados com sucesso\",\n    \"data\": {\n        \"pets\": [\n            {\n                \"externalId\": \"e30e1248-9753-4ab7-9842-4f0738d1cf25\",\n                \"createdAt\": \"2025-10-25T14:00:36.861Z\",\n                \"updatedAt\": \"2025-10-25T14:00:36.861Z\",\n                \"name\": \"Princesa\",\n                \"lore\": \"Cachorro amigável, adora crianças.\",\n                \"birthDay\": \"2021-05-10T00:00:00.000Z\",\n                \"species\": \"dog\",\n                \"breed\": \"Pastor Alemão\",\n                \"gender\": \"female\",\n                \"color\": \"Amarelo\",\n                \"city\": \"Balsas\",\n                \"state\": \"Balsas\",\n                \"uf\": \"MA\",\n                \"isCastrated\": true,\n                \"isAdote\": false,\n                \"files\": [\n                    {\n                        \"externalId\": \"17007d54-040b-44de-a5b8-97098503b6ae\",\n                        \"createdAt\": \"2025-10-25T14:00:37.351Z\",\n                        \"updatedAt\": \"2025-10-25T14:00:37.351Z\",\n                        \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/cb93b447-b014-4fb1-9c04-0cc2d3166bd1.jpg\",\n                        \"mimeType\": \"image/jpeg\",\n                        \"size\": 27157,\n                        \"extension\": \"jpg\",\n                        \"type\": \"image\",\n                        \"description\": \"\",\n                        \"orderIndex\": 0\n                    },\n                    {\n                        \"externalId\": \"bddac339-dd93-4a65-9b4e-35b06ed17fda\",\n                        \"createdAt\": \"2025-10-25T14:00:37.740Z\",\n                        \"updatedAt\": \"2025-10-25T14:00:37.740Z\",\n                        \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/d211b78b-2835-4631-a968-29e74c280ab5.jpg\",\n                        \"mimeType\": \"image/jpeg\",\n                        \"size\": 56506,\n                        \"extension\": \"jpg\",\n                        \"type\": \"image\",\n                        \"description\": \"\",\n                        \"orderIndex\": 1\n                    }\n                ]\n            }\n        ],\n        \"meta\": {\n            \"total\": 2,\n            \"lastPage\": 2,\n            \"page\": 1,\n            \"perPage\": 1\n        }\n    }\n}"
+						},
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}pets?uf=ma",
+									"host": [
+										"{{base_url}}pets"
+									],
+									"query": [
+										{
+											"key": "uf",
+											"value": "ma"
+										},
+										{
+											"key": "page",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "perPage",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1365"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"555-vgUo3lnGx/E2s66NsNJw3TQaY+M\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 25 Oct 2025 14:32:14 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Pets encontrados com sucesso\",\n    \"data\": {\n        \"pets\": [\n            {\n                \"externalId\": \"e30e1248-9753-4ab7-9842-4f0738d1cf25\",\n                \"createdAt\": \"2025-10-25T14:00:36.861Z\",\n                \"updatedAt\": \"2025-10-25T14:00:36.861Z\",\n                \"name\": \"Princesa\",\n                \"lore\": \"Cachorro amigável, adora crianças.\",\n                \"birthDay\": \"2021-05-10T00:00:00.000Z\",\n                \"species\": \"dog\",\n                \"breed\": \"Pastor Alemão\",\n                \"gender\": \"female\",\n                \"color\": \"Amarelo\",\n                \"city\": \"Balsas\",\n                \"state\": \"Balsas\",\n                \"uf\": \"MA\",\n                \"isCastrated\": true,\n                \"isAdote\": false,\n                \"files\": [\n                    {\n                        \"externalId\": \"17007d54-040b-44de-a5b8-97098503b6ae\",\n                        \"createdAt\": \"2025-10-25T14:00:37.351Z\",\n                        \"updatedAt\": \"2025-10-25T14:00:37.351Z\",\n                        \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/cb93b447-b014-4fb1-9c04-0cc2d3166bd1.jpg\",\n                        \"mimeType\": \"image/jpeg\",\n                        \"size\": 27157,\n                        \"extension\": \"jpg\",\n                        \"type\": \"image\",\n                        \"description\": \"\",\n                        \"orderIndex\": 0\n                    },\n                    {\n                        \"externalId\": \"bddac339-dd93-4a65-9b4e-35b06ed17fda\",\n                        \"createdAt\": \"2025-10-25T14:00:37.740Z\",\n                        \"updatedAt\": \"2025-10-25T14:00:37.740Z\",\n                        \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/d211b78b-2835-4631-a968-29e74c280ab5.jpg\",\n                        \"mimeType\": \"image/jpeg\",\n                        \"size\": 56506,\n                        \"extension\": \"jpg\",\n                        \"type\": \"image\",\n                        \"description\": \"\",\n                        \"orderIndex\": 1\n                    }\n                ]\n            }\n        ],\n        \"meta\": {\n            \"total\": 1,\n            \"lastPage\": 1,\n            \"uf\": \"ma\",\n            \"page\": 1,\n            \"perPage\": 10\n        }\n    }\n}"
+						},
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}pets",
+									"host": [
+										"{{base_url}}pets"
+									],
+									"query": [
+										{
+											"key": "uf",
+											"value": "ma",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "perPage",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "2577"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"a11-pPKXX5+ANU/Alsj+fXgvL35rZE0\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 25 Oct 2025 14:32:46 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Pets encontrados com sucesso\",\n    \"data\": {\n        \"pets\": [\n            {\n                \"externalId\": \"e30e1248-9753-4ab7-9842-4f0738d1cf25\",\n                \"createdAt\": \"2025-10-25T14:00:36.861Z\",\n                \"updatedAt\": \"2025-10-25T14:00:36.861Z\",\n                \"name\": \"Princesa\",\n                \"lore\": \"Cachorro amigável, adora crianças.\",\n                \"birthDay\": \"2021-05-10T00:00:00.000Z\",\n                \"species\": \"dog\",\n                \"breed\": \"Pastor Alemão\",\n                \"gender\": \"female\",\n                \"color\": \"Amarelo\",\n                \"city\": \"Balsas\",\n                \"state\": \"Balsas\",\n                \"uf\": \"MA\",\n                \"isCastrated\": true,\n                \"isAdote\": false,\n                \"files\": [\n                    {\n                        \"externalId\": \"17007d54-040b-44de-a5b8-97098503b6ae\",\n                        \"createdAt\": \"2025-10-25T14:00:37.351Z\",\n                        \"updatedAt\": \"2025-10-25T14:00:37.351Z\",\n                        \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/cb93b447-b014-4fb1-9c04-0cc2d3166bd1.jpg\",\n                        \"mimeType\": \"image/jpeg\",\n                        \"size\": 27157,\n                        \"extension\": \"jpg\",\n                        \"type\": \"image\",\n                        \"description\": \"\",\n                        \"orderIndex\": 0\n                    },\n                    {\n                        \"externalId\": \"bddac339-dd93-4a65-9b4e-35b06ed17fda\",\n                        \"createdAt\": \"2025-10-25T14:00:37.740Z\",\n                        \"updatedAt\": \"2025-10-25T14:00:37.740Z\",\n                        \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/d211b78b-2835-4631-a968-29e74c280ab5.jpg\",\n                        \"mimeType\": \"image/jpeg\",\n                        \"size\": 56506,\n                        \"extension\": \"jpg\",\n                        \"type\": \"image\",\n                        \"description\": \"\",\n                        \"orderIndex\": 1\n                    }\n                ]\n            },\n            {\n                \"externalId\": \"fd10d2b1-343c-47c4-9721-42a7453853fa\",\n                \"createdAt\": \"2025-10-25T13:56:14.387Z\",\n                \"updatedAt\": \"2025-10-25T13:56:14.387Z\",\n                \"name\": \"Rex\",\n                \"lore\": \"Cachorro amigável, adora crianças.\",\n                \"birthDay\": \"2021-05-10T00:00:00.000Z\",\n                \"species\": \"dog\",\n                \"breed\": \"Labrador\",\n                \"gender\": \"male\",\n                \"color\": \"Amarelo\",\n                \"city\": \"São Paulo\",\n                \"state\": \"São Paulo\",\n                \"uf\": \"SP\",\n                \"isCastrated\": true,\n                \"isAdote\": false,\n                \"files\": [\n                    {\n                        \"externalId\": \"34484e71-b160-42de-939d-1c569d837c57\",\n                        \"createdAt\": \"2025-10-25T13:56:14.920Z\",\n                        \"updatedAt\": \"2025-10-25T13:56:14.920Z\",\n                        \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/fd10d2b1-343c-47c4-9721-42a7453853fa/4446ecad-19d2-4c12-8207-cb99e0e8f456.jpg\",\n                        \"mimeType\": \"image/jpeg\",\n                        \"size\": 27157,\n                        \"extension\": \"jpg\",\n                        \"type\": \"image\",\n                        \"description\": \"\",\n                        \"orderIndex\": 0\n                    },\n                    {\n                        \"externalId\": \"ca81bd5c-c9ed-4fe0-9c77-8ad789434114\",\n                        \"createdAt\": \"2025-10-25T13:56:15.339Z\",\n                        \"updatedAt\": \"2025-10-25T13:56:15.339Z\",\n                        \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/fd10d2b1-343c-47c4-9721-42a7453853fa/11b9cdfe-ec03-47ce-852f-df82616e5b11.jpg\",\n                        \"mimeType\": \"image/jpeg\",\n                        \"size\": 56506,\n                        \"extension\": \"jpg\",\n                        \"type\": \"image\",\n                        \"description\": \"\",\n                        \"orderIndex\": 1\n                    }\n                ]\n            }\n        ],\n        \"meta\": {\n            \"total\": 2,\n            \"lastPage\": 1,\n            \"page\": 1,\n            \"perPage\": 10\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "pet.show",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}pets/5a80e5d2-864d-4e4f-95b0-4538f3813283",
+							"host": [
+								"{{base_url}}pets"
+							],
+							"path": [
+								"5a80e5d2-864d-4e4f-95b0-4538f3813283"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "404",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}pets/e30e1248-9753-4ab7-9842-4f0738d1cf25a",
+									"host": [
+										"{{base_url}}pets"
+									],
+									"path": [
+										"e30e1248-9753-4ab7-9842-4f0738d1cf25a"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "90"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"5a-4fv03E24a3zhAusDZMKsdK8o5f8\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 25 Oct 2025 14:36:54 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": false,\n    \"message\": \"Pet não encontrado\",\n    \"errorCode\": \"PET_NOT_FOUND\",\n    \"errors\": null\n}"
+						},
+						{
+							"name": "200",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}pets/e30e1248-9753-4ab7-9842-4f0738d1cf25",
+									"host": [
+										"{{base_url}}pets"
+									],
+									"path": [
+										"e30e1248-9753-4ab7-9842-4f0738d1cf25"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1293"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"50d-lap1mlfzCkYhuOqC+dzeUccuquY\""
+								},
+								{
+									"key": "Date",
+									"value": "Sat, 25 Oct 2025 14:37:08 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"status\": true,\n    \"message\": \"Pet pegados com sucesso\",\n    \"data\": {\n        \"pet\": {\n            \"externalId\": \"e30e1248-9753-4ab7-9842-4f0738d1cf25\",\n            \"createdAt\": \"2025-10-25T14:00:36.861Z\",\n            \"updatedAt\": \"2025-10-25T14:00:36.861Z\",\n            \"name\": \"Princesa\",\n            \"lore\": \"Cachorro amigável, adora crianças.\",\n            \"birthDay\": \"2021-05-10T00:00:00.000Z\",\n            \"species\": \"dog\",\n            \"breed\": \"Pastor Alemão\",\n            \"gender\": \"female\",\n            \"color\": \"Amarelo\",\n            \"city\": \"Balsas\",\n            \"state\": \"Balsas\",\n            \"uf\": \"MA\",\n            \"isCastrated\": true,\n            \"isAdote\": false,\n            \"files\": [\n                {\n                    \"externalId\": \"17007d54-040b-44de-a5b8-97098503b6ae\",\n                    \"createdAt\": \"2025-10-25T14:00:37.351Z\",\n                    \"updatedAt\": \"2025-10-25T14:00:37.351Z\",\n                    \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/cb93b447-b014-4fb1-9c04-0cc2d3166bd1.jpg\",\n                    \"mimeType\": \"image/jpeg\",\n                    \"size\": 27157,\n                    \"extension\": \"jpg\",\n                    \"type\": \"image\",\n                    \"description\": \"\",\n                    \"orderIndex\": 0\n                },\n                {\n                    \"externalId\": \"bddac339-dd93-4a65-9b4e-35b06ed17fda\",\n                    \"createdAt\": \"2025-10-25T14:00:37.740Z\",\n                    \"updatedAt\": \"2025-10-25T14:00:37.740Z\",\n                    \"path\": \"https://bjjqkcvxfnxrcsxtrsai.supabase.co/storage/v1/object/public/adote-pets/adote-pets/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/d211b78b-2835-4631-a968-29e74c280ab5.jpg\",\n                    \"mimeType\": \"image/jpeg\",\n                    \"size\": 56506,\n                    \"extension\": \"jpg\",\n                    \"type\": \"image\",\n                    \"description\": \"\",\n                    \"orderIndex\": 1\n                }\n            ]\n        }\n    }\n}"
 						}
 					]
 				}
@@ -1132,7 +4293,7 @@
 					},
 					"status": "OK",
 					"code": 200,
-					"_postman_previewlanguage": null,
+					"_postman_previewlanguage": "Text",
 					"header": [
 						{
 							"key": "X-Powered-By",
