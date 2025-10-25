@@ -1,6 +1,5 @@
 import { z } from 'zod';
 
-// Schema para criação de pet
 export const createPetSchema = z.object({
   name: z.string().min(1, "Name is required"),
   lore: z.string().optional(),
@@ -8,7 +7,7 @@ export const createPetSchema = z.object({
     message: "Invalid birthDay date",
   }),
   species: z.string().min(1, "Species is required"),
-  breed: z.string().optional(),
+  breed: z.string().min(1, "Breed is required"),
   gender: z.enum(['male', 'female'], "Gender must be 'male' or 'female'"),
   color: z.string().optional(),
   city: z.string().min(1, "City is required"),
@@ -16,7 +15,10 @@ export const createPetSchema = z.object({
   uf: z.string().min(2, "UF must have 2 characters"),
   isCastrated: z.boolean(),
   isAdote: z.boolean(),
+  files: z.array(z.any()).min(1, "At least one file is required").max(10, "No more than 10 files are allowed"),
 });
 
-// Schema para atualização de pet (todos campos opcionais)
 export const updatePetSchema = createPetSchema.partial();
+
+export type CreatePetRequest = z.infer<typeof createPetSchema>;
+export type UpdatePetRequest = z.infer<typeof updatePetSchema>;

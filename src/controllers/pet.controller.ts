@@ -1,198 +1,168 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { uploadToAWSS3, deleteFromAWSS3 } from "src/services/aws-s3.service";
-import { HTTP_STATUS } from "src/utils/constants";
-import { createPetSchema, updatePetSchema } from 'src/schemas/pet.schema';
+import { ErrorCodes, HTTP_STATUS } from "src/utils/constants";
+import {
+    CreatePetRequest,
+    createPetSchema,
+    UpdatePetRequest,
+    updatePetSchema,
+} from "src/schemas/pet.schema";
 import { prismaClient } from "@config/database";
 import { ConflictException } from "src/exceptions/conflict";
 import { UnauthorizedException } from "src/exceptions/unauthorized";
 import { NotFoundException } from "src/exceptions/not-found";
 import { UnprocessableEntityException } from "src/exceptions/validation";
-//import { BadRequestException } from "src/exceptions/bad-requests";
+import { BadRequestException } from "src/exceptions/bad-requests";
+import PetRepository, { PetFilter } from "src/repository/pet.repository";
+import { success } from "src/utils/response";
+import { toPetResource, toPetsResource } from "src/resources/pet.resource";
+import PetFileRepository from "src/repository/pet-file.repository";
+import { ForbiddenException } from "src/exceptions/forbidden";
+import { isFileTypeValid } from "src/utils/file-utils";
+import { AWS_CONFIG } from "@config/index";
 
+export async function index(req: Request, res: Response, next: NextFunction) {
+    try {
+        const filters: PetFilter = req.query;
+        const pets = await PetRepository.findAll(filters);
 
-export const PetController = {
-  // 1️⃣ Listar todos os pets (com filtros via query params)
-  async index(req: Request, res: Response) {
-    const { species, city, state, uf } = req.query;
-
-    const pets = await prismaClient.pet.findMany({
-      where: {
-        isAdote: true,
-        ...(species ? { species: String(species) } : {}),
-        ...(city ? { city: String(city) } : {}),
-        ...(state ? { state: String(state) } : {}),
-        ...(uf ? { uf: String(uf) } : {}),
-      },
-      include: {
-        files: true,
-        owner: {
-          select: { id: true, name: true, email: true, phone: true },
-        },
-      },
-    });
-
-    return res.status(HTTP_STATUS.OK).json(pets);
-  },
-
-  // 2️⃣ Mostrar detalhes de um pet específico
-  async show(req: Request, res: Response) {
-    const { id } = req.params;
-    const pet = await prismaClient.pet.findUnique({
-      where: { id: Number(id) },
-      include: {
-        files: true,
-        owner: {
-          select: { id: true, name: true, email: true, phone: true },
-        },
-      },
-    });
-
-    if (!pet) throw new NotFoundException("Pet not found");
-
-    return res.status(HTTP_STATUS.OK).json(pet);
-  },
-
-  // 3️⃣ Listar pets do usuário autenticado
-  async myPets(req: Request, res: Response) {
-    const userId = req.user.id;
-
-    const pets = await prisma.pet.findMany({
-      where: { ownerId: userId },
-      include: { files: true },
-    });
-
-    return res.status(HTTP_STATUS.OK).json(pets);
-  },
-
-  // 4️⃣ Criar um novo pet (com upload de imagens)
-  async store(req: Request, res: Response) {
-    // Validação com Zod
-    const validated = createPetSchema.safeParse(req.body);
-    if (!validated.success) {
-      throw new BadRequestException} from
-      ("Validation Error", validated.error);
+        return res.status(HTTP_STATUS.OK).json(
+            success("Pet pegados com sucesso", {
+                pets: toPetsResource(pets),
+            })
+        );
+    } catch (err) {
+        return next(err);
     }
-    const data = validated.data;
-    const userId = req.user.id;
+}
 
-    if (!req.files || !Array.isArray(req.files) || req.files.length === 0) {
-      throw new BadRequestException} from
-      ("At least one image is required");
+export async function show(req: Request, res: Response, next: NextFunction) {
+    try {
+        const id: number = Number(req.params.id);
+        const pet = await PetRepository.findById(id);
+
+        if (!pet)
+            throw new NotFoundException(
+                "Pet não encontrado",
+                ErrorCodes.PET_NOT_FOUND
+            );
+        return res.status(HTTP_STATUS.OK).json(
+            success("Pet pegados com sucesso", {
+                pet: toPetResource(pet),
+            })
+        );
+    } catch (err) {
+        return next(err);
     }
+}
 
-    // Cria o pet
-    const pet = await prisma.pet.create({
-      data: {
-        ...data,
-        birthDay: new Date(data.birthDay),
-        ownerId: userId,
-      },
-    });
+export async function myPets(req: Request, res: Response, next: NextFunction) {
+    try {
+        const user = req.user!;
 
-    // Upload das imagens
-    const uploadedFiles = [];
-    for (const file of req.files as Express.Multer.File[]) {
-      const upload = await uploadToAWSS3({
-        bucket: process.env.AWS_BUCKET_NAME!,
-        file,
-        folder: `pets/${pet.id}`,
-      });
+        const pets = await PetRepository.findByOwnerId(user.id);
 
-      const petFile = await prisma.petFile.create({
-        data: {
-          petId: pet.id,
-          path: upload.key,
-          mimeType: upload.contentType,
-          size: file.size,
-          extension: file.originalname.split(".").pop() || "",
-          type: upload.contentType.split("/")[0],
-          description: file.originalname,
-        },
-      });
-
-      uploadedFiles.push(petFile);
+        return res.status(HTTP_STATUS.OK).json(
+            success("Meus pets pegados com sucesso", {
+                pets: toPetsResource(pets),
+            })
+        );
+    } catch (err) {
+        return next(err);
     }
+}
 
-    return res.status(HTTP_STATUS.CREATED).json({
-      ...pet,
-      files: uploadedFiles,
-    });
-  },
+export async function store(req: Request, res: Response, next: NextFunction) {
+    try {
+        const petData: CreatePetRequest = createPetSchema.parse(req.body);
+        const user = req.user!;
 
-  // 5️⃣ Atualizar um pet
-  async update(req: Request, res: Response) {
-    const { id } = req.params;
-    const userId = req.user.id;
-
-    // Validação com Zod
-    const validated = updatePetSchema.safeParse(req.body);
-    if (!validated.success) {
-      throw new BadRequestException} from
-      ("Validation Error", validated.error);
-    }
-    const dataToUpdate = validated.data;
-
-    const pet = await prisma.pet.findUnique({ where: { id: Number(id) } });
-    if (!pet) throw new NotFoundException("Pet not found");
-    if (pet.ownerId !== userId)
-      throw new ForbiddenException("You are not allowed to edit this pet");
-
-    if (dataToUpdate.birthDay) {
-      dataToUpdate.birthDay = new Date(dataToUpdate.birthDay);
-    }
-
-    const updated = await prisma.pet.update({
-      where: { id: Number(id) },
-      data: dataToUpdate,
-    });
-
-    // Upload de novas imagens
-    if (req.files && Array.isArray(req.files) && req.files.length > 0) {
-      for (const file of req.files as Express.Multer.File[]) {
-        const upload = await uploadToAWSS3({
-          bucket: process.env.AWS_BUCKET_NAME!,
-          file,
-          folder: `pets/${updated.id}`,
+        const pet = await PetRepository.create({
+            ...petData,
+            ownerId: user.id,
         });
 
-        await prisma.petFile.create({
-          data: {
-            petId: updated.id,
-            path: upload.key,
-            mimeType: upload.contentType,
-            size: file.size,
-            extension: file.originalname.split(".").pop() || "",
-            type: upload.contentType.split("/")[0],
-            description: file.originalname,
-          },
-        });
-      }
+        for (const [index, file] of (
+            req.files as Express.Multer.File[]
+        ).entries()) {
+            isFileTypeValid(file, ["image/jpeg", "image/png"], ["files"]);
+
+            const upload = await uploadToAWSS3({
+                bucket: process.env.AWS_BUCKET_NAME!,
+                file,
+                folder: `pets/${pet.externalId}`,
+            });
+
+            const petFile = await PetFileRepository.create({
+                petId: pet.id,
+                path: upload.key,
+                mimeType: upload.contentType,
+                size: file.size,
+                extension: file.originalname.split(".").pop() || "",
+                type: upload.contentType.split("/")[0],
+                description: "",
+                orderIndex: index,
+            });
+        }
+
+        return res.status(HTTP_STATUS.CREATED).json(success("Pet criado com sucesso", {
+            pet: toPetResource(pet),
+        }));
+    } catch (err) {
+        return next(err);
     }
+}
 
-    return res.status(HTTP_STATUS.OK).json(updated);
-  },
+export async function update(req: Request, res: Response, next: NextFunction) {
+   try {
+    const id: number = Number(req.params.id);
+    const petUpdatedData: UpdatePetRequest = updatePetSchema.parse(req.body);
+    const user = req.user!;
 
-  // 6️⃣ Excluir pet e imagens
-  async delete(req: Request, res: Response) {
-    const { id } = req.params;
-    const userId = req.user.id;
+    const pet = await PetRepository.findById(id);
+    if (!pet)
+      throw new NotFoundException(
+          "Pet não encontrado",
+          ErrorCodes.PET_NOT_FOUND
+      );
 
-    const pet = await prisma.pet.findUnique({
-      where: { id: Number(id) },
-      include: { files: true },
-    });
+    if (pet.ownerId !== user.id) 
+      throw new ForbiddenException(
+          "Você não tem permissão para atualizar este pet", 
+          ErrorCodes.FORBIDDEN
+        );
 
-    if (!pet) throw new NotFoundException("Pet not found");
-    if (pet.ownerId !== userId)
-      throw new ForbiddenException("You are not allowed to delete this pet");
-
-    // Apaga imagens do S3
-    for (const file of pet.files) {
-      await deleteFromAWSS3(process.env.AWS_BUCKET_NAME!, file.path);
-    }
-
-    await prisma.pet.delete({ where: { id: Number(id) } });
+    const updated = await PetRepository.update(id, petUpdatedData);
 
     return res.status(HTTP_STATUS.NO_CONTENT).send();
-  },
-};
+   }
+   catch (err) {
+      return next(err);
+   } 
+}
+
+export async function destroy(req: Request, res: Response, next: NextFunction) {
+    const id: number = Number(req.params.id);
+    const user = req.user!;
+
+    const pet = await PetRepository.findById(id);
+    if (!pet)
+      throw new NotFoundException(
+          "Pet não encontrado",
+          ErrorCodes.PET_NOT_FOUND
+      );
+
+    if (pet.ownerId !== user.id) 
+      throw new ForbiddenException(
+          "Você não tem permissão para atualizar este pet", 
+          ErrorCodes.FORBIDDEN
+        );
+
+    for (const file of pet.files) {
+      await deleteFromAWSS3(AWS_CONFIG.bucket, file.path);
+    }
+
+    await PetRepository.delete(id);
+
+    return res.status(HTTP_STATUS.NO_CONTENT).send();
+  }

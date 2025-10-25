@@ -91,11 +91,15 @@ export async function login(req: Request, res: Response, next: NextFunction) {
 }
 
 export async function me(req: Request, res: Response, next: NextFunction) {
-    return res.status(HTTP_STATUS.OK).json(
-        success("User retrieved successfully", {
-            user: toUserResource(req.user!),
-        })
-    );
+    try {
+        return res.status(HTTP_STATUS.OK).json(
+            success("User retrieved successfully", {
+                user: toUserResource(req.user!),
+            })
+        );
+    } catch (err) {
+        return next(err);
+    }
 }
 
 export async function updateProfile(req: Request, res: Response, next: NextFunction) {
