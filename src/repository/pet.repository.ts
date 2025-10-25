@@ -8,7 +8,6 @@ export type PetWithRelations = Prisma.PetGetPayload<{
     include: { files: true };
 }>;
 
-
 export interface CreatePetDTO extends CreatePetRequest {
     ownerId: number;
 }
@@ -39,14 +38,18 @@ export default class PetRepository {
         meta: MetaResponse;
     }> {
         const { species, city, state, uf } = filters;
-        const pageNumber = Math.max(1, Math.floor(Number((filters as any).page ?? 1)));
-        const perPageNumber = Math.min(100, Math.max(1, Math.floor(Number((filters as any).perPage ?? 10))));
+        const pageNumber = Math.max(
+            1,
+            Math.floor(Number((filters as any).page ?? 1))
+        );
+        const perPageNumber = Math.min(
+            100,
+            Math.max(1, Math.floor(Number((filters as any).perPage ?? 10)))
+        );
 
         const where: Prisma.PetWhereInput = {
             isAdote: false,
-            ...(species
-                ? { species: { contains: species } }
-                : {}),
+            ...(species ? { species: { contains: species } } : {}),
             ...(city ? { city: { contains: city } } : {}),
             ...(state ? { state: { contains: state } } : {}),
             ...(uf ? { uf: { contains: uf } } : {}),
@@ -63,17 +66,17 @@ export default class PetRepository {
             }),
         ]);
 
-        const lastPage = Math.ceil(total / perPageNumber);
+        const meta: MetaResponse = {
+            total,
+            lastPage: Math.ceil(total / perPageNumber),
+            ...filters,
+            page: pageNumber,
+            perPage: perPageNumber,
+        };
 
         return {
             data: pets,
-            meta: {  
-              total, 
-              lastPage,
-              ...filters,
-              page: pageNumber,
-              perPage: perPageNumber,
-            },
+            meta: meta,
         };
     }
 
@@ -86,7 +89,9 @@ export default class PetRepository {
         });
     }
 
-    static async findByExternalId(externalId: string): Promise<PetWithRelations | null> {
+    static async findByExternalId(
+        externalId: string
+    ): Promise<PetWithRelations | null> {
         return await prismaClient.pet.findUnique({
             where: { externalId },
             include: {
@@ -95,13 +100,54 @@ export default class PetRepository {
         });
     }
 
-    static async findByOwnerId(ownerId: number): Promise<PetWithRelations[]> {
-        return await prismaClient.pet.findMany({
-            where: { ownerId },
-            include: {
-                files: true,
-            },
-        });
+    static async findByOwnerId(
+        ownerId: number,
+        filters: QueryRequest
+    ): Promise<{
+        data: PetWithRelations[];
+        meta: MetaResponse;
+    }> {
+        const { species, city, state, uf } = filters;
+        const pageNumber = Math.max(
+            1,
+            Math.floor(Number((filters as any).page ?? 1))
+        );
+        const perPageNumber = Math.min(
+            100,
+            Math.max(1, Math.floor(Number((filters as any).perPage ?? 10)))
+        );
+
+        const where: Prisma.PetWhereInput = {
+            ownerId,
+            ...(species ? { species: { contains: species } } : {}),
+            ...(city ? { city: { contains: city } } : {}),
+            ...(state ? { state: { contains: state } } : {}),
+            ...(uf ? { uf: { contains: uf } } : {}),
+        };
+
+        const [total, pets] = await prismaClient.$transaction([
+            prismaClient.pet.count({ where }),
+            prismaClient.pet.findMany({
+                where,
+                include: { files: true },
+                skip: (pageNumber - 1) * perPageNumber,
+                take: perPageNumber,
+                orderBy: { createdAt: "desc" },
+            }),
+        ]);
+
+        const meta: MetaResponse = {
+            total,
+            lastPage: Math.ceil(total / perPageNumber),
+            ...filters,
+            page: pageNumber,
+            perPage: perPageNumber,
+        };
+
+        return {
+            data: pets,
+            meta: meta,
+        };
     }
 
     static async update(id: number, data: UpdatePetRequest) {

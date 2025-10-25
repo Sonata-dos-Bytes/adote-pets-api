@@ -21,6 +21,7 @@ import { ForbiddenException } from "src/exceptions/forbidden";
 import { isFileTypeValid } from "src/utils/file-utils";
 import { AWS_CONFIG } from "@config/index";
 import { QueryRequest } from "src/types/query.request";
+import AdoptionRepository from "src/repository/adoption.repository";
 
 export async function index(req: Request, res: Response, next: NextFunction) {
     try {
@@ -61,11 +62,13 @@ export async function show(req: Request, res: Response, next: NextFunction) {
 export async function myPets(req: Request, res: Response, next: NextFunction) {
     try {
         const user = req.user!;
-        const pets = await PetRepository.findByOwnerId(user.id);
+        const filters: QueryRequest = req.query;
+        const pets = await PetRepository.findByOwnerId(user.id, filters);
 
         return res.status(HTTP_STATUS.OK).json(
-            success("Meus pets pegados com sucesso", {
-                pets: toPetsResource(pets),
+            success("Seus Pets encontrados com sucesso", {
+                pets: toPetsResource(pets.data),
+                meta: pets.meta,
             })
         );
     } catch (err) {
@@ -168,6 +171,12 @@ export async function destroy(req: Request, res: Response, next: NextFunction) {
             "Você não tem permissão para atualizar este pet",
             ErrorCodes.FORBIDDEN
         );
+
+    const adoptionRequests = await AdoptionRepository.findPetRequests(pet.id);
+
+    for (const request of adoptionRequests) {
+        await AdoptionRepository.delete(request.id);
+    }
 
     for (const file of pet.files) {
         await deleteFromAWSS3(AWS_CONFIG.bucket, file.path);

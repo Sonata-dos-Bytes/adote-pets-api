@@ -5,6 +5,6 @@ import petRouter from './pet/pet.route';
 
 const router = Router();
 
-router.use('/pet', petRouter);
+router.use('/pets', petRouter);
 
 export default router;

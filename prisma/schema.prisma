@@ -3,34 +3,34 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite" 
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id         Int   @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   externalId String   @unique @default(uuid()) @map("external_id")
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @updatedAt @map("updated_at")
 
-  name       String
-  email      String   @unique
-  password   String
-  phone      String?
-  avatar     String?
+  name     String
+  email    String  @unique
+  password String
+  phone    String?
+  avatar   String?
 
-  pets           Pet[]
-  adoteRequests  AdoteRequest[]
+  pets          Pet[]
+  adoteRequests AdoteRequest[]
 
   @@map("users")
 }
 
 model Pet {
-  id          Int   @id @default(autoincrement())
-  externalId  String   @unique @default(uuid()) @map("external_id")
-  ownerId     Int   @map("owner_id")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  id         Int      @id @default(autoincrement())
+  externalId String   @unique @default(uuid()) @map("external_id")
+  ownerId    Int      @map("owner_id")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
 
   name        String
   lore        String?
@@ -45,45 +45,45 @@ model Pet {
   isCastrated Boolean  @map("is_castrated")
   isAdote     Boolean  @map("is_adote")
 
-  owner       User       @relation(fields: [ownerId], references: [id])
-  files       PetFile[]
+  owner         User           @relation(fields: [ownerId], references: [id])
+  files         PetFile[]
   adoteRequests AdoteRequest[]
 
   @@map("pets")
 }
 
 model PetFile {
-  id          Int   @id @default(autoincrement())
-  externalId  String   @unique @default(uuid()) @map("external_id")
-  petId       Int   @map("pet_id")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  id         Int      @id @default(autoincrement())
+  externalId String   @unique @default(uuid()) @map("external_id")
+  petId      Int      @map("pet_id")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
 
   path        String
-  mimeType    String   @map("mime_type")
+  mimeType    String  @map("mime_type")
   size        Int
   extension   String
   type        String
   description String?
-  orderIndex  Int      @default(0) @map("order_index")
+  orderIndex  Int     @default(0) @map("order_index")
 
-  pet         Pet      @relation(fields: [petId], references: [id])
+  pet Pet @relation(fields: [petId], references: [id])
 
   @@map("pets_files")
 }
 
 model AdoteRequest {
-  id          Int   @id @default(autoincrement())
-  externalId  String   @unique @default(uuid()) @map("external_id")
-  userId      Int   @map("user_id")
-  petId       Int   @map("pet_id")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  id         Int      @id @default(autoincrement())
+  externalId String   @unique @default(uuid()) @map("external_id")
+  userId     Int      @map("user_id")
+  petId      Int      @map("pet_id")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
 
-  reason      String
+  reason String
 
-  user        User @relation(fields: [userId], references: [id])
-  pet         Pet  @relation(fields: [petId], references: [id])
+  user User @relation(fields: [userId], references: [id])
+  pet  Pet  @relation(fields: [petId], references: [id])
 
   @@map("adote_requests")
 }

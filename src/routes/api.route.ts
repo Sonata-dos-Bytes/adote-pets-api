@@ -7,8 +7,8 @@ const router = Router();
 
 router.get('/', home);
 
-router.use('/auth', authRouter);
-
 router.use('/', unauthRouter);
+
+router.use('/auth', authRouter);
 
 export default router;
