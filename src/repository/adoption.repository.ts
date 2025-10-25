@@ -6,9 +6,16 @@ import { AdoptionRequest } from "src/schemas/adoption.schema";
 import { includes } from "zod";
 
 export type AdoptionWithRelations = Prisma.AdoteRequestGetPayload<{
-    include: { user: true; pet: {
-        include: { files: true }
-    } };
+    include: {
+        user: true;
+        pet: {
+            include: {
+                files: {
+                    orderBy: { orderIndex: "asc" };
+                };
+            };
+        };
+    };
 }>;
 
 interface CreateAdoptionDTO extends AdoptionRequest {
@@ -18,22 +25,36 @@ interface CreateAdoptionDTO extends AdoptionRequest {
 
 export default class AdoptionRepository {
     static async findById(id: number): Promise<AdoptionWithRelations | null> {
-        return await prismaClient.adoteRequest.findUnique(
-            { 
-                where: { id },
-                include: { user: true, pet: {
-                    include: { files: true }
-                } },
+        return await prismaClient.adoteRequest.findUnique({
+            where: { id },
+            include: {
+                user: true,
+                pet: {
+                    include: {
+                        files: {
+                            orderBy: { orderIndex: "asc" },
+                        },
+                    },
+                },
             },
-        );
+        });
     }
 
-    static async findByExternalId(externalId: string): Promise<AdoptionWithRelations | null> {
+    static async findByExternalId(
+        externalId: string
+    ): Promise<AdoptionWithRelations | null> {
         return await prismaClient.adoteRequest.findUnique({
             where: { externalId },
-            include: { user: true, pet: {
-                include: { files: true }
-            } },
+            include: {
+                user: true,
+                pet: {
+                    include: {
+                        files: {
+                            orderBy: { orderIndex: "asc" },
+                        },
+                    },
+                },
+            },
         });
     }
 
@@ -49,7 +70,10 @@ export default class AdoptionRepository {
         });
     }
 
-    static async findRequestsByPet(petId: number, filters: QueryRequest): Promise<{
+    static async findRequestsByPet(
+        petId: number,
+        filters: QueryRequest
+    ): Promise<{
         data: AdoptionWithRelations[];
         meta: MetaResponse;
     }> {
@@ -72,9 +96,16 @@ export default class AdoptionRepository {
             prismaClient.adoteRequest.count({ where }),
             prismaClient.adoteRequest.findMany({
                 where,
-                include: { user: true, pet: {
-                    include: { files: true }
-                } },
+                include: {
+                    user: true,
+                    pet: {
+                        include: {
+                            files: {
+                                orderBy: { orderIndex: "asc" },
+                            },
+                        },
+                    },
+                },
                 skip: (pageNumber - 1) * perPageNumber,
                 take: perPageNumber,
                 orderBy: { createdAt: "desc" },
@@ -92,7 +123,10 @@ export default class AdoptionRepository {
         return { data: adoptions, meta };
     }
 
-    static async findRequestsByUser(userId: number, filters: QueryRequest): Promise<{
+    static async findRequestsByUser(
+        userId: number,
+        filters: QueryRequest
+    ): Promise<{
         data: AdoptionWithRelations[];
         meta: MetaResponse;
     }> {
@@ -114,9 +148,16 @@ export default class AdoptionRepository {
             prismaClient.adoteRequest.count({ where }),
             prismaClient.adoteRequest.findMany({
                 where,
-                include: { user: true, pet: {
-                    include: { files: true }
-                } },
+                include: {
+                    user: true,
+                    pet: {
+                        include: {
+                            files: {
+                                orderBy: { orderIndex: "asc" },
+                            },
+                        },
+                    },
+                },
                 skip: (pageNumber - 1) * perPageNumber,
                 take: perPageNumber,
                 orderBy: { createdAt: "desc" },
