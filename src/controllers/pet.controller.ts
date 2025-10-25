@@ -22,6 +22,8 @@ import { isFileTypeValid } from "src/utils/file-utils";
 import { AWS_CONFIG } from "@config/index";
 import { QueryRequest } from "src/types/query.request";
 import AdoptionRepository from "src/repository/adoption.repository";
+import path from "path";
+import { logger } from "@config/logger";
 
 export async function index(req: Request, res: Response, next: NextFunction) {
     try {
@@ -81,8 +83,22 @@ export async function store(req: Request, res: Response, next: NextFunction) {
         const petData: CreatePetRequest = createPetSchema.parse(req.body);
         const user = req.user!;
         const files = req.files as Express.Multer.File[];
+        const filesData = files?.filter(file => file.fieldname === "files[]");
 
-        for (const file of files) {
+        if (!filesData || filesData.length === 0) {
+            throw new UnprocessableEntityException(
+                "É necessário enviar ao menos uma imagem do pet.",
+                [
+                    {
+                        code: "custom",
+                        path: ["files"],
+                        message: "É necessário enviar ao menos uma imagem do pet.",
+                    }
+                ]
+            );
+        }
+
+        for (const file of filesData) {
             isFileTypeValid(
                 file,
                 ["image/jpeg", "image/png", "image/jpg", "image/webp"],
@@ -95,7 +111,7 @@ export async function store(req: Request, res: Response, next: NextFunction) {
             ownerId: user.id,
         });
 
-        for (const [index, file] of files.entries()) {
+        for (const [index, file] of filesData.entries()) {
             const upload = await uploadToAWSS3({
                 bucket: AWS_CONFIG.bucket!,
                 file,
@@ -156,7 +172,8 @@ export async function update(req: Request, res: Response, next: NextFunction) {
 }
 
 export async function destroy(req: Request, res: Response, next: NextFunction) {
-    const externalId: string = req.params.externalId;
+    try {
+        const externalId: string = req.params.externalId;
     const pet = await PetRepository.findByExternalId(externalId);
     const user = req.user!;
 
@@ -186,4 +203,7 @@ export async function destroy(req: Request, res: Response, next: NextFunction) {
     await PetRepository.delete(pet.id);
 
     return res.status(HTTP_STATUS.NO_CONTENT).send();
+    } catch (err) {
+        return next(err);
+    }
 }

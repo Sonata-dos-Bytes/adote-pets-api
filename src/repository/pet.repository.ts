@@ -5,7 +5,11 @@ import { QueryRequest } from "src/types/query.request";
 import { MetaResponse } from "src/types/meta.response";
 
 export type PetWithRelations = Prisma.PetGetPayload<{
-    include: { files: true };
+    include: {
+        files: {
+            orderBy: { orderIndex: "asc" };
+        };
+    };
 }>;
 
 export interface CreatePetDTO extends CreatePetRequest {
@@ -59,7 +63,11 @@ export default class PetRepository {
             prismaClient.pet.count({ where }),
             prismaClient.pet.findMany({
                 where,
-                include: { files: true },
+                include: {
+                    files: {
+                        orderBy: { orderIndex: "asc" },
+                    },
+                },
                 skip: (pageNumber - 1) * perPageNumber,
                 take: perPageNumber,
                 orderBy: { createdAt: "desc" },
@@ -129,7 +137,11 @@ export default class PetRepository {
             prismaClient.pet.count({ where }),
             prismaClient.pet.findMany({
                 where,
-                include: { files: true },
+                include: {
+                    files: {
+                        orderBy: { orderIndex: "asc" },
+                    },
+                },
                 skip: (pageNumber - 1) * perPageNumber,
                 take: perPageNumber,
                 orderBy: { createdAt: "desc" },
