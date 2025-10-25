@@ -88,7 +88,7 @@ export async function store(req: Request, res: Response, next: NextFunction) {
             isFileTypeValid(file, ["image/jpeg", "image/png"], ["files"]);
 
             const upload = await uploadToAWSS3({
-                bucket: process.env.AWS_BUCKET_NAME!,
+                bucket: AWS_CONFIG.bucket!,
                 file,
                 folder: `pets/${pet.externalId}`,
             });
@@ -160,6 +160,8 @@ export async function destroy(req: Request, res: Response, next: NextFunction) {
 
     for (const file of pet.files) {
       await deleteFromAWSS3(AWS_CONFIG.bucket, file.path);
+      await PetFileRepository.delete(file.id);
+
     }
 
     await PetRepository.delete(id);

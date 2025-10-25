@@ -11,4 +11,12 @@ export default class PetFileRepository {
             },
         });
     }
+    
+    static async delete(id: number) {
+        return await prismaClient.petFile.delete({
+            where: { id },
+        });
 }
+
+}
+

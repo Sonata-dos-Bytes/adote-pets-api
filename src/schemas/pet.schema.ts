@@ -13,9 +13,8 @@ export const createPetSchema = z.object({
   city: z.string().min(1, "City is required"),
   state: z.string().min(1, "State is required"),
   uf: z.string().min(2, "UF must have 2 characters"),
-  isCastrated: z.boolean(),
-  isAdote: z.boolean(),
-  files: z.array(z.any()).min(1, "At least one file is required").max(10, "No more than 10 files are allowed"),
+  isCastrated: z.union([z.boolean(), z.string().transform((val) => val === 'true')]),
+  isAdote: z.union([z.boolean(), z.string().transform((val) => val === 'true')])
 });
 
 export const updatePetSchema = createPetSchema.partial();
