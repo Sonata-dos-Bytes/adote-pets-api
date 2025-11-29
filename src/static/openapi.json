@@ -11,9 +11,18 @@
       "description": "Servidor local (padrão de desenvolvimento)"
     }
   ],
+  "tags": [
+    { "name": "home", "description": "Endpoint base / health" },
+    { "name": "auth", "description": "Autenticação e perfil (login, register, me, update-profile)" },
+    { "name": "auth/adoptions", "description": "Solicitações de adoção (histórico do usuário)" },
+    { "name": "auth/pets/adoptions", "description": "Solicitações de adoção relacionadas a um pet (CRUD)" },
+    { "name": "pets", "description": "Operações sobre pets (públicas e autenticadas)" },
+    { "name": "files", "description": "Upload e gerenciamento de arquivos de pets" }
+  ],
   "paths": {
     "/": {
       "get": {
+        "tags": ["home"],
         "summary": "Health check / Home",
         "description": "Endpoint público que indica se a API está rodando e retorna metadados úteis (nome, versão, descrição, URL da documentação e autores). Não requer autenticação.",
         "responses": {
@@ -32,6 +41,7 @@
     },
     "/auth/login": {
       "post": {
+        "tags": ["auth"],
         "summary": "Login do usuário",
         "description": "Autentica usuário e retorna token JWT.",
         "requestBody": {
@@ -56,6 +66,7 @@
     },
     "/auth/register": {
       "post": {
+        "tags": ["auth"],
         "summary": "Registrar usuário",
         "description": "Cria um novo usuário. Aceita form-data para envio de avatar (arquivo).",
         "requestBody": {
@@ -85,6 +96,7 @@
     },
     "/auth/me": {
       "get": {
+        "tags": ["auth"],
         "summary": "Dados do usuário autenticado",
         "description": "Retorna os dados do usuário atualmente autenticado (token JWT no header Authorization).",
         "security": [{"bearerAuth": []}],
@@ -96,6 +108,7 @@
     },
     "/pets": {
       "get": {
+        "tags": ["pets"],
         "summary": "Listar pets",
         "description": "Retorna a lista de pets cadastrados com paginação e filtros opcionais. Endpoint público.",
         "parameters": [
@@ -108,6 +121,7 @@
         }
       },
       "post": {
+        "tags": ["pets"],
         "summary": "Criar pet",
         "description": "Cria um novo pet para o usuário autenticado. Requer JWT. Permite upload de imagens (form-data).",
         "security":[{"bearerAuth":[]}],
@@ -127,6 +141,7 @@
     },
     "/pets/my-pets": {
       "get": {
+        "tags": ["pets"],
         "summary": "Pets do usuário autenticado",
         "description": "Retorna a lista de pets do usuário autenticado (requisição autenticada).",
         "security":[{"bearerAuth":[]}],
@@ -139,12 +154,14 @@
     },
     "/pets/{externalId}": {
       "get": {
+        "tags": ["pets"],
         "summary": "Exibir pet",
         "description": "Retorna os dados completos de um pet identificado por `externalId`.",
         "parameters": [{"name":"externalId","in":"path","required":true,"schema":{"type":"string"}}],
         "responses": {"200":{"description":"Pet encontrado","content":{"application/json":{"schema":{"$ref":"#/components/schemas/PetResponse"}}}},"404":{"description":"Pet não encontrado","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ErrorResponse"}}}}}
       },
       "put": {
+        "tags": ["pets"],
         "summary":"Atualizar pet",
         "description":"Atualiza campos de um pet existente. Requer autenticação.",
         "security":[{"bearerAuth":[]}],
@@ -153,6 +170,7 @@
         "responses":{"200":{"description":"Pet atualizado","content":{"application/json":{"schema":{"$ref":"#/components/schemas/PetResponse"}}}},"422":{"description":"Validação inválida","content":{"application/json":{"$ref":"#/components/schemas/ErrorResponse"}}}}
       },
       "delete": {
+        "tags": ["pets"],
         "summary":"Deletar pet",
         "description":"Deleta um pet do usuário autenticado pelo `externalId`. Requer autenticação.",
         "security":[{"bearerAuth":[]}],
@@ -162,6 +180,7 @@
     },
     "/pets/{externalId}/files": {
       "post": {
+        "tags": ["files"],
         "summary":"Enviar arquivo para pet",
         "description":"Adiciona arquivos (imagens) a um pet. Requer autenticação. Envio por `multipart/form-data` com campos `files[]`.",
         "security":[{"bearerAuth":[]}],
@@ -173,6 +192,7 @@
     ,
     "/auth/adoptions/adoption-requests": {
       "get": {
+        "tags": ["auth/adoptions"],
         "summary": "Histórico de solicitações de adoção do usuário",
         "description": "Retorna todas as solicitações de adoção feitas pelo usuário autenticado. Requer autenticação (JWT).",
         "security": [{ "bearerAuth": [] }],
@@ -188,6 +208,7 @@
     },
     "/auth/pets/{petExternalId}/adoptions/requests": {
       "get": {
+        "tags": ["auth/pets/adoptions"],
         "summary": "Listar solicitações de adoção de um pet",
         "description": "Retorna as solicitações associadas a um pet específico. Requer autenticação (JWT).",
         "security": [{ "bearerAuth": [] }],
@@ -200,6 +221,7 @@
         }
       },
       "post": {
+        "tags": ["auth/pets/adoptions"],
         "summary": "Criar solicitação de adoção para um pet",
         "description": "Cria uma nova solicitação de adoção para o pet informado. Requer autenticação (JWT).",
         "security": [{ "bearerAuth": [] }],
@@ -222,6 +244,7 @@
     },
     "/auth/pets/{petExternalId}/adoptions/requests/{externalId}": {
       "get": {
+        "tags": ["auth/pets/adoptions"],
         "summary": "Mostrar solicitação de adoção",
         "description": "Retorna uma solicitação específica de adoção pelo seu externalId. Requer autenticação (JWT).",
         "security": [{ "bearerAuth": [] }],
@@ -235,6 +258,7 @@
         }
       },
       "delete": {
+        "tags": ["auth/pets/adoptions"],
         "summary": "Deletar solicitação de adoção",
         "description": "Remove uma solicitação de adoção pelo externalId. Requer autenticação (JWT).",
         "security": [{ "bearerAuth": [] }],
