@@ -3,6 +3,7 @@ import { prismaClient } from "@config/database";
 import { CreatePetRequest, UpdatePetRequest } from "src/schemas/pet.schema";
 import { QueryRequest } from "src/types/query.request";
 import { MetaResponse } from "src/types/meta.response";
+import { yearsAgo } from "src/utils/querys";
 
 export type PetWithRelations = Prisma.PetGetPayload<{
     include: {
@@ -41,7 +42,19 @@ export default class PetRepository {
         data: PetWithRelations[];
         meta: MetaResponse;
     }> {
-        const { species, city, state, uf } = filters;
+        const {
+            species,
+            gender,
+            breed,
+            city,
+            state,
+            uf,
+            isCastrated,
+            startAge,
+            endAge,
+            startDate,
+            endDate,
+        } = filters;
         const pageNumber = Math.max(
             1,
             Math.floor(Number((filters as any).page ?? 1))
@@ -54,9 +67,32 @@ export default class PetRepository {
         const where: Prisma.PetWhereInput = {
             isAdote: false,
             ...(species ? { species: { contains: species } } : {}),
+            ...(gender ? { gender: { contains: gender } } : {}),
+            ...(breed ? { breed: { contains: breed } } : {}),
             ...(city ? { city: { contains: city } } : {}),
             ...(state ? { state: { contains: state } } : {}),
             ...(uf ? { uf: { contains: uf } } : {}),
+            ...(isCastrated !== undefined
+                ? { isCastrated: isCastrated === "true" }
+                : {}),
+            ...(startAge || endAge
+                ? {
+                      birthDay: {
+                          ...(startAge
+                              ? { lte: yearsAgo(Number(startAge)) }
+                              : {}),
+                          ...(endAge ? { gte: yearsAgo(Number(endAge)) } : {}),
+                      },
+                  }
+                : {}),
+            ...(startDate || endDate
+                ? {
+                      createdAt: {
+                          ...(startDate ? { gte: new Date(startDate) } : {}),
+                          ...(endDate ? { lte: new Date(endDate) } : {}),
+                      },
+                  }
+                : {}),
         };
 
         const [total, pets] = await prismaClient.$transaction([

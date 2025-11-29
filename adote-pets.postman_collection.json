@@ -62,7 +62,7 @@
 												"header": [
 													{
 														"key": "Authorization",
-														"value": "",
+														"value": "{{token}}",
 														"type": "text"
 													}
 												],
@@ -76,14 +76,11 @@
 													}
 												},
 												"url": {
-													"raw": "http://localhost/api/auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests",
-													"protocol": "http",
+													"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests",
 													"host": [
-														"localhost"
+														"{{base_url}}auth"
 													],
 													"path": [
-														"api",
-														"auth",
 														"pets",
 														"e30e1248-9753-4ab7-9842-4f0738d1cf25",
 														"adoptions",
@@ -310,19 +307,16 @@
 												"header": [
 													{
 														"key": "Authorization",
-														"value": "",
+														"value": "{{token}}",
 														"type": "text"
 													}
 												],
 												"url": {
-													"raw": "http://localhost/api/auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests",
-													"protocol": "http",
+													"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests",
 													"host": [
-														"localhost"
+														"{{base_url}}auth"
 													],
 													"path": [
-														"api",
-														"auth",
 														"pets",
 														"e30e1248-9753-4ab7-9842-4f0738d1cf25",
 														"adoptions",
@@ -474,19 +468,16 @@
 												"header": [
 													{
 														"key": "Authorization",
-														"value": "",
+														"value": "{{token}}",
 														"type": "text"
 													}
 												],
 												"url": {
-													"raw": "http://localhost/api/auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests/110961e4-5e3d-4477-b15b-645a2f190878",
-													"protocol": "http",
+													"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests/110961e4-5e3d-4477-b15b-645a2f190878",
 													"host": [
-														"localhost"
+														"{{base_url}}auth"
 													],
 													"path": [
-														"api",
-														"auth",
 														"pets",
 														"e30e1248-9753-4ab7-9842-4f0738d1cf25",
 														"adoptions",
@@ -640,19 +631,16 @@
 												"header": [
 													{
 														"key": "Authorization",
-														"value": "",
+														"value": "{{token}}",
 														"type": "text"
 													}
 												],
 												"url": {
-													"raw": "http://localhost/api/auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests/110961e4-5e3d-4477-b15b-645a2f190878",
-													"protocol": "http",
+													"raw": "{{base_url}}auth/pets/e30e1248-9753-4ab7-9842-4f0738d1cf25/adoptions/requests/110961e4-5e3d-4477-b15b-645a2f190878",
 													"host": [
-														"localhost"
+														"{{base_url}}auth"
 													],
 													"path": [
-														"api",
-														"auth",
 														"pets",
 														"e30e1248-9753-4ab7-9842-4f0738d1cf25",
 														"adoptions",
@@ -866,14 +854,11 @@
 													"formdata": []
 												},
 												"url": {
-													"raw": "http://localhost/api/auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files",
-													"protocol": "http",
+													"raw": "{{base_url}}auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files",
 													"host": [
-														"localhost"
+														"{{base_url}}auth"
 													],
 													"path": [
-														"api",
-														"auth",
 														"pets",
 														"9f57ffec-c359-4545-ae3b-d61f0a43ed11",
 														"files"
@@ -977,14 +962,11 @@
 													]
 												},
 												"url": {
-													"raw": "http://localhost/api/auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files",
-													"protocol": "http",
+													"raw": "{{base_url}}auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files",
 													"host": [
-														"localhost"
+														"{{base_url}}auth"
 													],
 													"path": [
-														"api",
-														"auth",
 														"pets",
 														"9f57ffec-c359-4545-ae3b-d61f0a43ed11",
 														"files"
@@ -1078,14 +1060,11 @@
 													"formdata": []
 												},
 												"url": {
-													"raw": "http://localhost/api/auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files/29864a4e-68f2-422f-bdfa-1cd0828dc9f3/set-as-main",
-													"protocol": "http",
+													"raw": "{{base_url}}auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files/29864a4e-68f2-422f-bdfa-1cd0828dc9f3/set-as-main",
 													"host": [
-														"localhost"
+														"{{base_url}}auth"
 													],
 													"path": [
-														"api",
-														"auth",
 														"pets",
 														"9f57ffec-c359-4545-ae3b-d61f0a43ed11",
 														"files",
@@ -1231,14 +1210,11 @@
 													"formdata": []
 												},
 												"url": {
-													"raw": "http://localhost/api/auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files/1527034d-71ad-4708-b81a-44dc615c9b0b",
-													"protocol": "http",
+													"raw": "{{base_url}}auth/pets/9f57ffec-c359-4545-ae3b-d61f0a43ed11/files/1527034d-71ad-4708-b81a-44dc615c9b0b",
 													"host": [
-														"localhost"
+														"{{base_url}}auth"
 													],
 													"path": [
-														"api",
-														"auth",
 														"pets",
 														"9f57ffec-c359-4545-ae3b-d61f0a43ed11",
 														"files",
@@ -1518,14 +1494,11 @@
 											]
 										},
 										"url": {
-											"raw": "http://localhost/api/auth/pets",
-											"protocol": "http",
+											"raw": "{{base_url}}auth/pets",
 											"host": [
-												"localhost"
+												"{{base_url}}auth"
 											],
 											"path": [
-												"api",
-												"auth",
 												"pets"
 											]
 										}
@@ -4165,12 +4138,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{base_url}}pets/5a80e5d2-864d-4e4f-95b0-4538f3813283",
+							"raw": "{{base_url}}pets/d8e55f60-8647-4365-bffa-49ff424840bb",
 							"host": [
 								"{{base_url}}pets"
 							],
 							"path": [
-								"5a80e5d2-864d-4e4f-95b0-4538f3813283"
+								"d8e55f60-8647-4365-bffa-49ff424840bb"
 							]
 						},
 						"description": "**Descrição:**  \n  \nRetorna as informações completas de um pet específico identificado pelo seu `externalId`.  \n  \nInclui todos os detalhes do pet, além da lista de arquivos (imagens), já ordenados pelo campo `orderIndex`."
