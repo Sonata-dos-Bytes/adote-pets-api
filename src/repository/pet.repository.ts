@@ -10,6 +10,7 @@ export type PetWithRelations = Prisma.PetGetPayload<{
         files: {
             orderBy: { orderIndex: "asc" };
         };
+        owner?: boolean;
     };
 }>;
 
@@ -103,6 +104,7 @@ export default class PetRepository {
                     files: {
                         orderBy: { orderIndex: "asc" },
                     },
+                    owner: true,
                 },
                 skip: (pageNumber - 1) * perPageNumber,
                 take: perPageNumber,
@@ -128,7 +130,10 @@ export default class PetRepository {
         return await prismaClient.pet.findUnique({
             where: { id },
             include: {
-                files: true,
+                files: {
+                    orderBy: { orderIndex: "asc" },
+                },
+                owner: true,
             },
         });
     }
@@ -139,7 +144,10 @@ export default class PetRepository {
         return await prismaClient.pet.findUnique({
             where: { externalId },
             include: {
-                files: true,
+                files: {
+                    orderBy: { orderIndex: "asc" },
+                },
+                owner: true,
             },
         });
     }
@@ -177,6 +185,7 @@ export default class PetRepository {
                     files: {
                         orderBy: { orderIndex: "asc" },
                     },
+                    owner: true,
                 },
                 skip: (pageNumber - 1) * perPageNumber,
                 take: perPageNumber,
