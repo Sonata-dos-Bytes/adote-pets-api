@@ -3,7 +3,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: adote-pets-api
     env_file:
       - .env
     expose:
@@ -20,7 +19,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: adote-pets-prisma-studio
     env_file:
       - .env
     expose:
