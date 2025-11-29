@@ -1,53 +1,31 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Organize API",
+    "title": "Adote Pets API",
     "version": "1.0.0",
-    "description": "Documentação gerada a partir da coleção Postman da API Organize."
+    "description": "Especificação OpenAPI gerada a partir da Postman Collection do projeto Adote Pets. Contém endpoints públicos e autenticados para usuários, pets, uploads e adoções."
   },
   "servers": [
     {
-      "url": "http://localhost:3000/api"
+      "url": "http://localhost:3000/api",
+      "description": "Servidor local (padrão de desenvolvimento)"
     }
   ],
   "paths": {
-    "/auth/register": {
-      "post": {
-        "summary": "Registrar novo usuário",
-        "description": "Cria um novo usuário na plataforma.",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "password": {
-                    "type": "string"
-                  },
-                  "passwordConfirmation": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "name",
-                  "email",
-                  "password",
-                  "passwordConfirmation"
-                ]
+    "/": {
+      "get": {
+        "summary": "Health check / Home",
+        "description": "Endpoint público que indica se a API está rodando e retorna metadados úteis (nome, versão, descrição, URL da documentação e autores). Não requer autenticação.",
+        "responses": {
+          "200": {
+            "description": "API is running",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
               }
             }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Usuário criado com sucesso."
           }
         }
       }
@@ -55,59 +33,31 @@
     "/auth/login": {
       "post": {
         "summary": "Login do usuário",
-        "description": "Autentica um usuário e retorna um token JWT.",
+        "description": "Autentica usuário e retorna token JWT.",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "login": {
-                    "type": "string"
-                  },
-                  "password": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "login",
-                  "password"
-                ]
+                "$ref": "#/components/schemas/AuthLoginRequest"
+              },
+              "example": {
+                "login": "matheuszinho@gmail.com",
+                "password": "12345678"
               }
             }
           }
         },
         "responses": {
-          "200": {
-            "description": "Login realizado com sucesso."
-          }
+          "200": {"description": "Usuário autenticado","content":{"application/json":{"schema":{"$ref":"#/components/schemas/AuthResponse"}}}},
+          "401": {"description": "Credenciais inválidas","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ErrorResponse"}}}}
         }
       }
     },
-    "/auth/me": {
-      "get": {
-        "summary": "Dados do usuário autenticado",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Usuário autenticado retornado com sucesso."
-          }
-        }
-      }
-    },
-    "/auth/update-profile": {
-      "put": {
-        "summary": "Atualizar perfil do usuário",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
+    "/auth/register": {
+      "post": {
+        "summary": "Registrar usuário",
+        "description": "Cria um novo usuário. Aceita form-data para envio de avatar (arquivo).",
         "requestBody": {
           "required": true,
           "content": {
@@ -115,337 +65,327 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "oldPassword": {
-                    "type": "string"
-                  },
-                  "password": {
-                    "type": "string"
-                  },
-                  "passwordConfirmation": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "204": {
-            "description": "Perfil atualizado com sucesso."
-          }
-        }
-      }
-    },
-    "/auth/tasks": {
-      "get": {
-        "summary": "Listar tarefas (autenticado)",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Tarefas listadas com sucesso."
-          }
-        }
-      },
-      "post": {
-        "summary": "Criar tarefa (autenticado)",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "status": {
-                    "type": "string"
-                  },
-                  "dueDate": {
-                    "type": "string",
-                    "format": "date-time"
-                  }
+                  "name": {"type":"string"},
+                  "email": {"type":"string","format":"email"},
+                  "password": {"type":"string"},
+                  "passwordConfirmation": {"type":"string"},
+                  "phone": {"type":"string"},
+                  "avatar": {"type":"string","format":"binary"}
                 },
-                "required": [
-                  "title"
-                ]
+                "required":["name","email","password","passwordConfirmation"]
               }
             }
           }
         },
         "responses": {
-          "201": {
-            "description": "Tarefa criada com sucesso."
-          }
+          "201": {"description":"Usuário criado","content":{"application/json":{"schema":{"$ref":"#/components/schemas/UserResponse"}}}},
+          "422": {"description":"Validação inválida","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ErrorResponse"}}}}
         }
       }
     },
-    "/auth/tasks/{id}": {
+    "/auth/me": {
       "get": {
-        "summary": "Obter tarefa (autenticado)",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
+        "summary": "Dados do usuário autenticado",
+        "description": "Retorna os dados do usuário atualmente autenticado (token JWT no header Authorization).",
+        "security": [{"bearerAuth": []}],
         "responses": {
-          "200": {
-            "description": "Tarefa retornada com sucesso."
-          }
-        }
-      },
-      "put": {
-        "summary": "Atualizar tarefa (autenticado)",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string"
-                  },
-                  "status": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "204": {
-            "description": "Tarefa atualizada com sucesso."
-          }
-        }
-      },
-      "delete": {
-        "summary": "Excluir tarefa (autenticado)",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Tarefa excluída com sucesso."
-          }
+          "200": {"description":"Usuário recuperado","content":{"application/json":{"schema":{"$ref":"#/components/schemas/UserResponse"}}}},
+          "401": {"description":"Não autorizado","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ErrorResponse"}}}}
         }
       }
     },
-    "/unauth/tasks": {
+    "/pets": {
       "get": {
-        "summary": "Listar tarefas (sem autenticação)",
+        "summary": "Listar pets",
+        "description": "Retorna a lista de pets cadastrados com paginação e filtros opcionais. Endpoint público.",
         "parameters": [
-          {
-            "name": "Authorization_Hash",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          }
+          {"name":"uf","in":"query","schema":{"type":"string"},"description":"Filtro por UF"},
+          {"name":"page","in":"query","schema":{"type":"integer","default":1}},
+          {"name":"perPage","in":"query","schema":{"type":"integer","default":10}}
         ],
         "responses": {
-          "200": {
-            "description": "Tarefas listadas com sucesso."
-          }
+          "200": {"description":"Pets encontrados","content":{"application/json":{"schema":{"$ref":"#/components/schemas/PetsListResponse"}}}}
         }
       },
       "post": {
-        "summary": "Criar tarefa (sem autenticação)",
-        "parameters": [
-          {
-            "name": "Authorization_Hash",
-            "in": "header",
-            "schema": {
-              "type": "string"
+        "summary": "Criar pet",
+        "description": "Cria um novo pet para o usuário autenticado. Requer JWT. Permite upload de imagens (form-data).",
+        "security":[{"bearerAuth":[]}],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {"$ref":"#/components/schemas/PetCreateRequest"}
             }
           }
+        },
+        "responses": {
+          "201": {"description":"Pet criado","content":{"application/json":{"schema":{"$ref":"#/components/schemas/PetResponse"}}}},
+          "422": {"description":"Validação inválida","content":{"application/json":{"$ref":"#/components/schemas/ErrorResponse"}}}
+        }
+      }
+    },
+    "/pets/my-pets": {
+      "get": {
+        "summary": "Pets do usuário autenticado",
+        "description": "Retorna a lista de pets do usuário autenticado (requisição autenticada).",
+        "security":[{"bearerAuth":[]}],
+        "parameters": [
+          {"name":"page","in":"query","schema":{"type":"integer","default":1}},
+          {"name":"perPage","in":"query","schema":{"type":"integer","default":10}}
+        ],
+        "responses": {"200":{"description":"Lista retornada","content":{"application/json":{"schema":{"$ref":"#/components/schemas/PetsListResponse"}}}}}
+      }
+    },
+    "/pets/{externalId}": {
+      "get": {
+        "summary": "Exibir pet",
+        "description": "Retorna os dados completos de um pet identificado por `externalId`.",
+        "parameters": [{"name":"externalId","in":"path","required":true,"schema":{"type":"string"}}],
+        "responses": {"200":{"description":"Pet encontrado","content":{"application/json":{"schema":{"$ref":"#/components/schemas/PetResponse"}}}},"404":{"description":"Pet não encontrado","content":{"application/json":{"schema":{"$ref":"#/components/schemas/ErrorResponse"}}}}}
+      },
+      "put": {
+        "summary":"Atualizar pet",
+        "description":"Atualiza campos de um pet existente. Requer autenticação.",
+        "security":[{"bearerAuth":[]}],
+        "parameters":[{"name":"externalId","in":"path","required":true,"schema":{"type":"string"}}],
+        "requestBody":{"required":true,"content":{"multipart/form-data":{"schema":{"$ref":"#/components/schemas/PetUpdateRequest"}}}},
+        "responses":{"200":{"description":"Pet atualizado","content":{"application/json":{"schema":{"$ref":"#/components/schemas/PetResponse"}}}},"422":{"description":"Validação inválida","content":{"application/json":{"$ref":"#/components/schemas/ErrorResponse"}}}}
+      },
+      "delete": {
+        "summary":"Deletar pet",
+        "description":"Deleta um pet do usuário autenticado pelo `externalId`. Requer autenticação.",
+        "security":[{"bearerAuth":[]}],
+        "parameters":[{"name":"externalId","in":"path","required":true,"schema":{"type":"string"}}],
+        "responses":{"200":{"description":"Pet deletado","content":{"application/json":{"schema":{"$ref":"#/components/schemas/GenericResponse"}}}},"401":{"description":"Não autorizado","content":{"application/json":{"$ref":"#/components/schemas/ErrorResponse"}}}}
+      }
+    },
+    "/pets/{externalId}/files": {
+      "post": {
+        "summary":"Enviar arquivo para pet",
+        "description":"Adiciona arquivos (imagens) a um pet. Requer autenticação. Envio por `multipart/form-data` com campos `files[]`.",
+        "security":[{"bearerAuth":[]}],
+        "parameters":[{"name":"externalId","in":"path","required":true,"schema":{"type":"string"}}],
+        "requestBody":{"required":true,"content":{"multipart/form-data":{"schema":{"type":"object","properties":{"files[]":{"type":"array","items":{"type":"string","format":"binary"}}}}}}},
+        "responses":{"201":{"description":"Arquivo(s) enviados","content":{"application/json":{"schema":{"$ref":"#/components/schemas/GenericResponse"}}}},"422":{"description":"Validação inválida","content":{"application/json":{"$ref":"#/components/schemas/ErrorResponse"}}}}
+      }
+    }
+    ,
+    "/auth/adoptions/adoption-requests": {
+      "get": {
+        "summary": "Histórico de solicitações de adoção do usuário",
+        "description": "Retorna todas as solicitações de adoção feitas pelo usuário autenticado. Requer autenticação (JWT).",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "page", "in": "query", "schema": { "type": "integer", "default": 1 } },
+          { "name": "perPage", "in": "query", "schema": { "type": "integer", "default": 10 } }
+        ],
+        "responses": {
+          "200": { "description": "Lista de solicitações de adoção", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AdoptionsListResponse" } } } },
+          "401": { "description": "Não autorizado", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/auth/pets/{petExternalId}/adoptions/requests": {
+      "get": {
+        "summary": "Listar solicitações de adoção de um pet",
+        "description": "Retorna as solicitações associadas a um pet específico. Requer autenticação (JWT).",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "petExternalId", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Solicitações retornadas", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AdoptionsListResponse" } } } },
+          "401": { "description": "Não autorizado", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      },
+      "post": {
+        "summary": "Criar solicitação de adoção para um pet",
+        "description": "Cria uma nova solicitação de adoção para o pet informado. Requer autenticação (JWT).",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          { "name": "petExternalId", "in": "path", "required": true, "schema": { "type": "string" } }
         ],
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "status": {
-                    "type": "string"
-                  },
-                  "dueDate": {
-                    "type": "string",
-                    "format": "date-time"
-                  }
-                }
-              }
+              "schema": { "type": "object", "properties": { "message": { "type": "string" } }, "required": ["message"] }
             }
           }
         },
         "responses": {
-          "201": {
-            "description": "Tarefa criada com sucesso."
-          }
+          "201": { "description": "Solicitação criada", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AdoptionResponse" } } } },
+          "422": { "description": "Validação inválida", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
         }
       }
     },
-    "/unauth/tasks/{id}": {
+    "/auth/pets/{petExternalId}/adoptions/requests/{externalId}": {
       "get": {
-        "summary": "Obter tarefa (sem autenticação)",
+        "summary": "Mostrar solicitação de adoção",
+        "description": "Retorna uma solicitação específica de adoção pelo seu externalId. Requer autenticação (JWT).",
+        "security": [{ "bearerAuth": [] }],
         "parameters": [
-          {
-            "name": "Authorization_Hash",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "petExternalId", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "externalId", "in": "path", "required": true, "schema": { "type": "string" } }
         ],
         "responses": {
-          "200": {
-            "description": "Tarefa retornada com sucesso."
-          }
-        }
-      },
-      "put": {
-        "summary": "Atualizar tarefa (sem autenticação)",
-        "parameters": [
-          {
-            "name": "Authorization_Hash",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string"
-                  },
-                  "status": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "204": {
-            "description": "Tarefa atualizada com sucesso."
-          }
+          "200": { "description": "Solicitação encontrada", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/AdoptionResponse" } } } },
+          "404": { "description": "Não encontrada", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
         }
       },
       "delete": {
-        "summary": "Excluir tarefa (sem autenticação)",
+        "summary": "Deletar solicitação de adoção",
+        "description": "Remove uma solicitação de adoção pelo externalId. Requer autenticação (JWT).",
+        "security": [{ "bearerAuth": [] }],
         "parameters": [
-          {
-            "name": "Authorization_Hash",
-            "in": "header",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
+          { "name": "petExternalId", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "externalId", "in": "path", "required": true, "schema": { "type": "string" } }
         ],
         "responses": {
-          "204": {
-            "description": "Tarefa excluída com sucesso."
-          }
+          "200": { "description": "Solicitação deletada", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/GenericResponse" } } } },
+          "401": { "description": "Não autorizado", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
         }
       }
     }
   },
   "components": {
     "securitySchemes": {
-      "bearerAuth": {
-        "type": "http",
-        "scheme": "bearer",
-        "bearerFormat": "JWT"
-      }
+      "bearerAuth": {"type":"http","scheme":"bearer","bearerFormat":"JWT"}
+    },
+    "schemas": {
+      "HealthResponse": {
+        "type": "object",
+        "properties": {
+          "status": {"type":"boolean"},
+          "message": {"type":"string"},
+          "data": {"type":"object"}
+        }
+      },
+      "AuthLoginRequest": {
+        "type": "object",
+        "properties": {"login":{"type":"string"},"password":{"type":"string"}},
+        "required":["login","password"]
+      },
+      "User": {
+        "type":"object",
+        "properties": {
+          "externalId": {"type":"string"},
+          "createdAt": {"type":"string","format":"date-time"},
+          "updatedAt": {"type":"string","format":"date-time"},
+          "name": {"type":"string"},
+          "email": {"type":"string","format":"email"},
+          "phone": {"type":"string","nullable":true},
+          "avatar": {"type":"string","nullable":true}
+        }
+      },
+      "AuthResponse": {
+        "type":"object",
+        "properties":{
+          "status":{"type":"boolean"},
+          "message":{"type":"string"},
+          "data":{
+            "type":"object",
+            "properties":{
+              "user":{"$ref":"#/components/schemas/User"},
+              "token":{"type":"string"}
+            }
+          }
+        }
+      },
+      "UserResponse": {
+        "type":"object",
+        "properties":{
+          "status":{"type":"boolean"},
+          "message":{"type":"string"},
+          "data":{"type":"object","properties":{"user":{"$ref":"#/components/schemas/User"}}}
+        }
+      },
+      "ErrorResponse": {
+        "type":"object",
+        "properties":{
+          "status":{"type":"boolean"},
+          "message":{"type":"string"},
+          "errorCode":{"type":"string","nullable":true},
+          "errors":{"type":"object","nullable":true}
+        }
+      },
+      "GenericResponse": {"type":"object","properties":{"status":{"type":"boolean"},"message":{"type":"string"}}},
+      "FileItem": {
+        "type":"object",
+        "properties":{
+          "externalId":{"type":"string"},
+          "path":{"type":"string"},
+          "mimeType":{"type":"string"},
+          "size":{"type":"integer"},
+          "extension":{"type":"string"},
+          "type":{"type":"string"},
+          "orderIndex":{"type":"integer"}
+        }
+      },
+      "Pet": {
+        "type":"object",
+        "properties":{
+          "externalId":{"type":"string"},
+          "createdAt":{"type":"string","format":"date-time"},
+          "updatedAt":{"type":"string","format":"date-time"},
+          "name":{"type":"string"},
+          "lore":{"type":"string"},
+          "birthDay":{"type":"string","format":"date"},
+          "species":{"type":"string"},
+          "breed":{"type":"string"},
+          "gender":{"type":"string"},
+          "color":{"type":"string"},
+          "city":{"type":"string"},
+          "state":{"type":"string"},
+          "uf":{"type":"string"},
+          "isCastrated":{"type":"boolean"},
+          "isAdote":{"type":"boolean"},
+          "files":{"type":"array","items":{"$ref":"#/components/schemas/FileItem"}}
+        }
+      },
+      "PetResponse": {
+        "type":"object",
+        "properties":{
+          "status":{"type":"boolean"},
+          "message":{"type":"string"},
+          "data":{"type":"object","properties":{"pet":{"$ref":"#/components/schemas/Pet"}}}
+        }
+      },
+      "PetsListResponse": {
+        "type":"object",
+        "properties":{
+          "status":{"type":"boolean"},
+          "message":{"type":"string"},
+          "data":{"type":"object","properties":{
+            "pets":{"type":"array","items":{"$ref":"#/components/schemas/Pet"}},
+            "meta":{"type":"object","properties":{"total":{"type":"integer"},"lastPage":{"type":"integer"},"page":{"type":"integer"},"perPage":{"type":"integer"}}}
+          }}
+        }
+      },
+      "PetCreateRequest": {
+        "type":"object",
+        "properties":{
+          "name":{"type":"string"},
+          "lore":{"type":"string"},
+          "birthDay":{"type":"string","format":"date"},
+          "species":{"type":"string"},
+          "breed":{"type":"string"},
+          "gender":{"type":"string"},
+          "color":{"type":"string"},
+          "city":{"type":"string"},
+          "state":{"type":"string"},
+          "uf":{"type":"string"},
+          "isCastrated":{"type":"boolean"},
+          "files[]":{"type":"array","items":{"type":"string","format":"binary"}}
+        },
+        "required":["name","species"]
+      },
+      "PetUpdateRequest": {"type":"object","properties":{"name":{"type":"string"},"lore":{"type":"string"},"files[]":{"type":"array","items":{"type":"string","format":"binary"}}}}
+      ,
+      "Adoption": { "type": "object", "properties": { "externalId": { "type": "string" }, "createdAt": { "type": "string", "format": "date-time" }, "updatedAt": { "type": "string", "format": "date-time" }, "petExternalId": { "type": "string" }, "userExternalId": { "type": "string" }, "status": { "type": "string" }, "message": { "type": "string" } } },
+      "AdoptionResponse": { "type": "object", "properties": { "status": { "type": "boolean" }, "message": { "type": "string" }, "data": { "type": "object", "properties": { "adoption": { "$ref": "#/components/schemas/Adoption" } } } } },
+      "AdoptionsListResponse": { "type": "object", "properties": { "status": { "type": "boolean" }, "message": { "type": "string" }, "data": { "type": "object", "properties": { "adoptions": { "type": "array", "items": { "$ref": "#/components/schemas/Adoption" } }, "meta": { "type": "object", "properties": { "total": { "type": "integer" }, "lastPage": { "type": "integer" }, "page": { "type": "integer" }, "perPage": { "type": "integer" } } } } } } }
     }
   }
 }
