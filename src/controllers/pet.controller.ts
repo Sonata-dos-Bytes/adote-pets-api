@@ -174,35 +174,35 @@ export async function update(req: Request, res: Response, next: NextFunction) {
 export async function destroy(req: Request, res: Response, next: NextFunction) {
     try {
         const externalId: string = req.params.externalId;
-    const pet = await PetRepository.findByExternalId(externalId);
-    const user = req.user!;
+        const pet = await PetRepository.findByExternalId(externalId);
+        const user = req.user!;
 
-    if (!pet)
-        throw new NotFoundException(
-            "Pet não encontrado",
-            ErrorCodes.PET_NOT_FOUND
-        );
+        if (!pet)
+            throw new NotFoundException(
+                "Pet não encontrado",
+                ErrorCodes.PET_NOT_FOUND
+            );
 
-    if (pet.ownerId !== user.id)
-        throw new ForbiddenException(
-            "Você não tem permissão para atualizar este pet",
-            ErrorCodes.FORBIDDEN
-        );
+        if (pet.ownerId !== user.id)
+            throw new ForbiddenException(
+                "Você não tem permissão para atualizar este pet",
+                ErrorCodes.FORBIDDEN
+            );
 
-    const adoptionRequests = await AdoptionRepository.findPetRequests(pet.id);
+        const adoptionRequests = await AdoptionRepository.findPetRequests(pet.id);
 
-    for (const request of adoptionRequests) {
-        await AdoptionRepository.delete(request.id);
-    }
+        for (const request of adoptionRequests) {
+            await AdoptionRepository.delete(request.id);
+        }
 
-    for (const file of pet.files) {
-        await deleteFromAWSS3(AWS_CONFIG.bucket, file.path);
-        await PetFileRepository.delete(file.id);
-    }
+        for (const file of pet.files) {
+            await deleteFromAWSS3(AWS_CONFIG.bucket, file.path);
+        }
+        await PetFileRepository.deleteFilesByPet(pet.id);
 
-    await PetRepository.delete(pet.id);
+        await PetRepository.delete(pet.id);
 
-    return res.status(HTTP_STATUS.NO_CONTENT).send();
+        return res.status(HTTP_STATUS.NO_CONTENT).send();
     } catch (err) {
         return next(err);
     }

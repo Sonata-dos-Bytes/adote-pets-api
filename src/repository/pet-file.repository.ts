@@ -85,6 +85,12 @@ export default class PetFileRepository {
         });
     }
 
+    static async deleteFilesByPet(id: number) {
+        return await prismaClient.petFile.deleteMany({
+            where: { petId: id },
+        });
+    }
+
     static async update(id: number, data: Partial<CreatePetFileDTO>) {
         return await prismaClient.petFile.update({
             where: { id },
